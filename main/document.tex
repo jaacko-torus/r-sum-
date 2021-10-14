@@ -1,0 +1,281 @@
+%%%%%%%%%%%%%%%%%
+% This is an sample CV template created using altacv.cls
+% (v1.6.3, 04 Oct 2021) written by LianTze Lim (liantze@gmail.com). Now compiles with pdfLaTeX, XeLaTeX and LuaLaTeX.
+%
+%% It may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%%%%%%%%%%%%%%%%
+
+%% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
+% \documentclass[10pt,a4paper,normalphoto]{altacv}
+
+\documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
+%% AltaCV uses the fontawesome5 and packages.
+%% See http://texdoc.net/pkg/fontawesome5 for full list of symbols.
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontspec}
+\usepackage[normalem]{ulem}
+\urlstyle{same}
+
+\hypersetup{
+colorlinks,
+urlcolor=blue,
+}
+
+% Change the page layout if you need to
+\geometry{left=1.25cm,right=1.25cm,top=1.5cm,bottom=1.5cm,columnsep=1.2cm}
+
+% The paracol package lets you typeset columns of text in parallel
+\usepackage{paracol}
+
+% Change the font if you want to, depending on whether
+% you're using pdflatex or xelatex/lualatex
+\ifxetexorluatex
+	% If using xelatex or lualatex:
+	%   \setmainfont{Roboto Slab}
+	%   \setsansfont{Lato}
+	\setmainfont{Gentium Plus}
+	\setsansfont{Gentium Book Basic}
+	
+	% \renewcommand{\familydefault}{\sfdefault}
+\else
+	% If using pdflatex:
+	\usepackage[rm]{roboto}
+	\usepackage[defaultsans]{lato}
+	% \usepackage{sourcesanspro}
+	\renewcommand{\familydefault}{\sfdefault}
+\fi
+
+% Change the colours if you want to
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+\definecolor{DarkPastelRed}{HTML}{450808}
+\definecolor{PastelRed}{HTML}{8F0D0D}
+\definecolor{GoldenEarth}{HTML}{E7D192}
+\definecolor{RoyalBlue}{HTML}{002366}
+
+\colorlet{name}{black}
+\colorlet{tagline}{PastelRed}
+\colorlet{heading}{DarkPastelRed}
+\colorlet{headingrule}{RoyalBlue}%{GoldenEarth}
+\colorlet{subheading}{PastelRed}
+\colorlet{accent}{PastelRed}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
+
+% Change some fonts, if necessary
+\renewcommand{\namefont}{\centering\Huge\rmfamily\scshape}
+\renewcommand{\taglinefont}{\centering\large\rmfamily}
+\renewcommand{\personalinfofont}{\centering\footnotesize\rmfamily}
+\renewcommand{\cvsectionfont}{\LARGE\rmfamily\scshape}
+\renewcommand{\cvsubsectionfont}{\large\rmfamily\bfseries}
+
+
+% Change the bullets for itemize and rating marker
+% for \cvskill if you want to
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{\faCircle}
+
+%% Use (and optionally edit if necessary) this .cfg if you
+%% want to use an author-year reference style like APA(6)
+%% for your publication list
+\input{pubs-authoryear.cfg}
+
+%% Use (and optionally edit if necessary) this .cfg if you
+%% want an originally numerical reference style like IEEE
+%% for your publication list
+% \input{pubs-num.cfg}
+
+%% document.bib contains your publications
+% \addbibresource{document.bib}
+
+\begin{document}
+\name{Julián Antonio Avar Campopiano}
+\tagline{Game Developer and Programmer}
+%% You can add multiple photos on the left or right
+% \photoR{2.8cm}{Globe_High}
+% \photoL{2.5cm}{Yacht_High,Suitcase_High}
+
+\personalinfo{%
+	% Not all of these are required!
+	\email{\uline{julian.a.avar@gmail.com}}{mailto:julian.a.avar@gmail.com}
+	\phone{773-680-0681}
+	\location{Champaign, IL, 61820}
+	\\\smallskip
+	% \homepage{www.homepage.com}
+	% \twitter{@twitterhandle}
+	\linkedin{\uline{julian-avar-campopiano}}{https://linkedin.com/in/julian-avar-campopiano}
+	\github{\uline{jaacko-torus}}{https://github.com/jaacko-torus}
+	\itchio{\uline{jaacko-torus}}{https://jaacko-torus.itch.io}
+
+	%% You can add your own arbitrary detail with
+	%% \printinfo{symbol}{detail}[optional hyperlink prefix]
+	% \printinfo{\faPaw}{Hey ho!}[https://example.com/]
+	%% Or you can declare your own field with
+	%% \NewInfoFiled{fieldname}{symbol}[optional hyperlink prefix] and use it:
+	% \NewInfoField{gitlab}{\faGitlab}[https://gitlab.com/]
+	% \gitlab{your_id}
+	%%
+	%% For services and platforms like Mastodon where there isn't a
+	%% straightforward relation between the user ID/nickname and the hyperlink,
+	%% you can use \printinfo directly e.g.
+	% \printinfo{\faMastodon}{@username@instace}[https://instance.url/@username]
+	%% But if you absolutely want to create new dedicated info fields for
+	%% such platforms, then use \NewInfoField* with a star:
+	% \NewInfoField*{mastodon}{\faMastodon}
+	%% then you can use \mastodon, with TWO arguments where the 2nd argument is
+	%% the full hyperlink.
+	% \mastodon{@username@instance}{https://instance.url/@username}
+}
+
+\makecvheader
+%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
+\AtBeginEnvironment{itemize}{\small}
+\newcommand{\hr}{\enspace$|$\enspace}
+
+%% Set the left/right column width ratio to 6:4.
+\columnratio{0.5}
+
+% Start a 2-column paracol. Both the left and right columns will automatically
+% break across pages if things get too long.
+\begin{paracol}{2}
+	\cvsection{Education}
+	
+	\cvevent{Full Sail University}{Bachelors in Game Development and Programming}{Oct., 2020--Present}{Winter Park, FL}
+	
+	\divider
+	
+	\cvevent{Bellecour École}{Bachelors in Game Design}{Sept., 2019--June, 2020}{Lyon, France}
+	
+	\cvsection{Experience}
+	
+	\cvevent{Programming Tutor}{\href{https://www.linkedin.com/company/id-tech-camps/}{\url{iD Tech}}}{May, 2021–Present}{Campbell, CA}
+	\begin{itemize}
+		\item Teaching general JavaScript, Python, Java, and C\#.
+	\end{itemize}
+	
+	\divider
+	
+	\cvevent{Game Jam Lead \& Programmer}{\href{https://jimmys-test-site.itch.io}{\uline{Jimmy’s Test Site}}}{March, 2020--Present}{Online Group}
+	
+	Online group created by Abdullah Salem (\href{https://github.com/Fenguinn}{\uline{@Fenguinn}}) and me, later evolved into a full on group which has 10 programmers and 3 artists which take turns aiding our projects. We have people from USA, Brazil, France, and China.
+	
+	\medskip
+	
+	\begin{itemize}
+		\item Led 10+ people
+		\item Taught C\#, GDScript, and git workflows to new collaborators
+		\item Was flexible with others’ schedules and made sure to finish things myself where others couldn’t/wouldn’t
+		\item Understood the differences between the tasks of programmers and artists and learned to respect workflows
+	\end{itemize}
+	
+	\divider
+	
+	\cvevent{Intern}{\href{https://www.linkedin.com/company/hayden-organic/}{\uline{Hayden Organic/Iron Sun Holdings}}}{May--Sept., 2021}{NYC, NY}
+	
+	\cvsection{Languages}
+	
+	\cvskill{English}{5}
+	\cvskill{Spanish}{5}
+	
+	\cvsection{Other Skills}
+	\cvtag{Unix}
+	\cvtag{Git}
+	\cvtag{Heroku}
+	
+	% use ONLY \newpage if you want to force a page break for
+	% ONLY the current column
+	\newpage
+	
+	%% Switch to the right column. This will now automatically move to the second
+	%% page if the content is too long.
+	\switchcolumn
+	
+	\cvsection{Programming Languages}
+	\cvtag{JavaScript/NodeJS}
+	\cvtag{TypeScript}
+	\cvtag{Python}
+	\cvtag{Java}
+	\cvtag{C\#}
+	\cvtag{C++}
+	\cvtag{SQL}
+	\cvtag{Ruby}
+	\cvtag{Scala}
+	\cvtag{HTML/CSS}
+	\cvtag{Lua}
+	\cvtag{Go}
+	\cvtag{GDScript}
+	\cvtag{\LaTeX}
+	
+	\cvsection{Frameworks/Libraries}
+	\cvtag{SCSS/Sass}
+	\cvtag{Stylus}
+	\cvtag{PostCSS}
+	\cvtag{Express}
+	\cvtag{React} \\
+	\cvtag{React Native}
+	\cvtag{Webpack}
+	\cvtag{Snowpack}
+	\cvtag{SolidJS}
+	\cvtag{P5JS}
+	\cvtag{dat.GUI}
+	\cvtag{NUnit}
+	\cvtag{OCRA}
+	\cvtag{MySQL}
+	\cvtag{MongoDB}
+	\cvtag{Unity}
+	\cvtag{Godot}
+	\cvtag{Phaser}
+	\cvtag{Defold}
+	\cvtag{Unreal}
+	
+	\cvsection{Projects}
+	
+	\cvevent
+	{\href{https://jimmys-test-site.itch.io/skyfishing}{\uline{Sky Fishing}}{\hr}Game}
+	{\cvtag{Godot}\cvtag{GDScript}}
+	{22--31 Jan., 2021}{}
+	Entry to the Feel Good Game Jam.
+	\smallskip
+	\begin{itemize}
+		\item Learned the importance of concept art/models
+		\item Implemented an inventory
+		\item Used data objects instead of game objects to tie items to their corresponding enemy, increasing performace by a tenfold
+	\end{itemize}
+	
+	\divider
+	
+	\cvevent
+	{\href{https://github.com/jaacko-torus/lao-mm/}{\uline{LAO\&MM}}{\hr}CLI}
+	{\cvtag{Ruby}\cvtag{OCRA}}
+	{July, 2020}{}
+	A sub-1000-line application with the purpose of translating \href{https://en.wikipedia.org/wiki/Light_novel}{\uline{Light Novels}} (serialized Japanese novellas) from their raw scans with the aid of OCR and cloud translation software. Although it is just a knot of other applications (particularly \href{http://capture2text.sourceforge.net}{\uline{Capture2Text}}), it is both functional and taught me how to use Ruby, a language I deeply love.
+	\smallskip
+	\begin{itemize}
+		\item First useful CLI application
+	\end{itemize}
+	
+	\divider
+	
+	\cvevent
+	{\href{https://github.com/jaacko-torus/STE/}{\uline{Space-Time Explorer}}{\hr}Game}
+	{\cvtag{TypeScript}\cvtag{Snowpack}\cvtag{P5JS}\cvtag{MatterJS}\cvtag{dat.GUI}}
+	{2015--Present}{}
+	Perhaps my longest standing project. Much of it was scrapped, and many times its GitHub repo was deleted due to merge conflicts and backtracks. This project truly taught me the importance of orderly code, and the helpfulness of functional programming.
+	\smallskip
+	\begin{itemize}
+		\item Initially built directly with web APIs
+		\item Increasing complexity in physics and rendering led me to rely on libraries, instead of making everything myself
+		\item Taught me to be orderly and document my code
+		\item Made a middleware interface
+	\end{itemize}
+\end{paracol}
+
+
+\end{document}
