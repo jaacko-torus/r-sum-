@@ -2,7 +2,7 @@
 
 I'm using [AltaCV](https://github.com/liantze/AltaCV) as my document class.
 
-Additionally, GNU Make was driving me crazy, so I found a different build tool built with Rust called [just](https://github.com/casey/just). It looks just like any other `makefile`.
+Additionally, GNU Make was driving me crazy, so I found a different build tool built with Rust called [just](https://github.com/casey/just). It looks just like any other `makefile` but it's more useful and better made.
 
 ## License
 
