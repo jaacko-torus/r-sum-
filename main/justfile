@@ -1,6 +1,8 @@
+set dotenv-load := true
+
 curr_dir := invocation_directory()
 default_document_name := "document"
-default_pretty_name := "Avar Campopiano, Julián - Résumé - " + `date +"%Y-%m-%d"`
+default_pretty_name := env_var_or_default("PRETTY_DOCUMENT_NAME", "") + `date +"%Y-%m-%d"`
 
 _default:
 	@just --list
