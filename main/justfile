@@ -18,7 +18,7 @@ altacv-xelatex in:
 biber in:
 	-biber "{{in}}"
 
-save in out outdir=curr_dir:
+_save in out outdir=curr_dir:
 	mkdir -p {{outdir}}
 	cp "{{in}}" "{{join(outdir, out)}}"
 
