@@ -199,6 +199,7 @@
 \NewInfoField*{linkedin}{\faLinkedin}%[https://linkedin.com/in/]
 \NewInfoField*{github}{\faGithub}%[https://github.com/]
 \NewInfoField*{itchio}{\faItchIo}
+\NewInfoField*{npm}{\faNpm}%[https://www.npmjs.com/~]
 % v1.?? Use fontawesome5 for Orcid symbol
 \NewInfoField{orcid}{\faOrcid}[https://orcid.org/]
 \NewInfoField{location}{\faMapMarker}
