@@ -19,6 +19,11 @@
 %% See http://texdoc.net/pkg/fontawesome5 for full list of symbols.
 
 \usepackage{ragged2e}
+\usepackage{xparse}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{xcolor}
+
 \usepackage[hidelinks]{hyperref}
 \usepackage{fontspec}
 \usepackage[normalem]{ulem}
@@ -83,7 +88,33 @@
 \renewcommand{\itemmarker}{{\small\textbullet}}
 \renewcommand{\ratingmarker}{\faCircle}
 
+% "Fork me", @see https://gist.github.com/jnothman/0729018fc39b2c30f082
+\usetikzlibrary{shadows.blur}
+
+\newlength{\forkmeoffset}
+\setlength{\forkmeoffset}{12em}
+\definecolor{forkmebg}{HTML}{CC0000}
+\definecolor{forkmefg}{HTML}{FFFFFF}
+
+\NewDocumentCommand{\forkme}{ O{west} O{Fork me on GitHub} m }{
+	\ifthenelse{\equal{#1}{east}}{%
+		\tikzset{forkmerot/.style={rotate=-45}}
+	}{%
+		\tikzset{forkmerot/.style={rotate=45}}
+	}
+	\begin{tikzpicture}[remember picture, overlay]
+	\node[forkmerot, shift={(0, -\forkmeoffset)}] at (current page.north #1) {
+		\begin{tikzpicture}[remember picture, overlay]
+		\node[fill=forkmebg, text centered, minimum width=50em, minimum height=3.0em, blur shadow, shadow yshift=0pt, shadow xshift=0pt, shadow blur radius=.4em, shadow opacity=50, text=forkmefg](fmogh) at (0pt, 0pt) { \href{#3}{#2} };
+		\draw[forkmefg!60, dashed, line width=.08em, dash pattern=on .5em off 1.5\pgflinewidth] (-25em,1.2em) rectangle (25em,-1.2em);
+		\end{tikzpicture}
+	};
+	\end{tikzpicture}
+}
+
+
 \begin{document}
+	{\setlength{\forkmeoffset}{1in} \forkme[east]{https://github.com/jaacko-torus/resume}}
 	\name{Julián Antonio Avar Campopiano}
 	\tagline{Software Developer}
 	%% You can add multiple photos on the left or right
