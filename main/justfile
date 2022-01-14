@@ -9,7 +9,7 @@ default_pretty_name := env_var_or_default("PRETTY_DOCUMENT_NAME", "") + `date +"
 _default:
 	@just --list
 
-# build, clean, & archive
+# build, clean, & archive | use this to export
 package in=default_document_name: (build default_pretty_name in) clean (archive in default_pretty_name)
 
 # build
@@ -44,3 +44,12 @@ archive in out:
 # clean
 clean:
 	rm -f creationdate.* *.aux *.bbl *.bcf *.blg *.log *.out *.xml *.gz *.xmpi
+
+# clean all
+clean_pdf:
+	rm -f *.pdf
+
+# clean all
+clean_all:
+	@just clean
+	@just clean_pdf
