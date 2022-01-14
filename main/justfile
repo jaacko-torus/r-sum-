@@ -1,5 +1,7 @@
 set dotenv-load := true
 
+watch := "false"
+w := "false"
 curr_dir := invocation_directory()
 default_document_name := "document"
 default_pretty_name := env_var_or_default("PRETTY_DOCUMENT_NAME", "") + `date +"%Y-%m-%d"`
@@ -12,9 +14,17 @@ package in=default_document_name: (build default_pretty_name in) clean (archive 
 
 # build
 build out=default_document_name in=default_document_name:
-	@just altacv-xelatex {{in}}
-	@just biber {{in}}
-	@just altacv-xelatex {{in}}
+	#!/usr/bin/env sh
+	if [ {{watch}} = "true" ] || [ {{w}} = "true" ];
+	then
+		watchexec --exts tex,bib just build
+		just clean_pdf
+	elif [ {{watch}} = "false" ] && [ {{w}} = "false" ];
+	then
+		just altacv-xelatex {{in}}
+		just biber {{in}}
+		just altacv-xelatex {{in}}
+	fi
 
 altacv-xelatex in:
 	-xelatex -synctex=1 -interaction=nonstopmode -file-line-error -shell-escape -output-driver="xdvipdfmx -z 0" "{{in}}.tex"
