@@ -115,6 +115,63 @@
 	\end{tikzpicture}
 }
 
+\newcommand{\hcvtag}[2]{\cvtag{\href{#2}{#1}}}
+
+\ExplSyntaxOn
+\NewDocumentCommand{\NewCVTagField}{s m o m}{
+	\csdef{CVTag#2}{\cvtag{
+		\IfBooleanTF{#1}
+			{#4}
+			{\IfValueTF{#3}
+				{\href{#4}{#3}}
+				{\href{#4}{#2}}}
+	}}
+}
+\ExplSyntaxOff
+
+% Languages
+\NewCVTagField{CSharp}[C\#]{https://en.wikipedia.org/wiki/C_Sharp_(programming_language)}
+\NewCVTagField{CPlusPlus}[C++]{https://en.wikipedia.org/wiki/C++}
+\NewCVTagField{GDScript}{https://en.wikipedia.org/wiki/Godot_(game_engine)\#GDScript}
+% \cvtag{Go} % Not enough real world experience yet
+\NewCVTagField*{HTMLCSS}{\href{https://es.wikipedia.org/wiki/HTML}{HTML}/\href{https://en.wikipedia.org/wiki/CSS}{CSS}}
+\NewCVTagField{Java}{https://en.wikipedia.org/wiki/Java_(programming_language)}
+\NewCVTagField{Node}{https://en.wikipedia.org/wiki/Node.js}
+\NewCVTagField{JavaScript}{https://en.wikipedia.org/wiki/JavaScript}
+\NewCVTagField*{JSNode}{\href{https://en.wikipedia.org/wiki/JavaScript}{JavaScript}/\href{https://en.wikipedia.org/wiki/Node.js}{NodeJS}}
+\NewCVTagField{LaTeX}[\LaTeX]{https://en.wikipedia.org/wiki/LaTeX}
+\NewCVTagField{Lua}{https://en.wikipedia.org/wiki/Lua_(programming_language)}
+\NewCVTagField{Python}{https://en.wikipedia.org/wiki/Python_(programming_language)}
+\NewCVTagField{Ruby}{https://en.wikipedia.org/wiki/Ruby_(programming_language)}
+\NewCVTagField{Scala}{https://en.wikipedia.org/wiki/Ruby_(programming_language)}
+\NewCVTagField{SQL}{https://en.wikipedia.org/wiki/Ruby_(programming_language)}
+\NewCVTagField{TypeScript}{https://en.wikipedia.org/wiki/TypeScript}
+
+% Frameworks/Libraries
+\NewCVTagField{CodeMirrorJs}[CodeMirror.js]{https://codemirror.net/}
+\NewCVTagField{datGUI}[dat.GUI]{https://github.com/dataarts/dat.gui/}
+\NewCVTagField{Express}{https://expressjs.com/}
+\NewCVTagField{Gulp}{https://expressjs.com/}
+\NewCVTagField{MatterJS}{https://brm.io/matter-js/}
+\NewCVTagField{PFiveJS}{https://p5js.org/}
+\NewCVTagField{PostCSS}{https://postcss.org/}
+\NewCVTagField{ReactNative}[React Native]{https://reactnative.dev/}
+\NewCVTagField{React}{https://reactjs.org/}
+\NewCVTagField{Rollup}{https://www.rollupjs.org/}
+\NewCVTagField{SCSSSass}[SCSS/Sass]{https://sass-lang.com/}
+\NewCVTagField{Snowpack}{https://www.snowpack.dev/}
+\NewCVTagField{SolidJS}{https://www.solidjs.com/}
+\NewCVTagField{Stylus}{https://stylus-lang.com/}
+\NewCVTagField{Webpack}{https://webpack.js.org/}
+\NewCVTagField{NUnit}{https://nunit.org/}
+\NewCVTagField{OCRA}{https://github.com/larsch/ocra/}
+\NewCVTagField{MySQL}{https://www.mysql.com/}
+\NewCVTagField{MongoDB}{https://www.mongodb.com/}
+\NewCVTagField{Defold}{https://defold.com/}
+\NewCVTagField{Godot}{https://godotengine.org/}
+\NewCVTagField{Phaser}{https://phaser.io/}
+\NewCVTagField{Unity}{https://unity.com/}
+\NewCVTagField{UE}[UE4]{https://www.unrealengine.com/en-US/}
 
 \begin{document}
 	{\setlength{\forkmeoffset}{1in} \forkme[east]{https://github.com/jaacko-torus/resume/}}
@@ -157,7 +214,7 @@
 		%% the full hyperlink.
 		% \mastodon{@username@instance}{https://instance.url/@username}
 	}
-
+	
 	\vspace{-0.5cm}
 	\makecvheader
 	%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
@@ -244,44 +301,45 @@
 		\switchcolumn
 		
 		\cvsection{Programming Languages}
-		\cvtag{C\#}
-		\cvtag{C++}
-		\cvtag{GDScript}
-		\cvtag{Go}
-		\cvtag{HTML/CSS}
-		\cvtag{Java} \\ % overflow
-		\cvtag{JavaScript/NodeJS}
-		\cvtag{\LaTeX}
-		\cvtag{Lua}
-		\cvtag{Python}
-		\cvtag{Ruby}
-		\cvtag{Scala}
-		\cvtag{SQL}
-		\cvtag{TypeScript}
+		\CVTagCSharp
+		\CVTagCPlusPlus
+		\CVTagGDScript
+		% \cvtag{Go} % Not enough real world experience yet
+		\CVTagHTMLCSS
+		\CVTagJava \\ % overflow
+		\CVTagJSNode
+		\CVTagLaTeX
+		\CVTagLua
+		\CVTagPython
+		\CVTagRuby \\ % overflow
+		\CVTagScala
+		\CVTagSQL
+		\CVTagTypeScript
 		
 		\cvsection{Frameworks/Libraries}
-		\cvtag{dat.GUI} % web
-		\cvtag{Express}
-		\cvtag{Gulp}
-		\cvtag{P5JS}
-		\cvtag{PostCSS} \\ % overflow
-		\cvtag{React Native}
-		\cvtag{React}
-		\cvtag{Rollup}
-		\cvtag{SCSS/Sass}
-		\cvtag{Snowpack}
-		\cvtag{SolidJS}
-		\cvtag{Stylus}
-		\cvtag{Webpack}
-		\cvtag{NUnit} % .net
-		\cvtag{OCRA} % ruby
-		\cvtag{MySQL} % databases
-		\cvtag{MongoDB}
-		\cvtag{Defold} % game engines
-		\cvtag{Godot}
-		\cvtag{Phaser}
-		\cvtag{Unity}
-		\cvtag{Unreal}
+		\CVTagCodeMirrorJs
+		\CVTagdatGUI % web
+		\CVTagExpress
+		\CVTagGulp
+		\CVTagPFiveJS \\ % overflow
+		\CVTagPostCSS
+		\CVTagReactNative
+		\CVTagReact
+		\CVTagRollup
+		\CVTagSCSSSass
+		\CVTagSnowpack
+		\CVTagSolidJS
+		\CVTagStylus
+		\CVTagWebpack \\ % intentional-line-break
+		\CVTagNUnit % .net
+		\CVTagOCRA % ruby
+		\CVTagMySQL % databases
+		\CVTagMongoDB \\ % intentional-line-break
+		\CVTagDefold % game engines
+		\CVTagGodot
+		\CVTagPhaser
+		\CVTagUnity
+		\CVTagUE
 		
 		\cvsection{Projects}
 		
@@ -309,7 +367,7 @@
 		
 		\cvevent
 		{\href{https://github.com/jaacko-torus/lao-mm/}{\uline{LAO\&MM}}{\hr}CLI}
-		{\cvtag{Ruby}\cvtag{OCRA}}
+		{{\CVTagRuby}{\CVTagOCRA}}
 		{July, 2020}{}
 		\vspace{-0.3cm}
 		\begin{justify}
@@ -325,8 +383,8 @@
 		\divider
 		
 		\cvevent
-		{\href{https://github.com/jaacko-torus/STE/}{\uline{Space-Time Explorer}}{\hr}Game}
-		{\cvtag{TypeScript}\cvtag{Snowpack}\cvtag{P5JS}\cvtag{MatterJS}\cvtag{dat.GUI}}
+		{\href{https://github.com/jaacko-torus/STE}{\uline{Space-Time Explorer}}{\hr}Game}
+		{{\CVTagTypeScript}{\CVTagSnowpack}{\CVTagPFiveJS}{\CVTagMatterJS}{\CVTagdatGUI}}
 		{2015--Present}{}
 		\vspace{-0.3cm}
 		\begin{justify}
