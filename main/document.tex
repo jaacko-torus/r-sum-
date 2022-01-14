@@ -14,6 +14,7 @@
 %% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
 % \documentclass[10pt,a4paper,normalphoto]{altacv}
 
+\RequirePackage[hyphens]{url}
 \documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
 %% AltaCV uses the fontawesome5 and packages.
 %% See http://texdoc.net/pkg/fontawesome5 for full list of symbols.
@@ -24,7 +25,9 @@
 \usepackage{ifthen}
 \usepackage{xcolor}
 
-\usepackage[hidelinks]{hyperref}
+% \usepackage[hyphens]{url}
+% \usepackage[hidelinks]{hyperref}
+
 \usepackage{fontspec}
 \usepackage[normalem]{ulem}
 \urlstyle{same}
@@ -114,7 +117,7 @@
 
 
 \begin{document}
-	{\setlength{\forkmeoffset}{1in} \forkme[east]{https://github.com/jaacko-torus/resume}}
+	{\setlength{\forkmeoffset}{1in} \forkme[east]{https://github.com/jaacko-torus/resume/}}
 	\name{Julián Antonio Avar Campopiano}
 	\tagline{Software Developer}
 	%% You can add multiple photos on the left or right
@@ -154,6 +157,7 @@
 		% \mastodon{@username@instance}{https://instance.url/@username}
 	}
 
+	\vspace{-0.5cm}
 	\makecvheader
 	%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
 	\AtBeginEnvironment{itemize}{\small}
@@ -175,7 +179,7 @@
 		
 		\cvsection{Experience}
 		
-		\cvevent{Programming Tutor}{\href{https://www.linkedin.com/company/id-tech-camps/}{\url{iD Tech}}}{May, 2021–Present}{Campbell, CA}
+		\cvevent{Programming Tutor}{\href{https://www.linkedin.com/company/id-tech-camps/}{\uline{iD Tech}}}{May, 2021-December, 2021}{Campbell, CA}
 		\begin{itemize}
 			\item Teaching general JavaScript, Python, Java, and C\#.
 		\end{itemize}
@@ -186,10 +190,10 @@
 		
 		\divider
 		
-		\cvevent{Game Jam Lead \& Programmer}{\href{https://jimmys-test-site.itch.io}{\uline{Jimmy’s Test Site}}}{March, 2020--Nov., 2021}{Online Group}
+		\cvevent{Game Jam Lead \& Programmer}{\href{https://jimmys-test-site.itch.io}{\uline{Jimmy's Test Site}}}{March, 2020--Nov., 2021}{Online Group}
 		\vspace{-0.3cm}
 		\begin{justify}
-			Online group created by Abdullah Salem (\href{https://github.com/Fenguinn}{\uline{@Fenguinn}}) and me, later evolved into a full on group which has 10 programmers and 3 artists which take turns aiding our projects. We have people from USA, Brazil, France, and China.
+			Online group created by Abdullah Salem (\href{https://github.com/Fenguinn}{\uline{@Fenguinn}}) and me, later evolved into a group having 10 programmers and 3 artists which took turns aiding our projects. We had people from USA, Brazil, France, and China.
 		\end{justify}
 		\vspace{-0.2cm}
 		\medskip
@@ -197,14 +201,17 @@
 		\begin{itemize}
 			\item Led 10+ people
 			\item Taught C\#, GDScript, and git workflows to new collaborators
-			\item Was flexible with others’ schedules and made sure to finish things myself where others couldn’t/wouldn’t
+			\item Was flexible with others' schedules and made sure to finish things myself where others couldn't
 			\item Understood the differences between the tasks of programmers and artists and learned to respect workflows
 		\end{itemize}
 		
 		\cvsection{Languages}
+		\cvtag{English}
+		\cvtag{Spanish}
 		
-		\cvskill{English}{5}
-		\cvskill{Spanish}{5}
+		% No skill level needed since they are both equal
+		% \cvskill{English}{5}
+		% \cvskill{Spanish}{5}
 		
 		\cvsection{Other Skills}
 		\cvtag{Git}
@@ -275,9 +282,8 @@
 		\vspace{-0.2cm}
 		\smallskip
 		\begin{itemize}
-			\item Learned the importance of concept art/models
-			\item Implemented an inventory
-			\item Used data objects instead of game objects to tie items to their corresponding enemy, increasing performace by a tenfold
+			\item Used the \texttt{Fetch API} to gather words for password generation
+			\item Using an \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox/}{\uline{\texttt{<iframe>} sandbox}} to run \texttt{eval} in a secure context.
 		\end{itemize}
 		
 		\divider
@@ -288,7 +294,8 @@
 		{July, 2020}{}
 		\vspace{-0.3cm}
 		\begin{justify}
-			A sub-1000-line application with the purpose of translating \href{https://en.wikipedia.org/wiki/Light_novel}{\uline{Light Novels}} (serialized Japanese novellas) from their raw scans with the aid of OCR and cloud translation software. Although it is just a knot of other applications (particularly \href{http://capture2text.sourceforge.net}{\uline{Capture2Text}}), it is both functional and taught me how to use Ruby, a language I deeply love.
+			% Wikipedia link cannot have a `\` at the end.
+			A sub-1000-line application with the purpose of translating \href{https://en.wikipedia.org/wiki/Light_novel}{\uline{Light Novels}} (serialized Japanese novellas) from their raw sc- ans with the aid of OCR and cloud translation software. Although it is just a knot of other applications (particularly \href{http://capture2text.sourceforge.net/}{\uline{Cap-}} \href{http://capture2text.sourceforge.net/}{\uline{ture2Text}}), it is both functional and taught me how to use Ruby.
 		\end{justify}
 		\vspace{-0.2cm}
 		\smallskip
@@ -304,7 +311,7 @@
 		{2015--Present}{}
 		\vspace{-0.3cm}
 		\begin{justify}
-			Perhaps my longest standing project. Much of it was scrapped, and many times its GitHub repo was deleted due to merge conflicts and backtracks. This project truly taught me the importance of orderly code, and the helpfulness of functional programming.
+			Covered in stains of merge conflicts, this project raught me the importance of git, orderly code, and functional programming concepts.
 		\end{justify}
 		\vspace{-0.2cm}
 		\smallskip
