@@ -14,6 +14,7 @@ package in=default_document_name:
 	@just build "{{default_pretty_name}}" "{{in}}"
 	@just clean
 	@just archive "{{in}}" "{{default_pretty_name}}"
+	# calling parent justfile
 	just .. package "{{default_pretty_name}}"
 
 # build
