@@ -1,15 +1,14 @@
-%%%%%%%%%%%%%%%%%
-% This is an sample CV template created using altacv.cls
-% (v1.6.3, 04 Oct 2021) written by LianTze Lim (liantze@gmail.com). Now compiles with pdfLaTeX, XeLaTeX and LuaLaTeX.
-%
+%%%%
+%% This is an sample CV template created using altacv.cls
+%% (v1.6.3, 04 Oct 2021) written by LianTze Lim (liantze@gmail.com). Now compiles with pdfLaTeX, XeLaTeX and LuaLaTeX.
+%%
 %% It may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
 %% of this license or (at your option) any later version.
-%% The latest version of this license is in
-%%    http://www.latex-project.org/lppl.txt
+%% The latest version of this license is in http://www.latex-project.org/lppl.txt
 %% and version 1.3 or later is part of all distributions of LaTeX
 %% version 2003/12/01 or later.
-%%%%%%%%%%%%%%%%
+%%%%
 
 %% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
 % \documentclass[10pt,a4paper,normalphoto]{altacv}
@@ -131,6 +130,7 @@
 
 % Languages
 \NewCVTagField{CSharp}[C\#]{https://en.wikipedia.org/wiki/C_Sharp_(programming_language)}
+\NewCVTagField{C}{https://en.wikipedia.org/wiki/C_(programming_language)}
 \NewCVTagField{CPlusPlus}[C++]{https://en.wikipedia.org/wiki/C++}
 \NewCVTagField{GDScript}{https://en.wikipedia.org/wiki/Godot_(game_engine)\#GDScript}
 % \cvtag{Go} % Not enough real world experience yet
@@ -184,8 +184,8 @@
 	\personalinfo{%
 		% Not all of these are required!
 		\email{\uline{julian.a.avar@gmail.com}}{mailto:julian.a.avar@gmail.com}
-		\phone{773-680-0681}
-		\location{Davenport, IA 52801}
+		\phone{\uline{+1\,(773)\,680-0681}}{tel:17736800681}
+		\location{Davenport, IA 52803}
 		% \location{Warren, N, 07059}
 		\\\smallskip
 		% \homepage{www.homepage.com}
@@ -237,36 +237,37 @@
 		
 		\cvsection{Experience}
 		
-		\cvevent{Interactive \& Web Developer}{\href{https://www.linkedin.com/company/john-deere/}{\uline{John Deere}}}{Jan, 2022-Present}{Davenport, IA}
+		\cvevent{Interactive \& Web Developer}{\href{https://www.linkedin.com/company/john-deere/}{\uline{John Deere}}}{Jan, 2022--Present}{Davenport, IA}
 		\begin{itemize}
 			\item Refactored chunks of the JS DevOps code base
-			\item Created/maintained docs for the JS DevOps repositories
-			\item Helped switch DevOps tasks from Jenkins to GitHub Actions
-			\item Created interactives using Unity
-			\item Built the entire infrastructure and pipeline for future interactives in C\# and F\#
+			\item Helped creating/maintaining docs for the JS DevOps repositories
+			\item Creating interactives using Unity
+			\item Building library infrastructure for future interactives in C\#
 		\end{itemize}
 		
-		% Don't need this right now.
-		% \divider
-		% \cvevent{Kitchen Staff}{\href{https://www.linkedin.com/company/panda-restaurant-group/}{\uline{Panda Express}}}{Oct, 2021-Nov, 2021}{Champaign, IL}
+		%%%% Panda Express
+		%% \cvevent{Kitchen Staff}{\href{https://www.linkedin.com/company/panda-restaurant-group/}{\uline{Panda Express}}}{Oct, 2021-Nov, 2021}{Champaign, IL}
+		%%%%
 		
 		\divider
 		
-		\cvevent{Programming Tutor}{\href{https://www.linkedin.com/company/id-tech-camps/}{\uline{iD Tech}}}{May, 2021-December, 2021}{Campbell, CA}
+		\cvevent{Programming Tutor}{\href{https://www.linkedin.com/company/id-tech-camps/}{\uline{iD Tech}}}{May, 2021--December, 2021}{Campbell, CA}
 		\begin{itemize}
-			\item Taught general JavaScript, Python, Java, and C\#.
+			\item Taught general JavaScript, Python, Java, and C\#
+			\item Taught 100+ students
+			\item Taught age ranges of 11--24, ${\sim}20\%$ pursing a college degree
 		\end{itemize}
 		
-		% Don't need this right now.
-		% \divider
-		% \cvevent{Intern}{\href{https://www.linkedin.com/company/hayden-organic}{\uline{Hayden Organic/Iron Sun Holdings}}}{May--Sept., 2021}{NYC, NY}
+		%%%% Iron Sun Holdings
+		%% \cvevent{Intern}{\href{https://www.linkedin.com/company/hayden-organic}{\uline{Hayden Organic/Iron Sun Holdings}}}{May--Sept., 2021}{NYC, NY}
+		%%%%
 		
 		\divider
 		
 		\cvevent{Game Jam Lead \& Programmer}{\href{https://jimmys-test-site.itch.io}{\uline{Jimmy's Test Site}}}{March, 2020--Nov., 2021}{Online Group}
 		\vspace{-0.3cm}
 		\begin{justify}
-			Online group created by Abdullah Salem (\href{https://github.com/Fenguinn}{\uline{@Fenguinn}}) and me, later evolved into a group having 10 programmers and 3 artists which took turns aiding our projects. We had people from USA, Brazil, France, and China.
+			Online group created by Abdullah Salem (\href{https://github.com/Fenguinn}{\uline{@Fenguinn}}) and me, later evolved to 10 programmers + 3 artists which took turns aiding our projects. We had people from USA, Brazil, France, and China.
 		\end{justify}
 		\vspace{-0.2cm}
 		\medskip
@@ -274,8 +275,8 @@
 		\begin{itemize}
 			\item Led 10+ people
 			\item Taught C\#, GDScript, and git workflows to new collaborators
-			\item Was flexible with others' schedules and made sure to finish things myself where others couldn't
-			\item Understood the differences between the tasks of programmers and artists and learned to respect workflows
+			\item Took responsability to finish thing where others couldn't
+			\item Learned to coordinate development and art teams
 		\end{itemize}
 		
 		\cvsection{Languages}
@@ -286,26 +287,15 @@
 		% \cvskill{English}{5}
 		% \cvskill{Spanish}{5}
 		
-		\cvsection{Other Skills}
-		\cvtag{Chrome Extension}
-		\cvtag{HTTP CSP Header}
-		\cvtag{Git}
-		\cvtag{Heroku}
-		\cvtag{NPM}
-		\cvtag{Unix}
-		\cvtag{WSL}
-		\cvtag{Yarn}
-		
-		% use ONLY \newpage if you want to force a page break for
-		% ONLY the current column
+		% use ONLY \newpage if you want to force a page break for ONLY the current column
 		\newpage
 		
-		%% Switch to the right column. This will now automatically move to the second
-		%% page if the content is too long.
+		% Switch to the right column. This will now automatically move to the second page if the content is too long.
 		\switchcolumn
 		
 		\cvsection{Programming Languages}
 		\CVTagCSharp
+		\CVTagC
 		\CVTagCPlusPlus
 		\CVTagGDScript
 		% \cvtag{Go} % Not enough real world experience yet
@@ -345,7 +335,17 @@
 		\CVTagUnity
 		\CVTagUE
 		
-		\cvsection{Projects}
+		\cvsection{Other Skills}
+		\cvtag{Chrome Extension}
+		\cvtag{Git}
+		\cvtag{Heroku}
+		\cvtag{NPM}
+		\cvtag{Unix}
+		\cvtag{WSL}
+		\cvtag{Yarn}
+		\cvtag{Regex}
+		
+		\cvsection{Personal Projects}
 		
 		%%%%
 		%% Manual line breaks are necesary, since the links seem to be breaking the frames for some
@@ -358,13 +358,13 @@
 		{19--23 Nov., 2021}{}
 		\vspace{-0.3cm}
 		\begin{justify}
-			Password generator built as a Chrome Extension. The options menu contains a mini code editor (built with \href{https://codemirror.net/}{\uline{CodeMir-}} \href{https://codemirror.net/}{\uline{ror.js}}) to more flexibly configure how passwords are generated.
+			Password generator built as a chrome extension. The options menu contains a mini code editor (built with \href{https://codemirror.net/}{\uline{CodeMirror.js}}) to more flexibly configure how passwords are generated.
 		\end{justify}
 		\vspace{-0.2cm}
 		\smallskip
 		\begin{itemize}
 			\item Used the \texttt{Fetch API} to gather words for password generation
-			\item Using an \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox/}{\uline{\texttt{<iframe>} sandbox}} to run \texttt{eval} in a secure context.
+			\item Using an \href{https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/sandbox/}{\uline{\texttt{<iframe>} sandbox}} to run \texttt{eval} in a secure context
 		\end{itemize}
 		
 		\divider
@@ -375,8 +375,8 @@
 		{July, 2020}{}
 		\vspace{-0.3cm}
 		\begin{justify}
-			% Wikipedia link cannot have a `\` at the end.
-			A sub-1000-line application with the purpose of translating \href{https://en.wikipedia.org/wiki/Light_novel}{\uline{Light Novels}} (serialized Japanese novellas) from their raw sc- ans with the aid of OCR and cloud translation software. Although it is just a knot of other applications (particularly \href{http://capture2text.sourceforge.net/}{\uline{Cap-}} \href{http://capture2text.sourceforge.net/}{\uline{ture2Text}}), it is both functional and taught me how to use Ruby.
+			% Wikipedia link cannot have a `/` at the end.
+			At tiny CLI that translates \href{https://en.wikipedia.org/wiki/Light_novel}{\uline{Light Novels}} (serialized Japanese novellas) from raw image scan. It does so with \href{http://capture2text.sourceforge.net/}{\uline{OCR}} and cloud translation software.
 		\end{justify}
 		\vspace{-0.2cm}
 		\smallskip
@@ -387,21 +387,38 @@
 		\divider
 		
 		\cvevent
-		{\href{https://github.com/jaacko-torus/STE}{\uline{Space-Time Explorer}}{\hr}Game}
-		{{\CVTagTypeScript}{\CVTagSnowpack}{\CVTagPFiveJS}{\CVTagMatterJS}{\CVTagdatGUI}}
-		{2015--Present}{}
+		{\href{https://github.com/jaacko-torus/lox}{\uline{Lox}}{\hr}Programming Language}
+		{{\CVTagJava}{\CVTagC}}
+		{Oct. 2021--Present}{}
 		\vspace{-0.3cm}
 		\begin{justify}
-			Covered in stains of merge conflicts, this project taught me the importance of git, orderly code, and functional programming concepts.
+			A language interpreter for ``lox'', a toy-language spec.-ed by \href{https://github.com/munificent}{\uline{Bob Nystrom}}, creator of \href{https://en.wikipedia.org/wiki/Dart_(programming_language)}{\uline{Dart}}.
 		\end{justify}
 		\vspace{-0.2cm}
 		\smallskip
 		\begin{itemize}
-			\item Initially built directly with web APIs
-			\item Increasing complexity in physics and rendering led me to rely on libraries, instead of making everything myself
-			\item Taught me to be orderly and document my code
-			\item Made a middleware interface
+			\item Built initial version in Java using an AST interpreter
+			\item In the process of transforming into a C VM bytecode compiler for better performance
 		\end{itemize}
+		
+		%%%% Space Time Explorer
+		%% \cvevent
+		%% {\href{https://github.com/jaacko-torus/STE}{\uline{Space-Time Explorer}}{\hr}Game}
+		%% {{\CVTagTypeScript}{\CVTagSnowpack}{\CVTagPFiveJS}{\CVTagMatterJS}{\CVTagdatGUI}}
+		%% {2015--Present}{}
+		%% \vspace{-0.3cm}
+		%% \begin{justify}
+		%% 	Covered in stains of merge conflicts, this project taught me the importance of git, orderly code, and functional programming concepts.
+		%% \end{justify}
+		%% \vspace{-0.2cm}
+		%% \smallskip
+		%% \begin{itemize}
+		%% 	\item Initially built directly with web APIs
+		%% 	\item Increasing complexity in physics and rendering led me to rely on libraries, instead of making everything myself
+		%% 	\item Taught me to be orderly and document my code
+		%% 	\item Made a middleware interface
+		%% \end{itemize}
+		%%%%
 		
 		%%%% Sky Fishing
 		%% \cvevent

@@ -143,6 +143,9 @@ acs-*.bib
 # luatexja-ruby
 *.ltjruby
 
+# lua file
+*.lua
+
 # makeidx
 *.idx
 *.ilg
@@ -213,6 +216,9 @@ pythontex-files-*/
 # vhistory
 *.hst
 *.ver
+
+# timestamps
+*.timestamp
 
 # easy-todo
 *.lod

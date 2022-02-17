@@ -10,7 +10,11 @@ _default:
 	@just --list
 
 # build, clean, & archive | use this to export
-package in=default_document_name: (build default_pretty_name in) clean (archive in default_pretty_name)
+package in=default_document_name:
+	@just build "{{default_pretty_name}}" "{{in}}"
+	@just clean
+	@just archive "{{in}}" "{{default_pretty_name}}"
+	just .. package "{{default_pretty_name}}"
 
 # build
 build out=default_document_name in=default_document_name:
