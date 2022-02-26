@@ -94,6 +94,8 @@
 \colorlet{headingrule}{black}
 \colorlet{subheading}{emphasis}
 \colorlet{body}{black!80!white}
+\colorlet{cvtag}{body!30}
+\colorlet{hcvtag}{accent!30}
 \colorlet{name}{heading}
 \colorlet{tagline}{accent}
 \newcommand{\itemmarker}{{\small\textbullet}}
