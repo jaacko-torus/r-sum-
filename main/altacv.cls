@@ -204,7 +204,7 @@
 \NewInfoField*{npm}{\faNpm}%[https://www.npmjs.com/~]
 % v1.?? Use fontawesome5 for Orcid symbol
 \NewInfoField{orcid}{\faOrcid}[https://orcid.org/]
-\NewInfoField{location}{\faMapMarker}
+\NewInfoField*{location}{\faMapMarker}
 
 % v1.2: Support for multiple photos
 \newlength{\altacv@photos@width}
