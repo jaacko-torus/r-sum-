@@ -117,17 +117,15 @@
 	\end{tikzpicture}
 }
 
-\newcommand{\hcvtag}[2]{\cvtag{\href{#2}{#1}}}
-
 \ExplSyntaxOn
 \NewDocumentCommand{\NewCVTagField}{s m o m}{
-	\csdef{CVTag#2}{\cvtag{
+	\csdef{CVTag#2}{
 		\IfBooleanTF{#1}
-			{#4}
-			{\IfValueTF{#3}
-				{\href{#4}{#3}}
-				{\href{#4}{#2}}}
-	}}
+			{\cvtag*{#4}}
+			{\IfNoValueTF{#3}
+				{\cvtag*{#2}[#4]}
+				{\cvtag*{#3}[#4]}}
+	}
 }
 \ExplSyntaxOff
 
