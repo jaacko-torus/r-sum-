@@ -302,8 +302,13 @@
   \smallskip
 }
 
-\newcommand{\cvtag}[1]{%
-  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=1ex,inner ysep =0.75ex,text height=1.5ex,text depth=.25ex]{#1};
+\NewDocumentCommand{\cvtag}{s m o}{
+  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=1ex,inner ysep=0.75ex,text height=1.5ex,text depth=.25ex]{
+    \IfBooleanTF{#1}
+      {\color{hcvtag!80}\IfNoValueTF{#3}
+        {#2}
+        {\href{#3}{#2}}}
+      {\color{cvtag!80}#2}};
 }
 
 % v1.6: Use accsupp so that the actual numeric value is copied/pasted
