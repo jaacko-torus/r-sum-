@@ -3,29 +3,40 @@ set dotenv-load := true
 watch := "false"
 w := "false"
 curr_dir := invocation_directory()
+default_folder := env_var_or_default("CATEGORY", "default")
 default_document_name := "document"
-default_pretty_name := env_var_or_default("PRETTY_DOCUMENT_NAME", "") + `date +"%Y-%m-%d"`
+default_pretty_name := env_var_or_default("PRETTY_DOCUMENT_NAME", "") + (if default_folder == "default" {
+	""
+} else {
+	default_folder + " - "
+}) + `date +"%Y-%m-%d"`
 
 _default:
 	@just --list
 
 # build, clean, & archive | use this to export
-package in=default_document_name:
-	@just build "{{default_pretty_name}}" "{{in}}"
-	@just clean
-	@just archive "{{in}}" "{{default_pretty_name}}"
+package folder=default_folder in=default_document_name:
+	#!/usr/bin/env sh
+	just build "{{default_pretty_name}}" "{{in}}"
+	just clean
+
+	if [ "{{default_folder}}" = "default" ]; then
+		just archive "{{in}}" "{{default_pretty_name}}"
+	else
+		just archive "{{in}}" "{{default_folder}}/{{default_pretty_name}}"
+	fi
+
 	# calling parent justfile
 	just .. package "{{default_pretty_name}}"
 
 # build
 build out=default_document_name in=default_document_name:
 	#!/usr/bin/env sh
-	if [ {{watch}} = "true" ] || [ {{w}} = "true" ];
-	then
+	echo "building"
+	if [ {{watch}} = "true" ] || [ {{w}} = "true" ]; then
 		watchexec --exts tex,bib just build
 		just clean_pdf
-	elif [ {{watch}} = "false" ] && [ {{w}} = "false" ];
-	then
+	elif [ {{watch}} = "false" ] && [ {{w}} = "false" ]; then
 		just altacv-xelatex {{in}}
 		just biber {{in}}
 		just altacv-xelatex {{in}}
@@ -38,23 +49,23 @@ biber in:
 	-biber "{{in}}"
 
 _save in out outdir=curr_dir:
-	mkdir -p {{outdir}}
-	cp "{{in}}" "{{join(outdir, out)}}"
+	@mkdir -p {{outdir}}
+	@cp "{{in}}" "{{join(outdir, out)}}"
 
 # archive
 archive in out:
-	mkdir -p archive
-	cp "{{in}}.pdf" archive/"{{out}}.pdf"
+	@mkdir -p archive
+	@cp "{{in}}.pdf" archive/"{{out}}.pdf"
 
 # clean
 clean:
-	rm -f creationdate.* *.aux *.bbl *.bcf *.blg *.log *.out *.xml *.gz *.xmpi
+	@rm -f creationdate.* *.aux *.bbl *.bcf *.blg *.log *.out *.xml *.gz *.xmpi
 
 # clean all
 clean_pdf:
-	rm -f *.pdf
+	@rm -f *.pdf
 
 # clean all
 clean_all:
-	@just clean
-	@just clean_pdf
+	just clean
+	just clean_pdf
