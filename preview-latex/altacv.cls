@@ -105,7 +105,7 @@
 \usetikzlibrary{arrows}
 \RequirePackage[skins]{tcolorbox}
 \RequirePackage[inline]{enumitem}
-\setlist{leftmargin=*,labelsep=0.5em,nosep,itemsep=0.25\baselineskip,after=\vspace{0.25\baselineskip}}
+\setlist{leftmargin=*,labelsep=0.5em,nosep,itemsep=0.1\baselineskip,after=\vspace{0.25\baselineskip}}
 \setlist[itemize]{label=\itemmarker}
 \RequirePackage{graphicx}
 \RequirePackage{trimclip}
@@ -115,7 +115,11 @@
 % \RequirePackage{marginfix}
 
 \setlength{\parindent}{0pt}
-\newcommand{\divider}{\textcolor{body!30}{\hdashrule{\linewidth}{0.6pt}{0.5ex}}\medskip}
+\newcommand{\divider}{%
+  \vspace{-0.3cm}%
+  \textcolor{body!30}{\hdashrule{\linewidth}{0.6pt}{0.5ex}}\medskip%
+  \vspace{-0.2cm}%
+}
 
 \newenvironment{fullwidth}{%
   \begin{adjustwidth}{}{\dimexpr-\marginparwidth-\marginparsep\relax}}

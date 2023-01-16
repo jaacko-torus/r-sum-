@@ -220,14 +220,17 @@
 		% \mastodon{@username@instance}{https://instance.url/@username}
 	}
 
-	\vspace{-0.5cm}
+	\vspace{-1cm}
 	\makecvheader
 	%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
 	\AtBeginEnvironment{itemize}{\small}
 	\newcommand{\hr}{\enspace$|$\enspace}
 
-	%% Set the left/right column width ratio to 6:4.
+	\vspace{-0.5cm}
+	%% Set the left/right column width ratio to 5:5.
 	\columnratio{0.5}
+	% Set the column spacing
+	\setlength{\columnsep}{12pt}
 
 	% Start a 2-column paracol. Both the left and right columns will automatically
 	% break across pages if things get too long.
@@ -240,7 +243,9 @@
 
 		\cvevent{Bellecour École}{Bachelors in Game Design}{September, 2019--June, 2020}{Lyon, France}
 
+		\vspace{-0.2cm}
 		\cvsection{Experience}
+		\vspace{-0.2cm}
 
 		\cvevent{Software Engineer}{\href{https://www.linkedin.com/company/frasca-international-inc-/}{\uline{Frasca International, Inc.}}}{April 2022--Present}{Champaign, IL}
 		\begin{itemize}
