@@ -149,10 +149,16 @@ const getSections = (data?: GetInfoQuery): Partial<Info["sections"]> => {
 					inscription: experience.inscription ?? undefined,
 					inscription_type: inscriptionTypeMapper[experience.inscription_type],
 					inscription_href: experience.inscription_href ?? undefined,
-					date: DateTimeInterval.fromDateTimes(
-						DateTime.fromISO(experience.date_start),
-						experience.date_end ? DateTime.fromISO(experience.date_end) : DateTime.now()
-					),
+					date: experience.date_end
+						? DateTimeInterval.fromDateTimes(
+								DateTime.fromISO(experience.date_start),
+								DateTime.fromISO(experience.date_end)
+							)
+						: DateTime.fromISO(experience.date_start),
+					// DateTimeInterval.fromDateTimes(
+					// 	DateTime.fromISO(experience.date_start),
+					// 	experience.date_end ? DateTime.fromISO(experience.date_end) : DateTime.now()
+					// ),
 					location: experience.location ?? undefined,
 					remote: remoteCategoryMapper[experience.remote],
 					skills: experience.experience_skills.map(skill => getSkill(skill.skill.name)),

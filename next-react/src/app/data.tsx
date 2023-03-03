@@ -1,4 +1,4 @@
-import { Interval as DateTimeInterval } from "luxon"
+import { DateTime, Interval as DateTimeInterval } from "luxon"
 
 export type NameInfo = { first: string, last?: string, spacing: boolean, href?: string }
 
@@ -20,7 +20,7 @@ export type ExperienceInfoProps = {
 	inscription?: string,
 	inscription_type: SectionInscriptionType,
 	inscription_href?: string,
-	date: DateTimeInterval,
+	date: DateTime | DateTimeInterval,
 	location?: string,
 	remote: RemoteCategory,
 	skills?: (SkillInfo | undefined)[],

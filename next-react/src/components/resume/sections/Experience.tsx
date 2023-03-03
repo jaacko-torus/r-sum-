@@ -13,6 +13,7 @@ import Link from "next/link"
 
 import type { PropsWithChildren, ReactNode } from "react"
 import React from "react"
+import { DateTime, Interval as DateTimeInterval } from "luxon"
 
 type ExperienceProps = ExperienceInfoProps & { experienceID: string } & React.HTMLAttributes<HTMLElement>
 
@@ -119,9 +120,9 @@ const Experience: React.FC<ExperienceProps> = ({
 			<p className="flex justify-between tabular-nums">
 				<span>
 					<FAIcon icon={faCalendar} />
-					{date
-						.toFormat("LL/yyyy")
-						.split(" \u2013 ")
+					{(date instanceof DateTimeInterval
+						? date.toFormat("LL/yyyy").split(" \u2013 ")
+						: [date.toFormat("LL/yyyy"), "Present"])
 						.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
 						.map((dateRange, dateRangeIndex) =>
 							<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
@@ -133,7 +134,9 @@ const Experience: React.FC<ExperienceProps> = ({
 				</span>
 				<span className="text-[#a5a5a5]">({Object
 					.entries(
-						date
+						(date instanceof DateTime
+							? DateTimeInterval.fromDateTimes(date, DateTime.now())
+							: date)
 						.toDuration([ "years", "months" ])
 						// A trick. Add 2 months, normalize, then subtract one so that:
 						// 11 months => 11 months
