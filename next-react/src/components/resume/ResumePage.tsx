@@ -41,7 +41,7 @@ interface PageProps {
 
 const ResumePage: React.FC<PropsWithChildren<PageProps> & React.HTMLAttributes<HTMLElement>> = ({ children, width, padding, className }) => {
 	return (
-		<section className={`aspect-[8.5/11] ${[
+		<section className={`aspect-[8.5/11] print:w-[11in] ${[
 			...Object.values(FONTS).map(font => font.variable),
 			width ? `w-[${width}]` : "w-[35cm]",
 			padding ? `p-[${padding}]` : "p-[0.25in]",

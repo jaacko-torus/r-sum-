@@ -122,6 +122,7 @@ const Experience: React.FC<ExperienceProps> = ({
 					{date
 						.toFormat("LL/yyyy")
 						.split(" \u2013 ")
+						.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
 						.map((dateRange, dateRangeIndex) =>
 							<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
 						.flatMap((date, dateIndex) => [

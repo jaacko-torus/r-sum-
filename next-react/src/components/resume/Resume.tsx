@@ -188,7 +188,7 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({ rawInfo }) => {
 				<Sections {...info.sections} />
 			</ResumePage>
 			
-			<ResumeController info={info} setInfo={setInfo}/>
+			<ResumeController info={info} setInfo={setInfo} className="print:hidden"/>
 		</main>
 	)
 }

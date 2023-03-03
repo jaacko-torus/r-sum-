@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+	@media print {
+		@page { margin: 0; }
+		body { margin: 1.6cm; }
+	}
+	
 	html * {
 		@apply text-[#656665];
 		@apply font-gentium-book-basic;
