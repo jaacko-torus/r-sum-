@@ -1,0 +1,5140 @@
+# yarn gq •••••••• -H "X-Hasura-Admin-Secret: ••••••••" --introspect > src/gql/schema.graphql
+
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""
+columns and relationships of "contact_category"
+"""
+type contact_category {
+  """An array relationship"""
+  contacts(
+    """distinct select on columns"""
+    distinct_on: [contacts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contacts_order_by!]
+
+    """filter the rows returned"""
+    where: contacts_bool_exp
+  ): [contacts!]!
+
+  """An aggregate relationship"""
+  contacts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [contacts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contacts_order_by!]
+
+    """filter the rows returned"""
+    where: contacts_bool_exp
+  ): contacts_aggregate!
+  description: String
+  id: String!
+}
+
+"""
+aggregated selection of "contact_category"
+"""
+type contact_category_aggregate {
+  aggregate: contact_category_aggregate_fields
+  nodes: [contact_category!]!
+}
+
+"""
+aggregate fields of "contact_category"
+"""
+type contact_category_aggregate_fields {
+  count(columns: [contact_category_select_column!], distinct: Boolean): Int!
+  max: contact_category_max_fields
+  min: contact_category_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "contact_category". All fields are combined with a logical 'AND'.
+"""
+input contact_category_bool_exp {
+  _and: [contact_category_bool_exp!]
+  _not: contact_category_bool_exp
+  _or: [contact_category_bool_exp!]
+  contacts: contacts_bool_exp
+  contacts_aggregate: contacts_aggregate_bool_exp
+  description: String_comparison_exp
+  id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "contact_category"
+"""
+enum contact_category_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  contact_category_pkey
+}
+
+enum contact_category_enum {
+  ACCOUNT
+  BASIC
+}
+
+"""
+Boolean expression to compare columns of type "contact_category_enum". All fields are combined with logical 'AND'.
+"""
+input contact_category_enum_comparison_exp {
+  _eq: contact_category_enum
+  _in: [contact_category_enum!]
+  _is_null: Boolean
+  _neq: contact_category_enum
+  _nin: [contact_category_enum!]
+}
+
+"""
+input type for inserting data into table "contact_category"
+"""
+input contact_category_insert_input {
+  contacts: contacts_arr_rel_insert_input
+  description: String
+  id: String
+}
+
+"""aggregate max on columns"""
+type contact_category_max_fields {
+  description: String
+  id: String
+}
+
+"""aggregate min on columns"""
+type contact_category_min_fields {
+  description: String
+  id: String
+}
+
+"""
+response of any mutation on the table "contact_category"
+"""
+type contact_category_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [contact_category!]!
+}
+
+"""
+input type for inserting object relation for remote table "contact_category"
+"""
+input contact_category_obj_rel_insert_input {
+  data: contact_category_insert_input!
+
+  """upsert condition"""
+  on_conflict: contact_category_on_conflict
+}
+
+"""
+on_conflict condition type for table "contact_category"
+"""
+input contact_category_on_conflict {
+  constraint: contact_category_constraint!
+  update_columns: [contact_category_update_column!]! = []
+  where: contact_category_bool_exp
+}
+
+"""Ordering options when selecting data from "contact_category"."""
+input contact_category_order_by {
+  contacts_aggregate: contacts_aggregate_order_by
+  description: order_by
+  id: order_by
+}
+
+"""primary key columns input for table: contact_category"""
+input contact_category_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "contact_category"
+"""
+enum contact_category_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+"""
+input type for updating data in table "contact_category"
+"""
+input contact_category_set_input {
+  description: String
+  id: String
+}
+
+"""
+Streaming cursor of the table "contact_category"
+"""
+input contact_category_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: contact_category_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input contact_category_stream_cursor_value_input {
+  description: String
+  id: String
+}
+
+"""
+update columns of table "contact_category"
+"""
+enum contact_category_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+input contact_category_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: contact_category_set_input
+
+  """filter the rows which have to be updated"""
+  where: contact_category_bool_exp!
+}
+
+"""
+columns and relationships of "contacts"
+"""
+type contacts {
+  category: contact_category_enum!
+
+  """An object relationship"""
+  contact_category: contact_category!
+  data: String!
+  href: String
+  id: uuid!
+  name: String!
+  visible: Boolean!
+}
+
+"""
+aggregated selection of "contacts"
+"""
+type contacts_aggregate {
+  aggregate: contacts_aggregate_fields
+  nodes: [contacts!]!
+}
+
+input contacts_aggregate_bool_exp {
+  bool_and: contacts_aggregate_bool_exp_bool_and
+  bool_or: contacts_aggregate_bool_exp_bool_or
+  count: contacts_aggregate_bool_exp_count
+}
+
+input contacts_aggregate_bool_exp_bool_and {
+  arguments: contacts_select_column_contacts_aggregate_bool_exp_bool_and_arguments_columns!
+  distinct: Boolean
+  filter: contacts_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input contacts_aggregate_bool_exp_bool_or {
+  arguments: contacts_select_column_contacts_aggregate_bool_exp_bool_or_arguments_columns!
+  distinct: Boolean
+  filter: contacts_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input contacts_aggregate_bool_exp_count {
+  arguments: [contacts_select_column!]
+  distinct: Boolean
+  filter: contacts_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "contacts"
+"""
+type contacts_aggregate_fields {
+  count(columns: [contacts_select_column!], distinct: Boolean): Int!
+  max: contacts_max_fields
+  min: contacts_min_fields
+}
+
+"""
+order by aggregate values of table "contacts"
+"""
+input contacts_aggregate_order_by {
+  count: order_by
+  max: contacts_max_order_by
+  min: contacts_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "contacts"
+"""
+input contacts_arr_rel_insert_input {
+  data: [contacts_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: contacts_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "contacts". All fields are combined with a logical 'AND'.
+"""
+input contacts_bool_exp {
+  _and: [contacts_bool_exp!]
+  _not: contacts_bool_exp
+  _or: [contacts_bool_exp!]
+  category: contact_category_enum_comparison_exp
+  contact_category: contact_category_bool_exp
+  data: String_comparison_exp
+  href: String_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  visible: Boolean_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "contacts"
+"""
+enum contacts_constraint {
+  """
+  unique or primary key constraint on columns "name"
+  """
+  contacts_name_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  contacts_pkey
+}
+
+"""
+input type for inserting data into table "contacts"
+"""
+input contacts_insert_input {
+  category: contact_category_enum
+  contact_category: contact_category_obj_rel_insert_input
+  data: String
+  href: String
+  id: uuid
+  name: String
+  visible: Boolean
+}
+
+"""aggregate max on columns"""
+type contacts_max_fields {
+  data: String
+  href: String
+  id: uuid
+  name: String
+}
+
+"""
+order by max() on columns of table "contacts"
+"""
+input contacts_max_order_by {
+  data: order_by
+  href: order_by
+  id: order_by
+  name: order_by
+}
+
+"""aggregate min on columns"""
+type contacts_min_fields {
+  data: String
+  href: String
+  id: uuid
+  name: String
+}
+
+"""
+order by min() on columns of table "contacts"
+"""
+input contacts_min_order_by {
+  data: order_by
+  href: order_by
+  id: order_by
+  name: order_by
+}
+
+"""
+response of any mutation on the table "contacts"
+"""
+type contacts_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [contacts!]!
+}
+
+"""
+on_conflict condition type for table "contacts"
+"""
+input contacts_on_conflict {
+  constraint: contacts_constraint!
+  update_columns: [contacts_update_column!]! = []
+  where: contacts_bool_exp
+}
+
+"""Ordering options when selecting data from "contacts"."""
+input contacts_order_by {
+  category: order_by
+  contact_category: contact_category_order_by
+  data: order_by
+  href: order_by
+  id: order_by
+  name: order_by
+  visible: order_by
+}
+
+"""primary key columns input for table: contacts"""
+input contacts_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "contacts"
+"""
+enum contacts_select_column {
+  """column name"""
+  category
+
+  """column name"""
+  data
+
+  """column name"""
+  href
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  visible
+}
+
+"""
+select "contacts_aggregate_bool_exp_bool_and_arguments_columns" columns of table "contacts"
+"""
+enum contacts_select_column_contacts_aggregate_bool_exp_bool_and_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+select "contacts_aggregate_bool_exp_bool_or_arguments_columns" columns of table "contacts"
+"""
+enum contacts_select_column_contacts_aggregate_bool_exp_bool_or_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+input type for updating data in table "contacts"
+"""
+input contacts_set_input {
+  category: contact_category_enum
+  data: String
+  href: String
+  id: uuid
+  name: String
+  visible: Boolean
+}
+
+"""
+Streaming cursor of the table "contacts"
+"""
+input contacts_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: contacts_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input contacts_stream_cursor_value_input {
+  category: contact_category_enum
+  data: String
+  href: String
+  id: uuid
+  name: String
+  visible: Boolean
+}
+
+"""
+update columns of table "contacts"
+"""
+enum contacts_update_column {
+  """column name"""
+  category
+
+  """column name"""
+  data
+
+  """column name"""
+  href
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  visible
+}
+
+input contacts_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: contacts_set_input
+
+  """filter the rows which have to be updated"""
+  where: contacts_bool_exp!
+}
+
+"""ordering argument of a cursor"""
+enum cursor_ordering {
+  """ascending ordering of the cursor"""
+  ASC
+
+  """descending ordering of the cursor"""
+  DESC
+}
+
+scalar date
+
+"""
+Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'.
+"""
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
+}
+
+"""
+columns and relationships of "experience_category"
+"""
+type experience_category {
+  description: String
+
+  """An array relationship"""
+  experiences(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): [experiences!]!
+
+  """An aggregate relationship"""
+  experiences_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): experiences_aggregate!
+  id: String!
+}
+
+"""
+aggregated selection of "experience_category"
+"""
+type experience_category_aggregate {
+  aggregate: experience_category_aggregate_fields
+  nodes: [experience_category!]!
+}
+
+"""
+aggregate fields of "experience_category"
+"""
+type experience_category_aggregate_fields {
+  count(columns: [experience_category_select_column!], distinct: Boolean): Int!
+  max: experience_category_max_fields
+  min: experience_category_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "experience_category". All fields are combined with a logical 'AND'.
+"""
+input experience_category_bool_exp {
+  _and: [experience_category_bool_exp!]
+  _not: experience_category_bool_exp
+  _or: [experience_category_bool_exp!]
+  description: String_comparison_exp
+  experiences: experiences_bool_exp
+  experiences_aggregate: experiences_aggregate_bool_exp
+  id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "experience_category"
+"""
+enum experience_category_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  experience_category_pkey
+}
+
+enum experience_category_enum {
+  EDUCATION
+  INTERNSHIP
+  JOB
+  PROJECT
+  VOLUNTEER
+}
+
+"""
+Boolean expression to compare columns of type "experience_category_enum". All fields are combined with logical 'AND'.
+"""
+input experience_category_enum_comparison_exp {
+  _eq: experience_category_enum
+  _in: [experience_category_enum!]
+  _is_null: Boolean
+  _neq: experience_category_enum
+  _nin: [experience_category_enum!]
+}
+
+"""
+input type for inserting data into table "experience_category"
+"""
+input experience_category_insert_input {
+  description: String
+  experiences: experiences_arr_rel_insert_input
+  id: String
+}
+
+"""aggregate max on columns"""
+type experience_category_max_fields {
+  description: String
+  id: String
+}
+
+"""aggregate min on columns"""
+type experience_category_min_fields {
+  description: String
+  id: String
+}
+
+"""
+response of any mutation on the table "experience_category"
+"""
+type experience_category_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [experience_category!]!
+}
+
+"""
+input type for inserting object relation for remote table "experience_category"
+"""
+input experience_category_obj_rel_insert_input {
+  data: experience_category_insert_input!
+
+  """upsert condition"""
+  on_conflict: experience_category_on_conflict
+}
+
+"""
+on_conflict condition type for table "experience_category"
+"""
+input experience_category_on_conflict {
+  constraint: experience_category_constraint!
+  update_columns: [experience_category_update_column!]! = []
+  where: experience_category_bool_exp
+}
+
+"""Ordering options when selecting data from "experience_category"."""
+input experience_category_order_by {
+  description: order_by
+  experiences_aggregate: experiences_aggregate_order_by
+  id: order_by
+}
+
+"""primary key columns input for table: experience_category"""
+input experience_category_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "experience_category"
+"""
+enum experience_category_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+"""
+input type for updating data in table "experience_category"
+"""
+input experience_category_set_input {
+  description: String
+  id: String
+}
+
+"""
+Streaming cursor of the table "experience_category"
+"""
+input experience_category_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: experience_category_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input experience_category_stream_cursor_value_input {
+  description: String
+  id: String
+}
+
+"""
+update columns of table "experience_category"
+"""
+enum experience_category_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+input experience_category_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: experience_category_set_input
+
+  """filter the rows which have to be updated"""
+  where: experience_category_bool_exp!
+}
+
+"""
+columns and relationships of "experience_skills"
+"""
+type experience_skills {
+  """An object relationship"""
+  experience: experiences!
+  experience_id: uuid!
+  id: uuid!
+
+  """An object relationship"""
+  skill: skills!
+  skill_id: uuid!
+}
+
+"""
+aggregated selection of "experience_skills"
+"""
+type experience_skills_aggregate {
+  aggregate: experience_skills_aggregate_fields
+  nodes: [experience_skills!]!
+}
+
+input experience_skills_aggregate_bool_exp {
+  count: experience_skills_aggregate_bool_exp_count
+}
+
+input experience_skills_aggregate_bool_exp_count {
+  arguments: [experience_skills_select_column!]
+  distinct: Boolean
+  filter: experience_skills_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "experience_skills"
+"""
+type experience_skills_aggregate_fields {
+  count(columns: [experience_skills_select_column!], distinct: Boolean): Int!
+  max: experience_skills_max_fields
+  min: experience_skills_min_fields
+}
+
+"""
+order by aggregate values of table "experience_skills"
+"""
+input experience_skills_aggregate_order_by {
+  count: order_by
+  max: experience_skills_max_order_by
+  min: experience_skills_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "experience_skills"
+"""
+input experience_skills_arr_rel_insert_input {
+  data: [experience_skills_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: experience_skills_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "experience_skills". All fields are combined with a logical 'AND'.
+"""
+input experience_skills_bool_exp {
+  _and: [experience_skills_bool_exp!]
+  _not: experience_skills_bool_exp
+  _or: [experience_skills_bool_exp!]
+  experience: experiences_bool_exp
+  experience_id: uuid_comparison_exp
+  id: uuid_comparison_exp
+  skill: skills_bool_exp
+  skill_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "experience_skills"
+"""
+enum experience_skills_constraint {
+  """
+  unique or primary key constraint on columns "skill_id", "experience_id"
+  """
+  experience_skills_experience_id_skill_id_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  experience_skills_pkey
+}
+
+"""
+input type for inserting data into table "experience_skills"
+"""
+input experience_skills_insert_input {
+  experience: experiences_obj_rel_insert_input
+  experience_id: uuid
+  id: uuid
+  skill: skills_obj_rel_insert_input
+  skill_id: uuid
+}
+
+"""aggregate max on columns"""
+type experience_skills_max_fields {
+  experience_id: uuid
+  id: uuid
+  skill_id: uuid
+}
+
+"""
+order by max() on columns of table "experience_skills"
+"""
+input experience_skills_max_order_by {
+  experience_id: order_by
+  id: order_by
+  skill_id: order_by
+}
+
+"""aggregate min on columns"""
+type experience_skills_min_fields {
+  experience_id: uuid
+  id: uuid
+  skill_id: uuid
+}
+
+"""
+order by min() on columns of table "experience_skills"
+"""
+input experience_skills_min_order_by {
+  experience_id: order_by
+  id: order_by
+  skill_id: order_by
+}
+
+"""
+response of any mutation on the table "experience_skills"
+"""
+type experience_skills_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [experience_skills!]!
+}
+
+"""
+on_conflict condition type for table "experience_skills"
+"""
+input experience_skills_on_conflict {
+  constraint: experience_skills_constraint!
+  update_columns: [experience_skills_update_column!]! = []
+  where: experience_skills_bool_exp
+}
+
+"""Ordering options when selecting data from "experience_skills"."""
+input experience_skills_order_by {
+  experience: experiences_order_by
+  experience_id: order_by
+  id: order_by
+  skill: skills_order_by
+  skill_id: order_by
+}
+
+"""primary key columns input for table: experience_skills"""
+input experience_skills_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "experience_skills"
+"""
+enum experience_skills_select_column {
+  """column name"""
+  experience_id
+
+  """column name"""
+  id
+
+  """column name"""
+  skill_id
+}
+
+"""
+input type for updating data in table "experience_skills"
+"""
+input experience_skills_set_input {
+  experience_id: uuid
+  id: uuid
+  skill_id: uuid
+}
+
+"""
+Streaming cursor of the table "experience_skills"
+"""
+input experience_skills_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: experience_skills_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input experience_skills_stream_cursor_value_input {
+  experience_id: uuid
+  id: uuid
+  skill_id: uuid
+}
+
+"""
+update columns of table "experience_skills"
+"""
+enum experience_skills_update_column {
+  """column name"""
+  experience_id
+
+  """column name"""
+  id
+
+  """column name"""
+  skill_id
+}
+
+input experience_skills_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: experience_skills_set_input
+
+  """filter the rows which have to be updated"""
+  where: experience_skills_bool_exp!
+}
+
+"""
+columns and relationships of "experiences"
+"""
+type experiences {
+  category: experience_category_enum!
+  date_end: date
+  date_start: date!
+  description: String
+
+  """An object relationship"""
+  experience_category: experience_category!
+
+  """An array relationship"""
+  experience_skills(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): [experience_skills!]!
+
+  """An aggregate relationship"""
+  experience_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): experience_skills_aggregate!
+  id: uuid!
+  inscription: String
+
+  """An object relationship"""
+  inscriptionTypeByInscriptionType: inscription_type!
+  inscription_href: String
+  inscription_type: inscription_type_enum!
+
+  """separated by the newline ("\n") character"""
+  items: String
+  location: String
+  name: String!
+  name_href: String
+  remote: remote_category_enum!
+
+  """An object relationship"""
+  remote_category: remote_category!
+  visible: Boolean!
+}
+
+"""
+aggregated selection of "experiences"
+"""
+type experiences_aggregate {
+  aggregate: experiences_aggregate_fields
+  nodes: [experiences!]!
+}
+
+input experiences_aggregate_bool_exp {
+  bool_and: experiences_aggregate_bool_exp_bool_and
+  bool_or: experiences_aggregate_bool_exp_bool_or
+  count: experiences_aggregate_bool_exp_count
+}
+
+input experiences_aggregate_bool_exp_bool_and {
+  arguments: experiences_select_column_experiences_aggregate_bool_exp_bool_and_arguments_columns!
+  distinct: Boolean
+  filter: experiences_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input experiences_aggregate_bool_exp_bool_or {
+  arguments: experiences_select_column_experiences_aggregate_bool_exp_bool_or_arguments_columns!
+  distinct: Boolean
+  filter: experiences_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input experiences_aggregate_bool_exp_count {
+  arguments: [experiences_select_column!]
+  distinct: Boolean
+  filter: experiences_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "experiences"
+"""
+type experiences_aggregate_fields {
+  count(columns: [experiences_select_column!], distinct: Boolean): Int!
+  max: experiences_max_fields
+  min: experiences_min_fields
+}
+
+"""
+order by aggregate values of table "experiences"
+"""
+input experiences_aggregate_order_by {
+  count: order_by
+  max: experiences_max_order_by
+  min: experiences_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "experiences"
+"""
+input experiences_arr_rel_insert_input {
+  data: [experiences_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: experiences_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "experiences". All fields are combined with a logical 'AND'.
+"""
+input experiences_bool_exp {
+  _and: [experiences_bool_exp!]
+  _not: experiences_bool_exp
+  _or: [experiences_bool_exp!]
+  category: experience_category_enum_comparison_exp
+  date_end: date_comparison_exp
+  date_start: date_comparison_exp
+  description: String_comparison_exp
+  experience_category: experience_category_bool_exp
+  experience_skills: experience_skills_bool_exp
+  experience_skills_aggregate: experience_skills_aggregate_bool_exp
+  id: uuid_comparison_exp
+  inscription: String_comparison_exp
+  inscriptionTypeByInscriptionType: inscription_type_bool_exp
+  inscription_href: String_comparison_exp
+  inscription_type: inscription_type_enum_comparison_exp
+  items: String_comparison_exp
+  location: String_comparison_exp
+  name: String_comparison_exp
+  name_href: String_comparison_exp
+  remote: remote_category_enum_comparison_exp
+  remote_category: remote_category_bool_exp
+  visible: Boolean_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "experiences"
+"""
+enum experiences_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  experiences_pkey
+}
+
+"""
+input type for inserting data into table "experiences"
+"""
+input experiences_insert_input {
+  category: experience_category_enum
+  date_end: date
+  date_start: date
+  description: String
+  experience_category: experience_category_obj_rel_insert_input
+  experience_skills: experience_skills_arr_rel_insert_input
+  id: uuid
+  inscription: String
+  inscriptionTypeByInscriptionType: inscription_type_obj_rel_insert_input
+  inscription_href: String
+  inscription_type: inscription_type_enum
+
+  """separated by the newline ("\n") character"""
+  items: String
+  location: String
+  name: String
+  name_href: String
+  remote: remote_category_enum
+  remote_category: remote_category_obj_rel_insert_input
+  visible: Boolean
+}
+
+"""aggregate max on columns"""
+type experiences_max_fields {
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+
+  """separated by the newline ("\n") character"""
+  items: String
+  location: String
+  name: String
+  name_href: String
+}
+
+"""
+order by max() on columns of table "experiences"
+"""
+input experiences_max_order_by {
+  date_end: order_by
+  date_start: order_by
+  description: order_by
+  id: order_by
+  inscription: order_by
+  inscription_href: order_by
+
+  """separated by the newline ("\n") character"""
+  items: order_by
+  location: order_by
+  name: order_by
+  name_href: order_by
+}
+
+"""aggregate min on columns"""
+type experiences_min_fields {
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+
+  """separated by the newline ("\n") character"""
+  items: String
+  location: String
+  name: String
+  name_href: String
+}
+
+"""
+order by min() on columns of table "experiences"
+"""
+input experiences_min_order_by {
+  date_end: order_by
+  date_start: order_by
+  description: order_by
+  id: order_by
+  inscription: order_by
+  inscription_href: order_by
+
+  """separated by the newline ("\n") character"""
+  items: order_by
+  location: order_by
+  name: order_by
+  name_href: order_by
+}
+
+"""
+response of any mutation on the table "experiences"
+"""
+type experiences_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [experiences!]!
+}
+
+"""
+input type for inserting object relation for remote table "experiences"
+"""
+input experiences_obj_rel_insert_input {
+  data: experiences_insert_input!
+
+  """upsert condition"""
+  on_conflict: experiences_on_conflict
+}
+
+"""
+on_conflict condition type for table "experiences"
+"""
+input experiences_on_conflict {
+  constraint: experiences_constraint!
+  update_columns: [experiences_update_column!]! = []
+  where: experiences_bool_exp
+}
+
+"""Ordering options when selecting data from "experiences"."""
+input experiences_order_by {
+  category: order_by
+  date_end: order_by
+  date_start: order_by
+  description: order_by
+  experience_category: experience_category_order_by
+  experience_skills_aggregate: experience_skills_aggregate_order_by
+  id: order_by
+  inscription: order_by
+  inscriptionTypeByInscriptionType: inscription_type_order_by
+  inscription_href: order_by
+  inscription_type: order_by
+  items: order_by
+  location: order_by
+  name: order_by
+  name_href: order_by
+  remote: order_by
+  remote_category: remote_category_order_by
+  visible: order_by
+}
+
+"""primary key columns input for table: experiences"""
+input experiences_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "experiences"
+"""
+enum experiences_select_column {
+  """column name"""
+  category
+
+  """column name"""
+  date_end
+
+  """column name"""
+  date_start
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  inscription
+
+  """column name"""
+  inscription_href
+
+  """column name"""
+  inscription_type
+
+  """column name"""
+  items
+
+  """column name"""
+  location
+
+  """column name"""
+  name
+
+  """column name"""
+  name_href
+
+  """column name"""
+  remote
+
+  """column name"""
+  visible
+}
+
+"""
+select "experiences_aggregate_bool_exp_bool_and_arguments_columns" columns of table "experiences"
+"""
+enum experiences_select_column_experiences_aggregate_bool_exp_bool_and_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+select "experiences_aggregate_bool_exp_bool_or_arguments_columns" columns of table "experiences"
+"""
+enum experiences_select_column_experiences_aggregate_bool_exp_bool_or_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+input type for updating data in table "experiences"
+"""
+input experiences_set_input {
+  category: experience_category_enum
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+  inscription_type: inscription_type_enum
+
+  """separated by the newline ("\n") character"""
+  items: String
+  location: String
+  name: String
+  name_href: String
+  remote: remote_category_enum
+  visible: Boolean
+}
+
+"""
+Streaming cursor of the table "experiences"
+"""
+input experiences_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: experiences_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input experiences_stream_cursor_value_input {
+  category: experience_category_enum
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+  inscription_type: inscription_type_enum
+
+  """separated by the newline ("\n") character"""
+  items: String
+  location: String
+  name: String
+  name_href: String
+  remote: remote_category_enum
+  visible: Boolean
+}
+
+"""
+update columns of table "experiences"
+"""
+enum experiences_update_column {
+  """column name"""
+  category
+
+  """column name"""
+  date_end
+
+  """column name"""
+  date_start
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  inscription
+
+  """column name"""
+  inscription_href
+
+  """column name"""
+  inscription_type
+
+  """column name"""
+  items
+
+  """column name"""
+  location
+
+  """column name"""
+  name
+
+  """column name"""
+  name_href
+
+  """column name"""
+  remote
+
+  """column name"""
+  visible
+}
+
+input experiences_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: experiences_set_input
+
+  """filter the rows which have to be updated"""
+  where: experiences_bool_exp!
+}
+
+"""
+columns and relationships of "inscription_type"
+"""
+type inscription_type {
+  description: String
+
+  """An array relationship"""
+  experiences(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): [experiences!]!
+
+  """An aggregate relationship"""
+  experiences_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): experiences_aggregate!
+  id: String!
+
+  """An array relationship"""
+  projects(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): [projects!]!
+
+  """An aggregate relationship"""
+  projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): projects_aggregate!
+}
+
+"""
+aggregated selection of "inscription_type"
+"""
+type inscription_type_aggregate {
+  aggregate: inscription_type_aggregate_fields
+  nodes: [inscription_type!]!
+}
+
+"""
+aggregate fields of "inscription_type"
+"""
+type inscription_type_aggregate_fields {
+  count(columns: [inscription_type_select_column!], distinct: Boolean): Int!
+  max: inscription_type_max_fields
+  min: inscription_type_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "inscription_type". All fields are combined with a logical 'AND'.
+"""
+input inscription_type_bool_exp {
+  _and: [inscription_type_bool_exp!]
+  _not: inscription_type_bool_exp
+  _or: [inscription_type_bool_exp!]
+  description: String_comparison_exp
+  experiences: experiences_bool_exp
+  experiences_aggregate: experiences_aggregate_bool_exp
+  id: String_comparison_exp
+  projects: projects_bool_exp
+  projects_aggregate: projects_aggregate_bool_exp
+}
+
+"""
+unique or primary key constraints on table "inscription_type"
+"""
+enum inscription_type_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  inscription_type_pkey
+}
+
+enum inscription_type_enum {
+  INLINE
+  UNDER
+}
+
+"""
+Boolean expression to compare columns of type "inscription_type_enum". All fields are combined with logical 'AND'.
+"""
+input inscription_type_enum_comparison_exp {
+  _eq: inscription_type_enum
+  _in: [inscription_type_enum!]
+  _is_null: Boolean
+  _neq: inscription_type_enum
+  _nin: [inscription_type_enum!]
+}
+
+"""
+input type for inserting data into table "inscription_type"
+"""
+input inscription_type_insert_input {
+  description: String
+  experiences: experiences_arr_rel_insert_input
+  id: String
+  projects: projects_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type inscription_type_max_fields {
+  description: String
+  id: String
+}
+
+"""aggregate min on columns"""
+type inscription_type_min_fields {
+  description: String
+  id: String
+}
+
+"""
+response of any mutation on the table "inscription_type"
+"""
+type inscription_type_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [inscription_type!]!
+}
+
+"""
+input type for inserting object relation for remote table "inscription_type"
+"""
+input inscription_type_obj_rel_insert_input {
+  data: inscription_type_insert_input!
+
+  """upsert condition"""
+  on_conflict: inscription_type_on_conflict
+}
+
+"""
+on_conflict condition type for table "inscription_type"
+"""
+input inscription_type_on_conflict {
+  constraint: inscription_type_constraint!
+  update_columns: [inscription_type_update_column!]! = []
+  where: inscription_type_bool_exp
+}
+
+"""Ordering options when selecting data from "inscription_type"."""
+input inscription_type_order_by {
+  description: order_by
+  experiences_aggregate: experiences_aggregate_order_by
+  id: order_by
+  projects_aggregate: projects_aggregate_order_by
+}
+
+"""primary key columns input for table: inscription_type"""
+input inscription_type_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "inscription_type"
+"""
+enum inscription_type_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+"""
+input type for updating data in table "inscription_type"
+"""
+input inscription_type_set_input {
+  description: String
+  id: String
+}
+
+"""
+Streaming cursor of the table "inscription_type"
+"""
+input inscription_type_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: inscription_type_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input inscription_type_stream_cursor_value_input {
+  description: String
+  id: String
+}
+
+"""
+update columns of table "inscription_type"
+"""
+enum inscription_type_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+input inscription_type_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: inscription_type_set_input
+
+  """filter the rows which have to be updated"""
+  where: inscription_type_bool_exp!
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "contact_category"
+  """
+  delete_contact_category(
+    """filter the rows which have to be deleted"""
+    where: contact_category_bool_exp!
+  ): contact_category_mutation_response
+
+  """
+  delete single row from the table: "contact_category"
+  """
+  delete_contact_category_by_pk(id: String!): contact_category
+
+  """
+  delete data from the table: "contacts"
+  """
+  delete_contacts(
+    """filter the rows which have to be deleted"""
+    where: contacts_bool_exp!
+  ): contacts_mutation_response
+
+  """
+  delete single row from the table: "contacts"
+  """
+  delete_contacts_by_pk(id: uuid!): contacts
+
+  """
+  delete data from the table: "experience_category"
+  """
+  delete_experience_category(
+    """filter the rows which have to be deleted"""
+    where: experience_category_bool_exp!
+  ): experience_category_mutation_response
+
+  """
+  delete single row from the table: "experience_category"
+  """
+  delete_experience_category_by_pk(id: String!): experience_category
+
+  """
+  delete data from the table: "experience_skills"
+  """
+  delete_experience_skills(
+    """filter the rows which have to be deleted"""
+    where: experience_skills_bool_exp!
+  ): experience_skills_mutation_response
+
+  """
+  delete single row from the table: "experience_skills"
+  """
+  delete_experience_skills_by_pk(id: uuid!): experience_skills
+
+  """
+  delete data from the table: "experiences"
+  """
+  delete_experiences(
+    """filter the rows which have to be deleted"""
+    where: experiences_bool_exp!
+  ): experiences_mutation_response
+
+  """
+  delete single row from the table: "experiences"
+  """
+  delete_experiences_by_pk(id: uuid!): experiences
+
+  """
+  delete data from the table: "inscription_type"
+  """
+  delete_inscription_type(
+    """filter the rows which have to be deleted"""
+    where: inscription_type_bool_exp!
+  ): inscription_type_mutation_response
+
+  """
+  delete single row from the table: "inscription_type"
+  """
+  delete_inscription_type_by_pk(id: String!): inscription_type
+
+  """
+  delete data from the table: "project_skills"
+  """
+  delete_project_skills(
+    """filter the rows which have to be deleted"""
+    where: project_skills_bool_exp!
+  ): project_skills_mutation_response
+
+  """
+  delete single row from the table: "project_skills"
+  """
+  delete_project_skills_by_pk(id: uuid!): project_skills
+
+  """
+  delete data from the table: "projects"
+  """
+  delete_projects(
+    """filter the rows which have to be deleted"""
+    where: projects_bool_exp!
+  ): projects_mutation_response
+
+  """
+  delete single row from the table: "projects"
+  """
+  delete_projects_by_pk(id: uuid!): projects
+
+  """
+  delete data from the table: "remote_category"
+  """
+  delete_remote_category(
+    """filter the rows which have to be deleted"""
+    where: remote_category_bool_exp!
+  ): remote_category_mutation_response
+
+  """
+  delete single row from the table: "remote_category"
+  """
+  delete_remote_category_by_pk(id: String!): remote_category
+
+  """
+  delete data from the table: "skill_category"
+  """
+  delete_skill_category(
+    """filter the rows which have to be deleted"""
+    where: skill_category_bool_exp!
+  ): skill_category_mutation_response
+
+  """
+  delete single row from the table: "skill_category"
+  """
+  delete_skill_category_by_pk(id: String!): skill_category
+
+  """
+  delete data from the table: "skills"
+  """
+  delete_skills(
+    """filter the rows which have to be deleted"""
+    where: skills_bool_exp!
+  ): skills_mutation_response
+
+  """
+  delete single row from the table: "skills"
+  """
+  delete_skills_by_pk(id: uuid!): skills
+
+  """
+  insert data into the table: "contact_category"
+  """
+  insert_contact_category(
+    """the rows to be inserted"""
+    objects: [contact_category_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: contact_category_on_conflict
+  ): contact_category_mutation_response
+
+  """
+  insert a single row into the table: "contact_category"
+  """
+  insert_contact_category_one(
+    """the row to be inserted"""
+    object: contact_category_insert_input!
+
+    """upsert condition"""
+    on_conflict: contact_category_on_conflict
+  ): contact_category
+
+  """
+  insert data into the table: "contacts"
+  """
+  insert_contacts(
+    """the rows to be inserted"""
+    objects: [contacts_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: contacts_on_conflict
+  ): contacts_mutation_response
+
+  """
+  insert a single row into the table: "contacts"
+  """
+  insert_contacts_one(
+    """the row to be inserted"""
+    object: contacts_insert_input!
+
+    """upsert condition"""
+    on_conflict: contacts_on_conflict
+  ): contacts
+
+  """
+  insert data into the table: "experience_category"
+  """
+  insert_experience_category(
+    """the rows to be inserted"""
+    objects: [experience_category_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: experience_category_on_conflict
+  ): experience_category_mutation_response
+
+  """
+  insert a single row into the table: "experience_category"
+  """
+  insert_experience_category_one(
+    """the row to be inserted"""
+    object: experience_category_insert_input!
+
+    """upsert condition"""
+    on_conflict: experience_category_on_conflict
+  ): experience_category
+
+  """
+  insert data into the table: "experience_skills"
+  """
+  insert_experience_skills(
+    """the rows to be inserted"""
+    objects: [experience_skills_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: experience_skills_on_conflict
+  ): experience_skills_mutation_response
+
+  """
+  insert a single row into the table: "experience_skills"
+  """
+  insert_experience_skills_one(
+    """the row to be inserted"""
+    object: experience_skills_insert_input!
+
+    """upsert condition"""
+    on_conflict: experience_skills_on_conflict
+  ): experience_skills
+
+  """
+  insert data into the table: "experiences"
+  """
+  insert_experiences(
+    """the rows to be inserted"""
+    objects: [experiences_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: experiences_on_conflict
+  ): experiences_mutation_response
+
+  """
+  insert a single row into the table: "experiences"
+  """
+  insert_experiences_one(
+    """the row to be inserted"""
+    object: experiences_insert_input!
+
+    """upsert condition"""
+    on_conflict: experiences_on_conflict
+  ): experiences
+
+  """
+  insert data into the table: "inscription_type"
+  """
+  insert_inscription_type(
+    """the rows to be inserted"""
+    objects: [inscription_type_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: inscription_type_on_conflict
+  ): inscription_type_mutation_response
+
+  """
+  insert a single row into the table: "inscription_type"
+  """
+  insert_inscription_type_one(
+    """the row to be inserted"""
+    object: inscription_type_insert_input!
+
+    """upsert condition"""
+    on_conflict: inscription_type_on_conflict
+  ): inscription_type
+
+  """
+  insert data into the table: "project_skills"
+  """
+  insert_project_skills(
+    """the rows to be inserted"""
+    objects: [project_skills_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: project_skills_on_conflict
+  ): project_skills_mutation_response
+
+  """
+  insert a single row into the table: "project_skills"
+  """
+  insert_project_skills_one(
+    """the row to be inserted"""
+    object: project_skills_insert_input!
+
+    """upsert condition"""
+    on_conflict: project_skills_on_conflict
+  ): project_skills
+
+  """
+  insert data into the table: "projects"
+  """
+  insert_projects(
+    """the rows to be inserted"""
+    objects: [projects_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: projects_on_conflict
+  ): projects_mutation_response
+
+  """
+  insert a single row into the table: "projects"
+  """
+  insert_projects_one(
+    """the row to be inserted"""
+    object: projects_insert_input!
+
+    """upsert condition"""
+    on_conflict: projects_on_conflict
+  ): projects
+
+  """
+  insert data into the table: "remote_category"
+  """
+  insert_remote_category(
+    """the rows to be inserted"""
+    objects: [remote_category_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: remote_category_on_conflict
+  ): remote_category_mutation_response
+
+  """
+  insert a single row into the table: "remote_category"
+  """
+  insert_remote_category_one(
+    """the row to be inserted"""
+    object: remote_category_insert_input!
+
+    """upsert condition"""
+    on_conflict: remote_category_on_conflict
+  ): remote_category
+
+  """
+  insert data into the table: "skill_category"
+  """
+  insert_skill_category(
+    """the rows to be inserted"""
+    objects: [skill_category_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: skill_category_on_conflict
+  ): skill_category_mutation_response
+
+  """
+  insert a single row into the table: "skill_category"
+  """
+  insert_skill_category_one(
+    """the row to be inserted"""
+    object: skill_category_insert_input!
+
+    """upsert condition"""
+    on_conflict: skill_category_on_conflict
+  ): skill_category
+
+  """
+  insert data into the table: "skills"
+  """
+  insert_skills(
+    """the rows to be inserted"""
+    objects: [skills_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: skills_on_conflict
+  ): skills_mutation_response
+
+  """
+  insert a single row into the table: "skills"
+  """
+  insert_skills_one(
+    """the row to be inserted"""
+    object: skills_insert_input!
+
+    """upsert condition"""
+    on_conflict: skills_on_conflict
+  ): skills
+
+  """
+  update data of the table: "contact_category"
+  """
+  update_contact_category(
+    """sets the columns of the filtered rows to the given values"""
+    _set: contact_category_set_input
+
+    """filter the rows which have to be updated"""
+    where: contact_category_bool_exp!
+  ): contact_category_mutation_response
+
+  """
+  update single row of the table: "contact_category"
+  """
+  update_contact_category_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: contact_category_set_input
+    pk_columns: contact_category_pk_columns_input!
+  ): contact_category
+
+  """
+  update multiples rows of table: "contact_category"
+  """
+  update_contact_category_many(
+    """updates to execute, in order"""
+    updates: [contact_category_updates!]!
+  ): [contact_category_mutation_response]
+
+  """
+  update data of the table: "contacts"
+  """
+  update_contacts(
+    """sets the columns of the filtered rows to the given values"""
+    _set: contacts_set_input
+
+    """filter the rows which have to be updated"""
+    where: contacts_bool_exp!
+  ): contacts_mutation_response
+
+  """
+  update single row of the table: "contacts"
+  """
+  update_contacts_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: contacts_set_input
+    pk_columns: contacts_pk_columns_input!
+  ): contacts
+
+  """
+  update multiples rows of table: "contacts"
+  """
+  update_contacts_many(
+    """updates to execute, in order"""
+    updates: [contacts_updates!]!
+  ): [contacts_mutation_response]
+
+  """
+  update data of the table: "experience_category"
+  """
+  update_experience_category(
+    """sets the columns of the filtered rows to the given values"""
+    _set: experience_category_set_input
+
+    """filter the rows which have to be updated"""
+    where: experience_category_bool_exp!
+  ): experience_category_mutation_response
+
+  """
+  update single row of the table: "experience_category"
+  """
+  update_experience_category_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: experience_category_set_input
+    pk_columns: experience_category_pk_columns_input!
+  ): experience_category
+
+  """
+  update multiples rows of table: "experience_category"
+  """
+  update_experience_category_many(
+    """updates to execute, in order"""
+    updates: [experience_category_updates!]!
+  ): [experience_category_mutation_response]
+
+  """
+  update data of the table: "experience_skills"
+  """
+  update_experience_skills(
+    """sets the columns of the filtered rows to the given values"""
+    _set: experience_skills_set_input
+
+    """filter the rows which have to be updated"""
+    where: experience_skills_bool_exp!
+  ): experience_skills_mutation_response
+
+  """
+  update single row of the table: "experience_skills"
+  """
+  update_experience_skills_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: experience_skills_set_input
+    pk_columns: experience_skills_pk_columns_input!
+  ): experience_skills
+
+  """
+  update multiples rows of table: "experience_skills"
+  """
+  update_experience_skills_many(
+    """updates to execute, in order"""
+    updates: [experience_skills_updates!]!
+  ): [experience_skills_mutation_response]
+
+  """
+  update data of the table: "experiences"
+  """
+  update_experiences(
+    """sets the columns of the filtered rows to the given values"""
+    _set: experiences_set_input
+
+    """filter the rows which have to be updated"""
+    where: experiences_bool_exp!
+  ): experiences_mutation_response
+
+  """
+  update single row of the table: "experiences"
+  """
+  update_experiences_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: experiences_set_input
+    pk_columns: experiences_pk_columns_input!
+  ): experiences
+
+  """
+  update multiples rows of table: "experiences"
+  """
+  update_experiences_many(
+    """updates to execute, in order"""
+    updates: [experiences_updates!]!
+  ): [experiences_mutation_response]
+
+  """
+  update data of the table: "inscription_type"
+  """
+  update_inscription_type(
+    """sets the columns of the filtered rows to the given values"""
+    _set: inscription_type_set_input
+
+    """filter the rows which have to be updated"""
+    where: inscription_type_bool_exp!
+  ): inscription_type_mutation_response
+
+  """
+  update single row of the table: "inscription_type"
+  """
+  update_inscription_type_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: inscription_type_set_input
+    pk_columns: inscription_type_pk_columns_input!
+  ): inscription_type
+
+  """
+  update multiples rows of table: "inscription_type"
+  """
+  update_inscription_type_many(
+    """updates to execute, in order"""
+    updates: [inscription_type_updates!]!
+  ): [inscription_type_mutation_response]
+
+  """
+  update data of the table: "project_skills"
+  """
+  update_project_skills(
+    """sets the columns of the filtered rows to the given values"""
+    _set: project_skills_set_input
+
+    """filter the rows which have to be updated"""
+    where: project_skills_bool_exp!
+  ): project_skills_mutation_response
+
+  """
+  update single row of the table: "project_skills"
+  """
+  update_project_skills_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: project_skills_set_input
+    pk_columns: project_skills_pk_columns_input!
+  ): project_skills
+
+  """
+  update multiples rows of table: "project_skills"
+  """
+  update_project_skills_many(
+    """updates to execute, in order"""
+    updates: [project_skills_updates!]!
+  ): [project_skills_mutation_response]
+
+  """
+  update data of the table: "projects"
+  """
+  update_projects(
+    """sets the columns of the filtered rows to the given values"""
+    _set: projects_set_input
+
+    """filter the rows which have to be updated"""
+    where: projects_bool_exp!
+  ): projects_mutation_response
+
+  """
+  update single row of the table: "projects"
+  """
+  update_projects_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: projects_set_input
+    pk_columns: projects_pk_columns_input!
+  ): projects
+
+  """
+  update multiples rows of table: "projects"
+  """
+  update_projects_many(
+    """updates to execute, in order"""
+    updates: [projects_updates!]!
+  ): [projects_mutation_response]
+
+  """
+  update data of the table: "remote_category"
+  """
+  update_remote_category(
+    """sets the columns of the filtered rows to the given values"""
+    _set: remote_category_set_input
+
+    """filter the rows which have to be updated"""
+    where: remote_category_bool_exp!
+  ): remote_category_mutation_response
+
+  """
+  update single row of the table: "remote_category"
+  """
+  update_remote_category_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: remote_category_set_input
+    pk_columns: remote_category_pk_columns_input!
+  ): remote_category
+
+  """
+  update multiples rows of table: "remote_category"
+  """
+  update_remote_category_many(
+    """updates to execute, in order"""
+    updates: [remote_category_updates!]!
+  ): [remote_category_mutation_response]
+
+  """
+  update data of the table: "skill_category"
+  """
+  update_skill_category(
+    """sets the columns of the filtered rows to the given values"""
+    _set: skill_category_set_input
+
+    """filter the rows which have to be updated"""
+    where: skill_category_bool_exp!
+  ): skill_category_mutation_response
+
+  """
+  update single row of the table: "skill_category"
+  """
+  update_skill_category_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: skill_category_set_input
+    pk_columns: skill_category_pk_columns_input!
+  ): skill_category
+
+  """
+  update multiples rows of table: "skill_category"
+  """
+  update_skill_category_many(
+    """updates to execute, in order"""
+    updates: [skill_category_updates!]!
+  ): [skill_category_mutation_response]
+
+  """
+  update data of the table: "skills"
+  """
+  update_skills(
+    """sets the columns of the filtered rows to the given values"""
+    _set: skills_set_input
+
+    """filter the rows which have to be updated"""
+    where: skills_bool_exp!
+  ): skills_mutation_response
+
+  """
+  update single row of the table: "skills"
+  """
+  update_skills_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: skills_set_input
+    pk_columns: skills_pk_columns_input!
+  ): skills
+
+  """
+  update multiples rows of table: "skills"
+  """
+  update_skills_many(
+    """updates to execute, in order"""
+    updates: [skills_updates!]!
+  ): [skills_mutation_response]
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""
+columns and relationships of "project_skills"
+"""
+type project_skills {
+  id: uuid!
+
+  """An object relationship"""
+  project: projects!
+  project_id: uuid!
+
+  """An object relationship"""
+  skill: skills!
+  skill_id: uuid!
+}
+
+"""
+aggregated selection of "project_skills"
+"""
+type project_skills_aggregate {
+  aggregate: project_skills_aggregate_fields
+  nodes: [project_skills!]!
+}
+
+input project_skills_aggregate_bool_exp {
+  count: project_skills_aggregate_bool_exp_count
+}
+
+input project_skills_aggregate_bool_exp_count {
+  arguments: [project_skills_select_column!]
+  distinct: Boolean
+  filter: project_skills_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "project_skills"
+"""
+type project_skills_aggregate_fields {
+  count(columns: [project_skills_select_column!], distinct: Boolean): Int!
+  max: project_skills_max_fields
+  min: project_skills_min_fields
+}
+
+"""
+order by aggregate values of table "project_skills"
+"""
+input project_skills_aggregate_order_by {
+  count: order_by
+  max: project_skills_max_order_by
+  min: project_skills_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "project_skills"
+"""
+input project_skills_arr_rel_insert_input {
+  data: [project_skills_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: project_skills_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "project_skills". All fields are combined with a logical 'AND'.
+"""
+input project_skills_bool_exp {
+  _and: [project_skills_bool_exp!]
+  _not: project_skills_bool_exp
+  _or: [project_skills_bool_exp!]
+  id: uuid_comparison_exp
+  project: projects_bool_exp
+  project_id: uuid_comparison_exp
+  skill: skills_bool_exp
+  skill_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "project_skills"
+"""
+enum project_skills_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  project_skills_pkey
+
+  """
+  unique or primary key constraint on columns "skill_id", "project_id"
+  """
+  project_skills_project_id_skill_id_key
+}
+
+"""
+input type for inserting data into table "project_skills"
+"""
+input project_skills_insert_input {
+  id: uuid
+  project: projects_obj_rel_insert_input
+  project_id: uuid
+  skill: skills_obj_rel_insert_input
+  skill_id: uuid
+}
+
+"""aggregate max on columns"""
+type project_skills_max_fields {
+  id: uuid
+  project_id: uuid
+  skill_id: uuid
+}
+
+"""
+order by max() on columns of table "project_skills"
+"""
+input project_skills_max_order_by {
+  id: order_by
+  project_id: order_by
+  skill_id: order_by
+}
+
+"""aggregate min on columns"""
+type project_skills_min_fields {
+  id: uuid
+  project_id: uuid
+  skill_id: uuid
+}
+
+"""
+order by min() on columns of table "project_skills"
+"""
+input project_skills_min_order_by {
+  id: order_by
+  project_id: order_by
+  skill_id: order_by
+}
+
+"""
+response of any mutation on the table "project_skills"
+"""
+type project_skills_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [project_skills!]!
+}
+
+"""
+on_conflict condition type for table "project_skills"
+"""
+input project_skills_on_conflict {
+  constraint: project_skills_constraint!
+  update_columns: [project_skills_update_column!]! = []
+  where: project_skills_bool_exp
+}
+
+"""Ordering options when selecting data from "project_skills"."""
+input project_skills_order_by {
+  id: order_by
+  project: projects_order_by
+  project_id: order_by
+  skill: skills_order_by
+  skill_id: order_by
+}
+
+"""primary key columns input for table: project_skills"""
+input project_skills_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "project_skills"
+"""
+enum project_skills_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  project_id
+
+  """column name"""
+  skill_id
+}
+
+"""
+input type for updating data in table "project_skills"
+"""
+input project_skills_set_input {
+  id: uuid
+  project_id: uuid
+  skill_id: uuid
+}
+
+"""
+Streaming cursor of the table "project_skills"
+"""
+input project_skills_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: project_skills_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input project_skills_stream_cursor_value_input {
+  id: uuid
+  project_id: uuid
+  skill_id: uuid
+}
+
+"""
+update columns of table "project_skills"
+"""
+enum project_skills_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  project_id
+
+  """column name"""
+  skill_id
+}
+
+input project_skills_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: project_skills_set_input
+
+  """filter the rows which have to be updated"""
+  where: project_skills_bool_exp!
+}
+
+"""
+columns and relationships of "projects"
+"""
+type projects {
+  date_end: date
+  date_start: date!
+  description: String
+  id: uuid!
+  inscription: String
+
+  """An object relationship"""
+  inscriptionTypeByInscriptionType: inscription_type!
+  inscription_href: String
+  inscription_type: inscription_type_enum!
+
+  """separated by the newline ("\n") character"""
+  items: String
+  name: String!
+  name_href: String
+
+  """An array relationship"""
+  project_skills(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): [project_skills!]!
+
+  """An aggregate relationship"""
+  project_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): project_skills_aggregate!
+  visible: Boolean!
+}
+
+"""
+aggregated selection of "projects"
+"""
+type projects_aggregate {
+  aggregate: projects_aggregate_fields
+  nodes: [projects!]!
+}
+
+input projects_aggregate_bool_exp {
+  bool_and: projects_aggregate_bool_exp_bool_and
+  bool_or: projects_aggregate_bool_exp_bool_or
+  count: projects_aggregate_bool_exp_count
+}
+
+input projects_aggregate_bool_exp_bool_and {
+  arguments: projects_select_column_projects_aggregate_bool_exp_bool_and_arguments_columns!
+  distinct: Boolean
+  filter: projects_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input projects_aggregate_bool_exp_bool_or {
+  arguments: projects_select_column_projects_aggregate_bool_exp_bool_or_arguments_columns!
+  distinct: Boolean
+  filter: projects_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input projects_aggregate_bool_exp_count {
+  arguments: [projects_select_column!]
+  distinct: Boolean
+  filter: projects_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "projects"
+"""
+type projects_aggregate_fields {
+  count(columns: [projects_select_column!], distinct: Boolean): Int!
+  max: projects_max_fields
+  min: projects_min_fields
+}
+
+"""
+order by aggregate values of table "projects"
+"""
+input projects_aggregate_order_by {
+  count: order_by
+  max: projects_max_order_by
+  min: projects_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "projects"
+"""
+input projects_arr_rel_insert_input {
+  data: [projects_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: projects_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "projects". All fields are combined with a logical 'AND'.
+"""
+input projects_bool_exp {
+  _and: [projects_bool_exp!]
+  _not: projects_bool_exp
+  _or: [projects_bool_exp!]
+  date_end: date_comparison_exp
+  date_start: date_comparison_exp
+  description: String_comparison_exp
+  id: uuid_comparison_exp
+  inscription: String_comparison_exp
+  inscriptionTypeByInscriptionType: inscription_type_bool_exp
+  inscription_href: String_comparison_exp
+  inscription_type: inscription_type_enum_comparison_exp
+  items: String_comparison_exp
+  name: String_comparison_exp
+  name_href: String_comparison_exp
+  project_skills: project_skills_bool_exp
+  project_skills_aggregate: project_skills_aggregate_bool_exp
+  visible: Boolean_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "projects"
+"""
+enum projects_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  projects_pkey
+}
+
+"""
+input type for inserting data into table "projects"
+"""
+input projects_insert_input {
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscriptionTypeByInscriptionType: inscription_type_obj_rel_insert_input
+  inscription_href: String
+  inscription_type: inscription_type_enum
+
+  """separated by the newline ("\n") character"""
+  items: String
+  name: String
+  name_href: String
+  project_skills: project_skills_arr_rel_insert_input
+  visible: Boolean
+}
+
+"""aggregate max on columns"""
+type projects_max_fields {
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+
+  """separated by the newline ("\n") character"""
+  items: String
+  name: String
+  name_href: String
+}
+
+"""
+order by max() on columns of table "projects"
+"""
+input projects_max_order_by {
+  date_end: order_by
+  date_start: order_by
+  description: order_by
+  id: order_by
+  inscription: order_by
+  inscription_href: order_by
+
+  """separated by the newline ("\n") character"""
+  items: order_by
+  name: order_by
+  name_href: order_by
+}
+
+"""aggregate min on columns"""
+type projects_min_fields {
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+
+  """separated by the newline ("\n") character"""
+  items: String
+  name: String
+  name_href: String
+}
+
+"""
+order by min() on columns of table "projects"
+"""
+input projects_min_order_by {
+  date_end: order_by
+  date_start: order_by
+  description: order_by
+  id: order_by
+  inscription: order_by
+  inscription_href: order_by
+
+  """separated by the newline ("\n") character"""
+  items: order_by
+  name: order_by
+  name_href: order_by
+}
+
+"""
+response of any mutation on the table "projects"
+"""
+type projects_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [projects!]!
+}
+
+"""
+input type for inserting object relation for remote table "projects"
+"""
+input projects_obj_rel_insert_input {
+  data: projects_insert_input!
+
+  """upsert condition"""
+  on_conflict: projects_on_conflict
+}
+
+"""
+on_conflict condition type for table "projects"
+"""
+input projects_on_conflict {
+  constraint: projects_constraint!
+  update_columns: [projects_update_column!]! = []
+  where: projects_bool_exp
+}
+
+"""Ordering options when selecting data from "projects"."""
+input projects_order_by {
+  date_end: order_by
+  date_start: order_by
+  description: order_by
+  id: order_by
+  inscription: order_by
+  inscriptionTypeByInscriptionType: inscription_type_order_by
+  inscription_href: order_by
+  inscription_type: order_by
+  items: order_by
+  name: order_by
+  name_href: order_by
+  project_skills_aggregate: project_skills_aggregate_order_by
+  visible: order_by
+}
+
+"""primary key columns input for table: projects"""
+input projects_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "projects"
+"""
+enum projects_select_column {
+  """column name"""
+  date_end
+
+  """column name"""
+  date_start
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  inscription
+
+  """column name"""
+  inscription_href
+
+  """column name"""
+  inscription_type
+
+  """column name"""
+  items
+
+  """column name"""
+  name
+
+  """column name"""
+  name_href
+
+  """column name"""
+  visible
+}
+
+"""
+select "projects_aggregate_bool_exp_bool_and_arguments_columns" columns of table "projects"
+"""
+enum projects_select_column_projects_aggregate_bool_exp_bool_and_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+select "projects_aggregate_bool_exp_bool_or_arguments_columns" columns of table "projects"
+"""
+enum projects_select_column_projects_aggregate_bool_exp_bool_or_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+input type for updating data in table "projects"
+"""
+input projects_set_input {
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+  inscription_type: inscription_type_enum
+
+  """separated by the newline ("\n") character"""
+  items: String
+  name: String
+  name_href: String
+  visible: Boolean
+}
+
+"""
+Streaming cursor of the table "projects"
+"""
+input projects_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: projects_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input projects_stream_cursor_value_input {
+  date_end: date
+  date_start: date
+  description: String
+  id: uuid
+  inscription: String
+  inscription_href: String
+  inscription_type: inscription_type_enum
+
+  """separated by the newline ("\n") character"""
+  items: String
+  name: String
+  name_href: String
+  visible: Boolean
+}
+
+"""
+update columns of table "projects"
+"""
+enum projects_update_column {
+  """column name"""
+  date_end
+
+  """column name"""
+  date_start
+
+  """column name"""
+  description
+
+  """column name"""
+  id
+
+  """column name"""
+  inscription
+
+  """column name"""
+  inscription_href
+
+  """column name"""
+  inscription_type
+
+  """column name"""
+  items
+
+  """column name"""
+  name
+
+  """column name"""
+  name_href
+
+  """column name"""
+  visible
+}
+
+input projects_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: projects_set_input
+
+  """filter the rows which have to be updated"""
+  where: projects_bool_exp!
+}
+
+type query_root {
+  """
+  fetch data from the table: "contact_category"
+  """
+  contact_category(
+    """distinct select on columns"""
+    distinct_on: [contact_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contact_category_order_by!]
+
+    """filter the rows returned"""
+    where: contact_category_bool_exp
+  ): [contact_category!]!
+
+  """
+  fetch aggregated fields from the table: "contact_category"
+  """
+  contact_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [contact_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contact_category_order_by!]
+
+    """filter the rows returned"""
+    where: contact_category_bool_exp
+  ): contact_category_aggregate!
+
+  """
+  fetch data from the table: "contact_category" using primary key columns
+  """
+  contact_category_by_pk(id: String!): contact_category
+
+  """An array relationship"""
+  contacts(
+    """distinct select on columns"""
+    distinct_on: [contacts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contacts_order_by!]
+
+    """filter the rows returned"""
+    where: contacts_bool_exp
+  ): [contacts!]!
+
+  """An aggregate relationship"""
+  contacts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [contacts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contacts_order_by!]
+
+    """filter the rows returned"""
+    where: contacts_bool_exp
+  ): contacts_aggregate!
+
+  """fetch data from the table: "contacts" using primary key columns"""
+  contacts_by_pk(id: uuid!): contacts
+
+  """
+  fetch data from the table: "experience_category"
+  """
+  experience_category(
+    """distinct select on columns"""
+    distinct_on: [experience_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_category_order_by!]
+
+    """filter the rows returned"""
+    where: experience_category_bool_exp
+  ): [experience_category!]!
+
+  """
+  fetch aggregated fields from the table: "experience_category"
+  """
+  experience_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experience_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_category_order_by!]
+
+    """filter the rows returned"""
+    where: experience_category_bool_exp
+  ): experience_category_aggregate!
+
+  """
+  fetch data from the table: "experience_category" using primary key columns
+  """
+  experience_category_by_pk(id: String!): experience_category
+
+  """An array relationship"""
+  experience_skills(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): [experience_skills!]!
+
+  """An aggregate relationship"""
+  experience_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): experience_skills_aggregate!
+
+  """
+  fetch data from the table: "experience_skills" using primary key columns
+  """
+  experience_skills_by_pk(id: uuid!): experience_skills
+
+  """An array relationship"""
+  experiences(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): [experiences!]!
+
+  """An aggregate relationship"""
+  experiences_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): experiences_aggregate!
+
+  """fetch data from the table: "experiences" using primary key columns"""
+  experiences_by_pk(id: uuid!): experiences
+
+  """
+  fetch data from the table: "inscription_type"
+  """
+  inscription_type(
+    """distinct select on columns"""
+    distinct_on: [inscription_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [inscription_type_order_by!]
+
+    """filter the rows returned"""
+    where: inscription_type_bool_exp
+  ): [inscription_type!]!
+
+  """
+  fetch aggregated fields from the table: "inscription_type"
+  """
+  inscription_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [inscription_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [inscription_type_order_by!]
+
+    """filter the rows returned"""
+    where: inscription_type_bool_exp
+  ): inscription_type_aggregate!
+
+  """
+  fetch data from the table: "inscription_type" using primary key columns
+  """
+  inscription_type_by_pk(id: String!): inscription_type
+
+  """An array relationship"""
+  project_skills(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): [project_skills!]!
+
+  """An aggregate relationship"""
+  project_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): project_skills_aggregate!
+
+  """fetch data from the table: "project_skills" using primary key columns"""
+  project_skills_by_pk(id: uuid!): project_skills
+
+  """An array relationship"""
+  projects(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): [projects!]!
+
+  """An aggregate relationship"""
+  projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): projects_aggregate!
+
+  """fetch data from the table: "projects" using primary key columns"""
+  projects_by_pk(id: uuid!): projects
+
+  """
+  fetch data from the table: "remote_category"
+  """
+  remote_category(
+    """distinct select on columns"""
+    distinct_on: [remote_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [remote_category_order_by!]
+
+    """filter the rows returned"""
+    where: remote_category_bool_exp
+  ): [remote_category!]!
+
+  """
+  fetch aggregated fields from the table: "remote_category"
+  """
+  remote_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [remote_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [remote_category_order_by!]
+
+    """filter the rows returned"""
+    where: remote_category_bool_exp
+  ): remote_category_aggregate!
+
+  """fetch data from the table: "remote_category" using primary key columns"""
+  remote_category_by_pk(id: String!): remote_category
+
+  """
+  fetch data from the table: "skill_category"
+  """
+  skill_category(
+    """distinct select on columns"""
+    distinct_on: [skill_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skill_category_order_by!]
+
+    """filter the rows returned"""
+    where: skill_category_bool_exp
+  ): [skill_category!]!
+
+  """
+  fetch aggregated fields from the table: "skill_category"
+  """
+  skill_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [skill_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skill_category_order_by!]
+
+    """filter the rows returned"""
+    where: skill_category_bool_exp
+  ): skill_category_aggregate!
+
+  """fetch data from the table: "skill_category" using primary key columns"""
+  skill_category_by_pk(id: String!): skill_category
+
+  """An array relationship"""
+  skills(
+    """distinct select on columns"""
+    distinct_on: [skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skills_order_by!]
+
+    """filter the rows returned"""
+    where: skills_bool_exp
+  ): [skills!]!
+
+  """An aggregate relationship"""
+  skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skills_order_by!]
+
+    """filter the rows returned"""
+    where: skills_bool_exp
+  ): skills_aggregate!
+
+  """fetch data from the table: "skills" using primary key columns"""
+  skills_by_pk(id: uuid!): skills
+}
+
+"""
+columns and relationships of "remote_category"
+"""
+type remote_category {
+  description: String
+
+  """An array relationship"""
+  experiences(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): [experiences!]!
+
+  """An aggregate relationship"""
+  experiences_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): experiences_aggregate!
+  id: String!
+}
+
+"""
+aggregated selection of "remote_category"
+"""
+type remote_category_aggregate {
+  aggregate: remote_category_aggregate_fields
+  nodes: [remote_category!]!
+}
+
+"""
+aggregate fields of "remote_category"
+"""
+type remote_category_aggregate_fields {
+  count(columns: [remote_category_select_column!], distinct: Boolean): Int!
+  max: remote_category_max_fields
+  min: remote_category_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "remote_category". All fields are combined with a logical 'AND'.
+"""
+input remote_category_bool_exp {
+  _and: [remote_category_bool_exp!]
+  _not: remote_category_bool_exp
+  _or: [remote_category_bool_exp!]
+  description: String_comparison_exp
+  experiences: experiences_bool_exp
+  experiences_aggregate: experiences_aggregate_bool_exp
+  id: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "remote_category"
+"""
+enum remote_category_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  remote_category_pkey
+}
+
+enum remote_category_enum {
+  HYBRID
+  ONSITE
+  REMOTE
+}
+
+"""
+Boolean expression to compare columns of type "remote_category_enum". All fields are combined with logical 'AND'.
+"""
+input remote_category_enum_comparison_exp {
+  _eq: remote_category_enum
+  _in: [remote_category_enum!]
+  _is_null: Boolean
+  _neq: remote_category_enum
+  _nin: [remote_category_enum!]
+}
+
+"""
+input type for inserting data into table "remote_category"
+"""
+input remote_category_insert_input {
+  description: String
+  experiences: experiences_arr_rel_insert_input
+  id: String
+}
+
+"""aggregate max on columns"""
+type remote_category_max_fields {
+  description: String
+  id: String
+}
+
+"""aggregate min on columns"""
+type remote_category_min_fields {
+  description: String
+  id: String
+}
+
+"""
+response of any mutation on the table "remote_category"
+"""
+type remote_category_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [remote_category!]!
+}
+
+"""
+input type for inserting object relation for remote table "remote_category"
+"""
+input remote_category_obj_rel_insert_input {
+  data: remote_category_insert_input!
+
+  """upsert condition"""
+  on_conflict: remote_category_on_conflict
+}
+
+"""
+on_conflict condition type for table "remote_category"
+"""
+input remote_category_on_conflict {
+  constraint: remote_category_constraint!
+  update_columns: [remote_category_update_column!]! = []
+  where: remote_category_bool_exp
+}
+
+"""Ordering options when selecting data from "remote_category"."""
+input remote_category_order_by {
+  description: order_by
+  experiences_aggregate: experiences_aggregate_order_by
+  id: order_by
+}
+
+"""primary key columns input for table: remote_category"""
+input remote_category_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "remote_category"
+"""
+enum remote_category_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+"""
+input type for updating data in table "remote_category"
+"""
+input remote_category_set_input {
+  description: String
+  id: String
+}
+
+"""
+Streaming cursor of the table "remote_category"
+"""
+input remote_category_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: remote_category_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input remote_category_stream_cursor_value_input {
+  description: String
+  id: String
+}
+
+"""
+update columns of table "remote_category"
+"""
+enum remote_category_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+input remote_category_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: remote_category_set_input
+
+  """filter the rows which have to be updated"""
+  where: remote_category_bool_exp!
+}
+
+"""
+columns and relationships of "skill_category"
+"""
+type skill_category {
+  description: String
+  id: String!
+
+  """An array relationship"""
+  skills(
+    """distinct select on columns"""
+    distinct_on: [skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skills_order_by!]
+
+    """filter the rows returned"""
+    where: skills_bool_exp
+  ): [skills!]!
+
+  """An aggregate relationship"""
+  skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skills_order_by!]
+
+    """filter the rows returned"""
+    where: skills_bool_exp
+  ): skills_aggregate!
+}
+
+"""
+aggregated selection of "skill_category"
+"""
+type skill_category_aggregate {
+  aggregate: skill_category_aggregate_fields
+  nodes: [skill_category!]!
+}
+
+"""
+aggregate fields of "skill_category"
+"""
+type skill_category_aggregate_fields {
+  count(columns: [skill_category_select_column!], distinct: Boolean): Int!
+  max: skill_category_max_fields
+  min: skill_category_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "skill_category". All fields are combined with a logical 'AND'.
+"""
+input skill_category_bool_exp {
+  _and: [skill_category_bool_exp!]
+  _not: skill_category_bool_exp
+  _or: [skill_category_bool_exp!]
+  description: String_comparison_exp
+  id: String_comparison_exp
+  skills: skills_bool_exp
+  skills_aggregate: skills_aggregate_bool_exp
+}
+
+"""
+unique or primary key constraints on table "skill_category"
+"""
+enum skill_category_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  skill_category_pkey
+}
+
+enum skill_category_enum {
+  FRAMEWORK_OR_LIBRARY
+  LANGUAGE
+  OTHER_SKILL_OR_TOOL
+  PROGRAMMING_LANGUAGE
+}
+
+"""
+Boolean expression to compare columns of type "skill_category_enum". All fields are combined with logical 'AND'.
+"""
+input skill_category_enum_comparison_exp {
+  _eq: skill_category_enum
+  _in: [skill_category_enum!]
+  _is_null: Boolean
+  _neq: skill_category_enum
+  _nin: [skill_category_enum!]
+}
+
+"""
+input type for inserting data into table "skill_category"
+"""
+input skill_category_insert_input {
+  description: String
+  id: String
+  skills: skills_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type skill_category_max_fields {
+  description: String
+  id: String
+}
+
+"""aggregate min on columns"""
+type skill_category_min_fields {
+  description: String
+  id: String
+}
+
+"""
+response of any mutation on the table "skill_category"
+"""
+type skill_category_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [skill_category!]!
+}
+
+"""
+input type for inserting object relation for remote table "skill_category"
+"""
+input skill_category_obj_rel_insert_input {
+  data: skill_category_insert_input!
+
+  """upsert condition"""
+  on_conflict: skill_category_on_conflict
+}
+
+"""
+on_conflict condition type for table "skill_category"
+"""
+input skill_category_on_conflict {
+  constraint: skill_category_constraint!
+  update_columns: [skill_category_update_column!]! = []
+  where: skill_category_bool_exp
+}
+
+"""Ordering options when selecting data from "skill_category"."""
+input skill_category_order_by {
+  description: order_by
+  id: order_by
+  skills_aggregate: skills_aggregate_order_by
+}
+
+"""primary key columns input for table: skill_category"""
+input skill_category_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "skill_category"
+"""
+enum skill_category_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+"""
+input type for updating data in table "skill_category"
+"""
+input skill_category_set_input {
+  description: String
+  id: String
+}
+
+"""
+Streaming cursor of the table "skill_category"
+"""
+input skill_category_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: skill_category_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input skill_category_stream_cursor_value_input {
+  description: String
+  id: String
+}
+
+"""
+update columns of table "skill_category"
+"""
+enum skill_category_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  id
+}
+
+input skill_category_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: skill_category_set_input
+
+  """filter the rows which have to be updated"""
+  where: skill_category_bool_exp!
+}
+
+"""
+columns and relationships of "skills"
+"""
+type skills {
+  category: skill_category_enum!
+  description: String
+
+  """An array relationship"""
+  experience_skills(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): [experience_skills!]!
+
+  """An aggregate relationship"""
+  experience_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): experience_skills_aggregate!
+  href: String
+  id: uuid!
+  name: String!
+
+  """An array relationship"""
+  project_skills(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): [project_skills!]!
+
+  """An aggregate relationship"""
+  project_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): project_skills_aggregate!
+
+  """An object relationship"""
+  skill_category: skill_category!
+  visible: Boolean!
+}
+
+"""
+aggregated selection of "skills"
+"""
+type skills_aggregate {
+  aggregate: skills_aggregate_fields
+  nodes: [skills!]!
+}
+
+input skills_aggregate_bool_exp {
+  bool_and: skills_aggregate_bool_exp_bool_and
+  bool_or: skills_aggregate_bool_exp_bool_or
+  count: skills_aggregate_bool_exp_count
+}
+
+input skills_aggregate_bool_exp_bool_and {
+  arguments: skills_select_column_skills_aggregate_bool_exp_bool_and_arguments_columns!
+  distinct: Boolean
+  filter: skills_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input skills_aggregate_bool_exp_bool_or {
+  arguments: skills_select_column_skills_aggregate_bool_exp_bool_or_arguments_columns!
+  distinct: Boolean
+  filter: skills_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input skills_aggregate_bool_exp_count {
+  arguments: [skills_select_column!]
+  distinct: Boolean
+  filter: skills_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "skills"
+"""
+type skills_aggregate_fields {
+  count(columns: [skills_select_column!], distinct: Boolean): Int!
+  max: skills_max_fields
+  min: skills_min_fields
+}
+
+"""
+order by aggregate values of table "skills"
+"""
+input skills_aggregate_order_by {
+  count: order_by
+  max: skills_max_order_by
+  min: skills_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "skills"
+"""
+input skills_arr_rel_insert_input {
+  data: [skills_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: skills_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "skills". All fields are combined with a logical 'AND'.
+"""
+input skills_bool_exp {
+  _and: [skills_bool_exp!]
+  _not: skills_bool_exp
+  _or: [skills_bool_exp!]
+  category: skill_category_enum_comparison_exp
+  description: String_comparison_exp
+  experience_skills: experience_skills_bool_exp
+  experience_skills_aggregate: experience_skills_aggregate_bool_exp
+  href: String_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  project_skills: project_skills_bool_exp
+  project_skills_aggregate: project_skills_aggregate_bool_exp
+  skill_category: skill_category_bool_exp
+  visible: Boolean_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "skills"
+"""
+enum skills_constraint {
+  """
+  unique or primary key constraint on columns "name"
+  """
+  skills_name_key
+
+  """
+  unique or primary key constraint on columns "id"
+  """
+  skills_pkey
+}
+
+"""
+input type for inserting data into table "skills"
+"""
+input skills_insert_input {
+  category: skill_category_enum
+  description: String
+  experience_skills: experience_skills_arr_rel_insert_input
+  href: String
+  id: uuid
+  name: String
+  project_skills: project_skills_arr_rel_insert_input
+  skill_category: skill_category_obj_rel_insert_input
+  visible: Boolean
+}
+
+"""aggregate max on columns"""
+type skills_max_fields {
+  description: String
+  href: String
+  id: uuid
+  name: String
+}
+
+"""
+order by max() on columns of table "skills"
+"""
+input skills_max_order_by {
+  description: order_by
+  href: order_by
+  id: order_by
+  name: order_by
+}
+
+"""aggregate min on columns"""
+type skills_min_fields {
+  description: String
+  href: String
+  id: uuid
+  name: String
+}
+
+"""
+order by min() on columns of table "skills"
+"""
+input skills_min_order_by {
+  description: order_by
+  href: order_by
+  id: order_by
+  name: order_by
+}
+
+"""
+response of any mutation on the table "skills"
+"""
+type skills_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [skills!]!
+}
+
+"""
+input type for inserting object relation for remote table "skills"
+"""
+input skills_obj_rel_insert_input {
+  data: skills_insert_input!
+
+  """upsert condition"""
+  on_conflict: skills_on_conflict
+}
+
+"""
+on_conflict condition type for table "skills"
+"""
+input skills_on_conflict {
+  constraint: skills_constraint!
+  update_columns: [skills_update_column!]! = []
+  where: skills_bool_exp
+}
+
+"""Ordering options when selecting data from "skills"."""
+input skills_order_by {
+  category: order_by
+  description: order_by
+  experience_skills_aggregate: experience_skills_aggregate_order_by
+  href: order_by
+  id: order_by
+  name: order_by
+  project_skills_aggregate: project_skills_aggregate_order_by
+  skill_category: skill_category_order_by
+  visible: order_by
+}
+
+"""primary key columns input for table: skills"""
+input skills_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "skills"
+"""
+enum skills_select_column {
+  """column name"""
+  category
+
+  """column name"""
+  description
+
+  """column name"""
+  href
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  visible
+}
+
+"""
+select "skills_aggregate_bool_exp_bool_and_arguments_columns" columns of table "skills"
+"""
+enum skills_select_column_skills_aggregate_bool_exp_bool_and_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+select "skills_aggregate_bool_exp_bool_or_arguments_columns" columns of table "skills"
+"""
+enum skills_select_column_skills_aggregate_bool_exp_bool_or_arguments_columns {
+  """column name"""
+  visible
+}
+
+"""
+input type for updating data in table "skills"
+"""
+input skills_set_input {
+  category: skill_category_enum
+  description: String
+  href: String
+  id: uuid
+  name: String
+  visible: Boolean
+}
+
+"""
+Streaming cursor of the table "skills"
+"""
+input skills_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: skills_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input skills_stream_cursor_value_input {
+  category: skill_category_enum
+  description: String
+  href: String
+  id: uuid
+  name: String
+  visible: Boolean
+}
+
+"""
+update columns of table "skills"
+"""
+enum skills_update_column {
+  """column name"""
+  category
+
+  """column name"""
+  description
+
+  """column name"""
+  href
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  visible
+}
+
+input skills_updates {
+  """sets the columns of the filtered rows to the given values"""
+  _set: skills_set_input
+
+  """filter the rows which have to be updated"""
+  where: skills_bool_exp!
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "contact_category"
+  """
+  contact_category(
+    """distinct select on columns"""
+    distinct_on: [contact_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contact_category_order_by!]
+
+    """filter the rows returned"""
+    where: contact_category_bool_exp
+  ): [contact_category!]!
+
+  """
+  fetch aggregated fields from the table: "contact_category"
+  """
+  contact_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [contact_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contact_category_order_by!]
+
+    """filter the rows returned"""
+    where: contact_category_bool_exp
+  ): contact_category_aggregate!
+
+  """
+  fetch data from the table: "contact_category" using primary key columns
+  """
+  contact_category_by_pk(id: String!): contact_category
+
+  """
+  fetch data from the table in a streaming manner: "contact_category"
+  """
+  contact_category_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [contact_category_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: contact_category_bool_exp
+  ): [contact_category!]!
+
+  """An array relationship"""
+  contacts(
+    """distinct select on columns"""
+    distinct_on: [contacts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contacts_order_by!]
+
+    """filter the rows returned"""
+    where: contacts_bool_exp
+  ): [contacts!]!
+
+  """An aggregate relationship"""
+  contacts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [contacts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [contacts_order_by!]
+
+    """filter the rows returned"""
+    where: contacts_bool_exp
+  ): contacts_aggregate!
+
+  """fetch data from the table: "contacts" using primary key columns"""
+  contacts_by_pk(id: uuid!): contacts
+
+  """
+  fetch data from the table in a streaming manner: "contacts"
+  """
+  contacts_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [contacts_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: contacts_bool_exp
+  ): [contacts!]!
+
+  """
+  fetch data from the table: "experience_category"
+  """
+  experience_category(
+    """distinct select on columns"""
+    distinct_on: [experience_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_category_order_by!]
+
+    """filter the rows returned"""
+    where: experience_category_bool_exp
+  ): [experience_category!]!
+
+  """
+  fetch aggregated fields from the table: "experience_category"
+  """
+  experience_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experience_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_category_order_by!]
+
+    """filter the rows returned"""
+    where: experience_category_bool_exp
+  ): experience_category_aggregate!
+
+  """
+  fetch data from the table: "experience_category" using primary key columns
+  """
+  experience_category_by_pk(id: String!): experience_category
+
+  """
+  fetch data from the table in a streaming manner: "experience_category"
+  """
+  experience_category_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [experience_category_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: experience_category_bool_exp
+  ): [experience_category!]!
+
+  """An array relationship"""
+  experience_skills(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): [experience_skills!]!
+
+  """An aggregate relationship"""
+  experience_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experience_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experience_skills_order_by!]
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): experience_skills_aggregate!
+
+  """
+  fetch data from the table: "experience_skills" using primary key columns
+  """
+  experience_skills_by_pk(id: uuid!): experience_skills
+
+  """
+  fetch data from the table in a streaming manner: "experience_skills"
+  """
+  experience_skills_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [experience_skills_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: experience_skills_bool_exp
+  ): [experience_skills!]!
+
+  """An array relationship"""
+  experiences(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): [experiences!]!
+
+  """An aggregate relationship"""
+  experiences_aggregate(
+    """distinct select on columns"""
+    distinct_on: [experiences_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [experiences_order_by!]
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): experiences_aggregate!
+
+  """fetch data from the table: "experiences" using primary key columns"""
+  experiences_by_pk(id: uuid!): experiences
+
+  """
+  fetch data from the table in a streaming manner: "experiences"
+  """
+  experiences_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [experiences_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: experiences_bool_exp
+  ): [experiences!]!
+
+  """
+  fetch data from the table: "inscription_type"
+  """
+  inscription_type(
+    """distinct select on columns"""
+    distinct_on: [inscription_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [inscription_type_order_by!]
+
+    """filter the rows returned"""
+    where: inscription_type_bool_exp
+  ): [inscription_type!]!
+
+  """
+  fetch aggregated fields from the table: "inscription_type"
+  """
+  inscription_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [inscription_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [inscription_type_order_by!]
+
+    """filter the rows returned"""
+    where: inscription_type_bool_exp
+  ): inscription_type_aggregate!
+
+  """
+  fetch data from the table: "inscription_type" using primary key columns
+  """
+  inscription_type_by_pk(id: String!): inscription_type
+
+  """
+  fetch data from the table in a streaming manner: "inscription_type"
+  """
+  inscription_type_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [inscription_type_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: inscription_type_bool_exp
+  ): [inscription_type!]!
+
+  """An array relationship"""
+  project_skills(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): [project_skills!]!
+
+  """An aggregate relationship"""
+  project_skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [project_skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [project_skills_order_by!]
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): project_skills_aggregate!
+
+  """fetch data from the table: "project_skills" using primary key columns"""
+  project_skills_by_pk(id: uuid!): project_skills
+
+  """
+  fetch data from the table in a streaming manner: "project_skills"
+  """
+  project_skills_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [project_skills_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: project_skills_bool_exp
+  ): [project_skills!]!
+
+  """An array relationship"""
+  projects(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): [projects!]!
+
+  """An aggregate relationship"""
+  projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [projects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [projects_order_by!]
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): projects_aggregate!
+
+  """fetch data from the table: "projects" using primary key columns"""
+  projects_by_pk(id: uuid!): projects
+
+  """
+  fetch data from the table in a streaming manner: "projects"
+  """
+  projects_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [projects_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: projects_bool_exp
+  ): [projects!]!
+
+  """
+  fetch data from the table: "remote_category"
+  """
+  remote_category(
+    """distinct select on columns"""
+    distinct_on: [remote_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [remote_category_order_by!]
+
+    """filter the rows returned"""
+    where: remote_category_bool_exp
+  ): [remote_category!]!
+
+  """
+  fetch aggregated fields from the table: "remote_category"
+  """
+  remote_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [remote_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [remote_category_order_by!]
+
+    """filter the rows returned"""
+    where: remote_category_bool_exp
+  ): remote_category_aggregate!
+
+  """fetch data from the table: "remote_category" using primary key columns"""
+  remote_category_by_pk(id: String!): remote_category
+
+  """
+  fetch data from the table in a streaming manner: "remote_category"
+  """
+  remote_category_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [remote_category_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: remote_category_bool_exp
+  ): [remote_category!]!
+
+  """
+  fetch data from the table: "skill_category"
+  """
+  skill_category(
+    """distinct select on columns"""
+    distinct_on: [skill_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skill_category_order_by!]
+
+    """filter the rows returned"""
+    where: skill_category_bool_exp
+  ): [skill_category!]!
+
+  """
+  fetch aggregated fields from the table: "skill_category"
+  """
+  skill_category_aggregate(
+    """distinct select on columns"""
+    distinct_on: [skill_category_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skill_category_order_by!]
+
+    """filter the rows returned"""
+    where: skill_category_bool_exp
+  ): skill_category_aggregate!
+
+  """fetch data from the table: "skill_category" using primary key columns"""
+  skill_category_by_pk(id: String!): skill_category
+
+  """
+  fetch data from the table in a streaming manner: "skill_category"
+  """
+  skill_category_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [skill_category_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: skill_category_bool_exp
+  ): [skill_category!]!
+
+  """An array relationship"""
+  skills(
+    """distinct select on columns"""
+    distinct_on: [skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skills_order_by!]
+
+    """filter the rows returned"""
+    where: skills_bool_exp
+  ): [skills!]!
+
+  """An aggregate relationship"""
+  skills_aggregate(
+    """distinct select on columns"""
+    distinct_on: [skills_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [skills_order_by!]
+
+    """filter the rows returned"""
+    where: skills_bool_exp
+  ): skills_aggregate!
+
+  """fetch data from the table: "skills" using primary key columns"""
+  skills_by_pk(id: uuid!): skills
+
+  """
+  fetch data from the table in a streaming manner: "skills"
+  """
+  skills_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [skills_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: skills_bool_exp
+  ): [skills!]!
+}
+
+scalar uuid
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
+

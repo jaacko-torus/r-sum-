@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html * {
+		@apply text-[#656665];
+		@apply font-gentium-book-basic;
+	}
+	
+  h1 {
+    @apply text-5xl;
+		@apply text-center;
+		@apply small-caps;
+		@apply font-bold;
+		@apply text-black;
+  }
+	
+  h2 {
+    @apply text-xl;
+		@apply text-center;
+		@apply text-[#8f0d0d];
+  }
+	
+  h3 {
+    @apply text-3xl;
+		@apply small-caps;
+		@apply text-[#450707];
+		@apply pt-3;
+  }
+	
+  h4 {
+		@apply text-[#2d2d2d];
+    @apply text-2xl;
+  }
+	
+  h5 {
+    @apply text-xl;
+  }
+	
+	h6 {
+		@apply text-lg;
+	}
+	
+	p, li {
+		@apply text-base;
+	}
+	
+	ul, ol {
+		@apply list-inside;
+	}
+	
+	ul {
+		@apply list-disc;
+	}
+	
+	ol {
+		@apply list-decimal;
+	}
+	
+	a {
+		@apply text-[#517dd4];
+		@apply underline;
+		@apply underline-offset-2;
+	}
+	
+	code {
+		@apply bg-[#d8edf0];
+		@apply text-[#a53d3d];
+		@apply font-semibold;
+		@apply px-1;
+		@apply rounded-md;
+		@apply font-fira-code;
+		@apply text-sm;
+	}
+}
