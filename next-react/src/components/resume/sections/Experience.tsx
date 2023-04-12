@@ -1,6 +1,6 @@
-import type { ExperienceInfo, ExperienceInfoProps, SkillInfo } from "@/app/data"
+import type { ExperienceInfo, ExperienceInfoCategory, ExperienceInfoProps, SkillInfo } from "@/app/data"
 import FAIcon from "@/components/FAIcon"
-import { faCalendar, faMapMarked } from "@fortawesome/free-solid-svg-icons"
+import { faCalendar, faGraduationCap, faMapMarked } from "@fortawesome/free-solid-svg-icons"
 import ReactMarkdown from "react-markdown"
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown"
 import remarkEmoji from "remark-emoji"
@@ -19,7 +19,7 @@ type ExperienceProps = ExperienceInfoProps & { experienceID: string } & React.HT
 
 const Markdown: React.FC<ReactMarkdownOptions> = options =>
 	<ReactMarkdown
-		{ ...options }
+		{...options}
 		remarkPlugins={[
 			remarkGfm,
 			// retextEnglish,
@@ -27,7 +27,7 @@ const Markdown: React.FC<ReactMarkdownOptions> = options =>
 			// retextIndefiniteArticle,
 			// retextDiacritics,
 			// retextSmartypants,
-			
+
 			// NOTE: This is used to to implement remarkSmartypants which uses retext
 			// I can't make it work right here tho.
 			//     (tree) => {
@@ -48,7 +48,7 @@ const Markdown: React.FC<ReactMarkdownOptions> = options =>
 
 const InlineMarkdown: React.FC<ReactMarkdownOptions> = options =>
 	<Markdown
-		{ ...options }
+		{...options}
 		components={{
 			p: ({ children }) => <>{children}</>,
 			...options.components
@@ -115,49 +115,69 @@ const Experience: React.FC<ExperienceProps> = ({
 					</h6>}
 			</div>
 		</div>
-		
+
 		<div>
 			<p className="flex justify-between tabular-nums">
-				<span>
-					<FAIcon icon={faCalendar} />
-					{(date instanceof DateTimeInterval
-						? date.toFormat("LL/yyyy").split(" \u2013 ")
-						: [date.toFormat("LL/yyyy"), "Present"])
-						.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
-						.map((dateRange, dateRangeIndex) =>
-							<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
-						.flatMap((date, dateIndex) => [
-							<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
-							date
-						])
-						.slice(1)}
-				</span>
-				<span className="text-[#a5a5a5]">({Object
-					.entries(
-						(date instanceof DateTime
-							? DateTimeInterval.fromDateTimes(date, DateTime.now())
-							: date)
-						.toDuration([ "years", "months" ])
-						// A trick. Add 2 months, normalize, then subtract one so that:
-						// 11 months => 11 months
-						// 12 months => 1 year
-						// 13 months => 1 year, 1 month
-						.plus({ months: 2 })
-						.normalize()
-						.minus({ months: 1 })
-						.toObject())
-					.map(([unit, duration]) => [
-						duration > 1 ? unit : unit.replace(/s$/, ""),
-						Math.ceil(Number.parseFloat(duration))
-					])
-					.filter(([unit, duration]) => duration !== 0)
-					.map(([unit, duration]) => `${duration} ${unit}`)
-					.join(", ")})
-				</span>
+				{category === "education"
+					? <>
+						<span>
+							<FAIcon icon={faGraduationCap} />
+							{date instanceof DateTimeInterval
+							? date.end.toFormat("LLLL d, y")
+							: [date.toFormat("LL/yyyy"), "Present"]
+								.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
+								.map((dateRange, dateRangeIndex) =>
+									<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
+								.flatMap((date, dateIndex) => [
+									<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
+									date
+								])
+								.slice(1)}
+						</span>
+						<span className="text-[#a5a5a5]">({date instanceof DateTimeInterval ? (date.end > DateTime.now() ? "expected" : "") : ""})</span>
+					</>
+					: <>
+						<span>
+							<FAIcon icon={faCalendar} />
+							{(date instanceof DateTimeInterval
+								? date.toFormat("LL/yyyy").split(" \u2013 ")
+								: [date.toFormat("LL/yyyy"), "Present"])
+								.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
+								.map((dateRange, dateRangeIndex) =>
+									<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
+								.flatMap((date, dateIndex) => [
+									<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
+									date
+								])
+								.slice(1)}
+						</span>
+						<span className="text-[#a5a5a5]">({Object
+							.entries(
+								(date instanceof DateTime
+									? DateTimeInterval.fromDateTimes(date, DateTime.now())
+									: date)
+									.toDuration(["years", "months"])
+									// A trick. Add 2 months, normalize, then subtract one so that:
+									// 11 months => 11 months
+									// 12 months => 1 year
+									// 13 months => 1 year, 1 month
+									.plus({ months: 2 })
+									.normalize()
+									.minus({ months: 1 })
+									.toObject())
+							.map(([unit, duration]) => [
+								duration > 1 ? unit : unit.replace(/s$/, ""),
+								Math.ceil(Number.parseFloat(duration))
+							])
+							.filter(([unit, duration]) => duration !== 0)
+							.map(([unit, duration]) => `${duration} ${unit}`)
+							.join(", ")})
+						</span>
+					</>}
 			</p>
 			{location && <p><FAIcon icon={faMapMarked} />{location}</p>}
 		</div>
-		
+
 		{skills && <Skills bubblesID={`${experienceID}-bubble-container`} list={(() => {
 			const undefinedSkills = skills.filter(skill => skill === undefined)
 			if (undefinedSkills.length) {
@@ -167,10 +187,10 @@ const Experience: React.FC<ExperienceProps> = ({
 			return (skills.filter(skill => skill !== undefined) as SkillInfo[])
 				// Alphabetical sort.
 				.sort(alphabeticalComparer<SkillInfo>(skill => skill.props.name))
-		})()}/>}
-		
+		})()} />}
+
 		{description && <p>{<Markdown>{description}</Markdown>}</p>}
-		
+
 		{items &&
 			<ul>{items.map((item, itemIndex) =>
 				<li key={`${experienceID}-${itemIndex}`} className="py-0">{md(item)}</li>)}
@@ -188,7 +208,7 @@ const Experiences: React.FC<ExperiencesProps> = ({ list, experiencesID }) =>
 		.flatMap((experience, experienceIndex) => {
 			const key = `resume-${experiencesID}-${experienceIndex}`
 			return [
-				<hr key={`${key}-hr`} className="my-1 mx-auto w-11/12 border-[#d1d1d1] border-[1px] border-dashed"/>,
+				<hr key={`${key}-hr`} className="my-1 mx-auto w-11/12 border-[#d1d1d1] border-[1px] border-dashed" />,
 				<Experience key={key} experienceID={key} {...experience.props} className="break-before-avoid" />
 			]
 		})

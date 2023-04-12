@@ -52,7 +52,7 @@ const contactInfoCategory: (contacts: Info["contacts"]) => (category: ContactInf
 			<Component key={contact} {...contacts[contact]?.props!} />)
 
 const Contacts: React.FC<Info["contacts"]> = (contacts) =>
-	<section className="[&>section]:flex [&>section]:justify-evenly mb-8">
+	<section className="[&>section]:flex [&>section]:justify-evenly mb-8 [&_*]:text-base">
 		<section>{contactInfoCategory(contacts)("basic")}</section>
 		<section>{contactInfoCategory(contacts)("accounts")}</section>
 	</section>
