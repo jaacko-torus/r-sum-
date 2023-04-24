@@ -123,7 +123,7 @@ const Experience: React.FC<ExperienceProps> = ({
 						<span>
 							<FAIcon icon={faGraduationCap} />
 							{date instanceof DateTimeInterval
-							? date.end.toFormat("LLLL d, y")
+							? date.end.toFormat("LLLL, y")
 							: [date.toFormat("LL/yyyy"), "Present"]
 								.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
 								.map((dateRange, dateRangeIndex) =>
@@ -134,12 +134,8 @@ const Experience: React.FC<ExperienceProps> = ({
 								])
 								.slice(1)}
 						</span>
-						<span className="text-[#a5a5a5]">({
-							date instanceof DateTimeInterval
-								? (date.end > DateTime.now()
-									? `expected ${date.end.toFormat("LL/yyyy")}`
-									: date.end.toFormat("LL/yyyy"))
-								: [date.toFormat("LL/yyyy"), "Present"]
+						{date instanceof DateTimeInterval && date.end > DateTime.now() && <span className="text-[#a5a5a5]">(expected)</span>}
+						{!(date instanceof DateTimeInterval) && <span className="text-[#a5a5a5]">({[date.toFormat("LL/yyyy"), "Present"]
 									.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
 									.map((dateRange, dateRangeIndex) =>
 										<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
@@ -147,7 +143,7 @@ const Experience: React.FC<ExperienceProps> = ({
 										<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
 										date
 									])
-									.slice(1)})</span>
+									.slice(1)})</span>}
 					</>
 					: <>
 						<span>
