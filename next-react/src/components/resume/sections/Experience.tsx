@@ -172,7 +172,7 @@ const Experience: React.FC<ExperienceProps> = ({
 									// 13 months => 1 year, 1 month
 									.plus({ months: 2 })
 									.normalize()
-									.minus({ months: 1 })
+									.minus({ months: 2 })
 									.toObject())
 							.map(([unit, duration]) => [
 								duration > 1 ? unit : unit.replace(/s$/, ""),
