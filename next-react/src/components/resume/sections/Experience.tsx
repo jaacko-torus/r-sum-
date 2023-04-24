@@ -134,7 +134,20 @@ const Experience: React.FC<ExperienceProps> = ({
 								])
 								.slice(1)}
 						</span>
-						<span className="text-[#a5a5a5]">({date instanceof DateTimeInterval ? (date.end > DateTime.now() ? "expected" : "") : ""})</span>
+						<span className="text-[#a5a5a5]">({
+							date instanceof DateTimeInterval
+								? (date.end > DateTime.now()
+									? `expected ${date.end.toFormat("LL/yyyy")}`
+									: date.end.toFormat("LL/yyyy"))
+								: [date.toFormat("LL/yyyy"), "Present"]
+									.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
+									.map((dateRange, dateRangeIndex) =>
+										<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
+									.flatMap((date, dateIndex) => [
+										<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
+										date
+									])
+									.slice(1)})</span>
 					</>
 					: <>
 						<span>
@@ -205,6 +218,10 @@ interface ExperiencesProps {
 const Experiences: React.FC<ExperiencesProps> = ({ list, experiencesID }) =>
 	<div>{list
 		.filter(experience => experience.props.visible)
+		.sort((a, b) => {
+			const dateStart = (date : DateTime | DateTimeInterval) => date instanceof DateTimeInterval ? date.start : date
+			return dateStart(b.props.date).valueOf() - dateStart(a.props.date).valueOf()
+		})
 		.flatMap((experience, experienceIndex) => {
 			const key = `resume-${experiencesID}-${experienceIndex}`
 			return [
