@@ -1,11 +1,13 @@
-import { Info } from "@/app/data";
-import { Dispatch, ReducerAction } from "react";
-import { Entries } from "type-fest";
-import { InfoReducer } from "./Resume";
+import {Info} from "@/app/data";
+import {Dispatch, ReducerAction} from "react";
+import {Entries} from "type-fest";
+import {InfoReducer} from "./Resume";
 
-type ResumeControllerProps = { info: Info, setInfo: Dispatch<ReducerAction<InfoReducer>> } & React.HTMLAttributes<HTMLElement>
+type ResumeControllerProps =
+	{ info: Info, setInfo: Dispatch<ReducerAction<InfoReducer>> }
+	& React.HTMLAttributes<HTMLElement>
 
-export const ResumeController: React.FC<ResumeControllerProps> = ({ info, setInfo, className }) =>
+export const ResumeController: React.FC<ResumeControllerProps> = ({info, setInfo, className}) =>
 	<aside className={`[&_*]:text-white bg-black break-inside-avoid whitespace-nowrap ${className}`}>
 		<details open className="ml-4">
 			<summary>Contacts</summary>
@@ -14,8 +16,8 @@ export const ResumeController: React.FC<ResumeControllerProps> = ({ info, setInf
 					<input
 						type="checkbox"
 						checked={contact?.props.visible ?? true}
-						onChange={() => setInfo({ type: "contacts", contact: { name, value: contact } })}
-						className="mr-1" />
+						onChange={() => setInfo({type: "contacts", contact: {name, value: contact}})}
+						className="mr-1"/>
 					<span>{name}</span>
 				</div>)}
 		</details>
@@ -28,8 +30,8 @@ export const ResumeController: React.FC<ResumeControllerProps> = ({ info, setInf
 						<input
 							type="checkbox"
 							checked={section?.visible ?? true}
-							onChange={() => setInfo({ type: "sections", section: { name, value: section } })}
-							className="mr-1" />
+							onChange={() => setInfo({type: "sections", section: {name, value: section}})}
+							className="mr-1"/>
 						<span>{name}</span>
 					</summary>
 					{section?.value.map((sectionItem) =>
@@ -37,8 +39,12 @@ export const ResumeController: React.FC<ResumeControllerProps> = ({ info, setInf
 							<input
 								type="checkbox"
 								checked={sectionItem.props.visible}
-								onChange={() => setInfo({ type: "sections", section: { name, value: section }, sectionItem: { name: sectionItem.props.name } })}
-								className="mr-1" />
+								onChange={() => setInfo({
+									type: "sections",
+									section: {name, value: section},
+									sectionItem: {name: sectionItem.props.name}
+								})}
+								className="mr-1"/>
 							<span>{sectionItem.props.name}</span>
 						</div>
 					) ?? null}

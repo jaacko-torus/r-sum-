@@ -1,19 +1,19 @@
-import type { ExperienceInfo, ExperienceInfoCategory, ExperienceInfoProps, SkillInfo } from "@/app/data"
+import type {ExperienceInfo, ExperienceInfoProps, SkillInfo} from "@/app/data"
 import FAIcon from "@/components/FAIcon"
-import { faCalendar, faGraduationCap, faMapMarked } from "@fortawesome/free-solid-svg-icons"
+import {faCalendar, faGraduationCap, faMapMarked} from "@fortawesome/free-solid-svg-icons"
 import ReactMarkdown from "react-markdown"
-import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown"
+import {ReactMarkdownOptions} from "react-markdown/lib/react-markdown"
 import remarkEmoji from "remark-emoji"
 import remarkGfm from "remark-gfm"
 import remarkSmartypants from "remark-smartypants"
-import { Skills } from "./Skill"
+import {Skills} from "./Skill"
 
-import { alphabeticalComparer } from "@/util/fns"
+import {alphabeticalComparer} from "@/util/fns"
 import Link from "next/link"
 
-import type { PropsWithChildren, ReactNode } from "react"
+import type {HTMLAttributes, HTMLProps, PropsWithChildren} from "react"
 import React from "react"
-import { DateTime, Interval as DateTimeInterval } from "luxon"
+import {DateTime, Interval as DateTimeInterval} from "luxon"
 
 type ExperienceProps = ExperienceInfoProps & { experienceID: string } & React.HTMLAttributes<HTMLElement>
 
@@ -37,35 +37,28 @@ const Markdown: React.FC<ReactMarkdownOptions> = options =>
 			//           .processSync(node.value))
 			// 	     })
 			//     }
-			[remarkSmartypants, { dashes: "oldschool" }],
+			[remarkSmartypants, {dashes: "oldschool"}],
 			// retextSyntaxMentions,
 			// retextEmoji,
 			remarkEmoji,
 			// [remarkRetext, [unified().use(retextEnglish)]],
 			...(options.remarkPlugins ?? [])
-		]}
-	/>
+		]}/>
 
 const InlineMarkdown: React.FC<ReactMarkdownOptions> = options =>
 	<Markdown
 		{...options}
 		components={{
-			p: ({ children }) => <>{children}</>,
+			p: ({children}) => <>{children}</>,
 			...options.components
 		}}
 	/>
 
 const md = (text: string) => <InlineMarkdown>{text}</InlineMarkdown>
 
-
-type WrapperProps = PropsWithChildren & { Component: React.FC<PropsWithChildren> }
-const Wrapper: React.FC<WrapperProps> = ({ Component, children }) => <Component>{children}</Component>
-// (
-// 	({ children }: { children: React.ReactNode }) => name_href
-// 		? Link({ href: name_href, children })
-// 		: React.Fragment({ children })
-// )({ children: name })
-
+type WrapperProps = PropsWithChildren & React.HTMLAttributes<HTMLElement> & { Component: React.FC<PropsWithChildren & React.HTMLAttributes<HTMLElement>> }
+const Wrapper: React.FC<WrapperProps> = ({Component, children, className}) =>
+	<Component className={className}>{children}</Component>
 
 // const Experience: React.FC<ExperienceProps> = ({ name, inscription, inscription_type, skills, date, location, description, items, visible, experienceID }) => {
 const Experience: React.FC<ExperienceProps> = ({
@@ -89,7 +82,7 @@ const Experience: React.FC<ExperienceProps> = ({
 			<div className="flex items-baseline justify-between">
 				<h4>{
 					<Wrapper
-						Component={({ children }) => name_href
+						Component={({children}) => name_href
 							? <Link href={name_href}>{children}</Link>
 							: <>{children}</>}>
 						{md(name)}
@@ -97,7 +90,7 @@ const Experience: React.FC<ExperienceProps> = ({
 				}</h4>
 				{inscription && inscription_type === "inline" &&
 					<Wrapper
-						Component={({ children }) => inscription_href
+						Component={({children}) => inscription_href
 							? <Link href={inscription_href}>{children}</Link>
 							: <>{children}</>}>
 						{md(inscription)}
@@ -107,7 +100,7 @@ const Experience: React.FC<ExperienceProps> = ({
 				{inscription && inscription_type === "under" &&
 					<h6 className="text-base">
 						<Wrapper
-							Component={({ children }) => inscription_href
+							Component={({children}) => inscription_href
 								? <Link href={inscription_href}>{children}</Link>
 								: <>{children}</>}>
 							{md(inscription)}
@@ -121,39 +114,44 @@ const Experience: React.FC<ExperienceProps> = ({
 				{category === "education"
 					? <>
 						<span>
-							<FAIcon icon={faGraduationCap} />
+							<FAIcon icon={faGraduationCap}/>
 							{date instanceof DateTimeInterval
-							? date.end.toFormat("LLLL, y")
-							: [date.toFormat("LL/yyyy"), "Present"]
-								.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
-								.map((dateRange, dateRangeIndex) =>
-									<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
-								.flatMap((date, dateIndex) => [
-									<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
-									date
-								])
-								.slice(1)}
-						</span>
-						{date instanceof DateTimeInterval && date.end > DateTime.now() && <span className="text-[#a5a5a5]">(expected)</span>}
-						{!(date instanceof DateTimeInterval) && <span className="text-[#a5a5a5]">({[date.toFormat("LL/yyyy"), "Present"]
+								? date.end.toFormat("LLLL, y")
+								: [date.toFormat("LL/yyyy"), "Present"]
 									.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
 									.map((dateRange, dateRangeIndex) =>
-										<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
+										<span key={`${experienceID}-dateRange-${dateRangeIndex}`}
+											  className="-tracking-[2]">{dateRange}</span>)
 									.flatMap((date, dateIndex) => [
 										<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
 										date
 									])
-									.slice(1)})</span>}
+									.slice(1)}
+						</span>
+						{date instanceof DateTimeInterval && date.end > DateTime.now() &&
+							<span className="text-[#a5a5a5]">(expected)</span>}
+						{!(date instanceof DateTimeInterval) &&
+							<span className="text-[#a5a5a5]">({[date.toFormat("LL/yyyy"), "Present"]
+								.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
+								.map((dateRange, dateRangeIndex) =>
+									<span key={`${experienceID}-dateRange-${dateRangeIndex}`}
+										  className="-tracking-[2]">{dateRange}</span>)
+								.flatMap((date, dateIndex) => [
+									<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
+									date
+								])
+								.slice(1)})</span>}
 					</>
 					: <>
 						<span>
-							<FAIcon icon={faCalendar} />
+							<FAIcon icon={faCalendar}/>
 							{(date instanceof DateTimeInterval
 								? date.toFormat("LL/yyyy").split(" \u2013 ")
 								: [date.toFormat("LL/yyyy"), "Present"])
 								.reduce((acc: string[], cur: string) => acc.includes(cur) ? acc : [...acc, cur], [])
 								.map((dateRange, dateRangeIndex) =>
-									<span key={`${experienceID}-dateRange-${dateRangeIndex}`} className="-tracking-[2]">{dateRange}</span>)
+									<span key={`${experienceID}-dateRange-${dateRangeIndex}`}
+										  className="-tracking-[2]">{dateRange}</span>)
 								.flatMap((date, dateIndex) => [
 									<span key={`${experienceID}-dateRangeSeparator-${dateIndex}`}>{md("--")}</span>,
 									date
@@ -170,33 +168,33 @@ const Experience: React.FC<ExperienceProps> = ({
 									// 11 months => 11 months
 									// 12 months => 1 year
 									// 13 months => 1 year, 1 month
-									.plus({ months: 2 })
+									.plus({months: 2})
 									.normalize()
-									.minus({ months: 2 })
+									.minus({months: 2})
 									.toObject())
 							.map(([unit, duration]) => [
 								duration > 1 ? unit : unit.replace(/s$/, ""),
 								Math.ceil(Number.parseFloat(duration))
 							])
-							.filter(([unit, duration]) => duration !== 0)
+							.filter(([, duration]) => duration !== 0)
 							.map(([unit, duration]) => `${duration} ${unit}`)
 							.join(", ")})
 						</span>
 					</>}
 			</p>
-			{location && <p><FAIcon icon={faMapMarked} />{location}</p>}
+			{location && <p><FAIcon icon={faMapMarked}/>{location}</p>}
 		</div>
 
 		{skills && <Skills bubblesID={`${experienceID}-bubble-container`} list={(() => {
 			const undefinedSkills = skills.filter(skill => skill === undefined)
 			if (undefinedSkills.length) {
 				console.debug("There are some skills that are not defined, please define them")
-				console.debug({ undefinedSkills })
+				console.debug({undefinedSkills})
 			}
 			return (skills.filter(skill => skill !== undefined) as SkillInfo[])
 				// Alphabetical sort.
 				.sort(alphabeticalComparer<SkillInfo>(skill => skill.props.name))
-		})()} />}
+		})()}/>}
 
 		{description && <p>{<Markdown>{description}</Markdown>}</p>}
 
@@ -211,18 +209,18 @@ interface ExperiencesProps {
 	experiencesID: string
 }
 
-const Experiences: React.FC<ExperiencesProps> = ({ list, experiencesID }) =>
+const Experiences: React.FC<ExperiencesProps> = ({list, experiencesID}) =>
 	<div>{list
 		.filter(experience => experience.props.visible)
 		.sort((a, b) => {
-			const dateStart = (date : DateTime | DateTimeInterval) => date instanceof DateTimeInterval ? date.start : date
+			const dateStart = (date: DateTime | DateTimeInterval) => date instanceof DateTimeInterval ? date.start : date
 			return dateStart(b.props.date).valueOf() - dateStart(a.props.date).valueOf()
 		})
 		.flatMap((experience, experienceIndex) => {
 			const key = `resume-${experiencesID}-${experienceIndex}`
 			return [
-				<hr key={`${key}-hr`} className="my-1 mx-auto w-11/12 border-[#d1d1d1] border-[1px] border-dashed" />,
-				<Experience key={key} experienceID={key} {...experience.props} className="break-before-avoid" />
+				<hr key={`${key}-hr`} className="my-1 mx-auto w-11/12 border-[#d1d1d1] border-[1px] border-dashed"/>,
+				<Experience key={key} experienceID={key} {...experience.props} className="break-before-avoid"/>
 			]
 		})
 		.slice(1)}

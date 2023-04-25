@@ -1,8 +1,8 @@
 "use client"
 
-import { useGetInfoQuery } from "@/gql/graphql"
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql, useQuery } from "@apollo/client"
-import { useState } from "react"
+import {useGetInfoQuery} from "@/gql/graphql"
+import {ApolloClient, ApolloProvider, gql, HttpLink, InMemoryCache, useQuery} from "@apollo/client"
+import React, {useState} from "react"
 import Resume from "./Resume"
 
 export const createApolloClient = (uri: string, token: string) => {
@@ -61,24 +61,24 @@ query GetInfo {
 `)
 
 const ResumeDataWrapper: React.FC = () => {
-	const { loading, error, data } = useGetInfoQuery()
-	
+	const {loading, error, data} = useGetInfoQuery()
+
 	if (loading) return <>loading...</>
 	if (error) {
 		console.info(error)
 		return <>error... {error.message}</>
 	}
-	
+
 	return <Resume rawInfo={data!}/>
 }
 
 type ResumeApolloWrapperProps = { uri: string, token: string }
-const ResumeApolloWrapper: React.FC<ResumeApolloWrapperProps> = ({ uri, token }) => {
+const ResumeApolloWrapper: React.FC<ResumeApolloWrapperProps> = ({uri, token}) => {
 	const [client] = useState(createApolloClient(uri, token))
-	
+
 	return (
 		<ApolloProvider client={client}>
-			<ResumeDataWrapper />
+			<ResumeDataWrapper/>
 		</ApolloProvider>
 	)
 }

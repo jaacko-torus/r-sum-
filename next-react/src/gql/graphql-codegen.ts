@@ -1,6 +1,5 @@
-
-import type { CodegenConfig } from "@graphql-codegen/cli";
-import { execSync } from "child_process";
+import type {CodegenConfig} from "@graphql-codegen/cli";
+import {execSync} from "child_process";
 import replace from "replace-in-file"
 
 const HIDDEN_VALUE = "••••••••"
@@ -17,13 +16,13 @@ replace.sync({
 })
 
 const config: CodegenConfig = {
-  overwrite: true,
-  schema: "src/gql/schema.graphql",
-  documents: ["src/**/*.ts", "src/**/*.tsx"],
-  generates: {
-    "src/gql/graphql.tsx": {
-      // preset: "client",
-      plugins: [
+	overwrite: true,
+	schema: "src/gql/schema.graphql",
+	documents: ["src/**/*.ts", "src/**/*.tsx"],
+	generates: {
+		"src/gql/graphql.tsx": {
+			// preset: "client",
+			plugins: [
 				"typescript",
 				"typescript-operations",
 				"typescript-react-apollo",
@@ -32,17 +31,17 @@ const config: CodegenConfig = {
 				// skipTypename: false,
 				// withHOC: false,
 				// withHooks: true,
-				
-							skipTypename: false,
-							withHooks: true,
-							withHOC: false,
-							withComponent: false,
+
+				skipTypename: false,
+				withHooks: true,
+				withHOC: false,
+				withComponent: false,
 			}
-    },
-    "src/gql/graphql.schema.json": {
-      plugins: ["introspection"]
-    }
-  }
+		},
+		"src/gql/graphql.schema.json": {
+			plugins: ["introspection"]
+		}
+	}
 };
 
 // module.exports = {

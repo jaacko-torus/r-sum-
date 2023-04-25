@@ -3,8 +3,8 @@ type Cond1<
 	Else,
 > = (
 	ABracket extends [infer AType, infer AOther, infer ATrue] ? (
-		AType extends AOther ? ATrue : (
-		Else)) :
+			AType extends AOther ? ATrue : (
+				Else)) :
 		never)
 
 type Cond2<
@@ -13,11 +13,11 @@ type Cond2<
 	Else,
 > = (
 	ABracket extends [infer AType, infer AOther, infer ATrue] ? (
-	BBracket extends [infer BType, infer BOther, infer BTrue] ? (
-		AType extends AOther ? ATrue : (
-		BType extends BOther ? BTrue : (
-		Else))) :
-		never) :
+			BBracket extends [infer BType, infer BOther, infer BTrue] ? (
+					AType extends AOther ? ATrue : (
+						BType extends BOther ? BTrue : (
+							Else))) :
+				never) :
 		never)
 
 type Cond3<
@@ -27,14 +27,14 @@ type Cond3<
 	Else,
 > = (
 	ABracket extends [infer AType, infer AOther, infer ATrue] ? (
-	BBracket extends [infer BType, infer BOther, infer BTrue] ? (
-	CBracket extends [infer CType, infer COther, infer CTrue] ? (
-		AType extends AOther ? ATrue : (
-		BType extends BOther ? BTrue : (
-		CType extends COther ? CTrue : (
-		Else)))) :
-		never) :
-		never) :
+			BBracket extends [infer BType, infer BOther, infer BTrue] ? (
+					CBracket extends [infer CType, infer COther, infer CTrue] ? (
+							AType extends AOther ? ATrue : (
+								BType extends BOther ? BTrue : (
+									CType extends COther ? CTrue : (
+										Else)))) :
+						never) :
+				never) :
 		never)
 
 type Cond4<
@@ -45,17 +45,17 @@ type Cond4<
 	Else,
 > = (
 	ABracket extends [infer AType, infer AOther, infer ATrue] ? (
-	BBracket extends [infer BType, infer BOther, infer BTrue] ? (
-	CBracket extends [infer CType, infer COther, infer CTrue] ? (
-	DBracket extends [infer DType, infer DOther, infer DTrue] ? (
-		AType extends AOther ? ATrue : (
-		BType extends BOther ? BTrue : (
-		CType extends COther ? CTrue : (
-		DType extends DOther ? DTrue : (
-		Else))))) :
-		never) :
-		never) :
-		never) :
+			BBracket extends [infer BType, infer BOther, infer BTrue] ? (
+					CBracket extends [infer CType, infer COther, infer CTrue] ? (
+							DBracket extends [infer DType, infer DOther, infer DTrue] ? (
+									AType extends AOther ? ATrue : (
+										BType extends BOther ? BTrue : (
+											CType extends COther ? CTrue : (
+												DType extends DOther ? DTrue : (
+													Else))))) :
+								never) :
+						never) :
+				never) :
 		never)
 
-export type { Cond1, Cond2, Cond3, Cond4 }
+export type {Cond1, Cond2, Cond3, Cond4}

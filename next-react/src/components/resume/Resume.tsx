@@ -1,14 +1,34 @@
-import { ContactInfo, ContactInfoCategories, ExperienceInfo, ExperienceInfoCategory, ExperienceInfoProps, Info, RemoteCategory, SectionInscriptionType, SkillInfo, SkillInfoCategory, SkillInfoParams } from "@/app/data"
-import { processInfo, titles } from "@/app/fetchInfo"
-import { useReducer } from "react"
-import { Class, ValueOf } from "type-fest"
-import { Contacts } from "./Contact"
-import { ResumeController } from "./ResumeController"
+import {
+    ContactInfo,
+    ContactInfoCategories,
+    ExperienceInfo,
+    ExperienceInfoCategory,
+    ExperienceInfoProps,
+    Info,
+    RemoteCategory,
+    SectionInscriptionType,
+    SkillInfo,
+    SkillInfoCategory,
+    SkillInfoParams
+} from "@/app/data"
+import {processInfo, titles} from "@/app/fetchInfo"
+import React, {useReducer} from "react"
+import {Class, ValueOf} from "type-fest"
+import {Contacts} from "./Contact"
+import {ResumeController} from "./ResumeController"
 import ResumePage from "./ResumePage"
 import Titles from "./Titles"
 import Sections from "./sections/Sections"
-import { Contact_Category_Enum, Experience_Category_Enum, GetInfoQuery, Inscription_Type_Enum, Remote_Category_Enum, Skill_Category_Enum } from "@/gql/graphql"
-import { DateTime, Interval as DateTimeInterval } from "luxon"
+import {
+    Contact_Category_Enum,
+    Experience_Category_Enum,
+    GetInfoQuery,
+    Inscription_Type_Enum,
+    Remote_Category_Enum,
+    Skill_Category_Enum
+} from "@/gql/graphql"
+import {DateTime, Interval as DateTimeInterval} from "luxon"
+
 
 const infoReducers: {
 	titles: React.Reducer<Info["titles"], {
@@ -29,12 +49,13 @@ const infoReducers: {
 	contacts: (contacts, action) => {
 		console.log({contacts, action})
 		return ({
-		...contacts,
-		[action.contact.name]: new ContactInfo({
-			...action.contact.value!.props,
-			visible: !(action.contact.value?.props.visible ?? true)
+			...contacts,
+			[action.contact.name]: new ContactInfo({
+				...action.contact.value!.props,
+				visible: !(action.contact.value?.props.visible ?? true)
+			})
 		})
-	})},
+	},
 	sections: (sections, action) => ({
 		...sections,
 		[action.section.name]: action.sectionItem
@@ -48,18 +69,21 @@ const infoReducers: {
 								type: Class<unknown>
 								sectionInfo: (props: ExperienceInfoProps | SkillInfoParams) => ExperienceInfo | SkillInfo
 							}[] = [
-								{ type: ExperienceInfo, sectionInfo: props => new ExperienceInfo(props as ExperienceInfoProps) },
-								{ type: SkillInfo, sectionInfo: props => new SkillInfo(props as SkillInfoParams) },
+								{
+									type: ExperienceInfo,
+									sectionInfo: props => new ExperienceInfo(props as ExperienceInfoProps)
+								},
+								{type: SkillInfo, sectionInfo: props => new SkillInfo(props as SkillInfoParams)},
 							]
 
 							return map
-								.find(({ type }) => sectionItem instanceof type)
-								?.sectionInfo({ ...sectionItem.props, visible: !sectionItem.props.visible })
+									.find(({type}) => sectionItem instanceof type)
+									?.sectionInfo({...sectionItem.props, visible: !sectionItem.props.visible})
 								?? sectionItem
 						})() as (ExperienceInfo | SkillInfo))
 				)
 			}
-			: { visible: !(action.section.value?.visible ?? true), value: action.section.value?.value }
+			: {visible: !(action.section.value?.visible ?? true), value: action.section.value?.value}
 	})
 }
 
@@ -81,14 +105,14 @@ const contactCategoryMapper: Record<Contact_Category_Enum, ContactInfoCategories
 const getContacts = (data?: GetInfoQuery) => {
 	return Object.fromEntries(
 		data?.contacts.map(contact => [
-			contact.name,
-			new ContactInfo({
-				category: contactCategoryMapper[contact.category],
-				data: contact.data,
-				href: contact.href ?? undefined,
-				visible: contact.visible
-			})
-		] as const
+				contact.name,
+				new ContactInfo({
+					category: contactCategoryMapper[contact.category],
+					data: contact.data,
+					href: contact.href ?? undefined,
+					visible: contact.visible
+				})
+			] as const
 		)
 		?? []
 	)
@@ -121,7 +145,7 @@ const remoteCategoryMapper: Record<Remote_Category_Enum, RemoteCategory> = {
 }
 
 const getSections = (data?: GetInfoQuery): Partial<Info["sections"]> => {
-	
+
 	const getSkills: (categories?: SkillInfoCategory[]) => SkillInfo[] =
 		(categories) =>
 			(data?.skills.map(skill => new SkillInfo({
@@ -132,60 +156,64 @@ const getSections = (data?: GetInfoQuery): Partial<Info["sections"]> => {
 				visible: skill.visible
 			})) ?? [])
 				.filter(skill => categories?.includes(skill.props.category) ?? true)
-				
+
 	const getSkill: (name: string, categories?: SkillInfoCategory[]) => SkillInfo =
 		(name, categories) =>
 			getSkills(categories).find(skill => skill.props.name === name)
-			?? new SkillInfo({ category: "N/A", name, display: `[${name}] NOT FOUND`, visible: true })
-	
+			?? new SkillInfo({category: "N/A", name, display: `[${name}] NOT FOUND`, visible: true})
+
 	// TODO: merge experiences and projects
-			
+
 	const getExperiences: (categories: ExperienceInfoCategory[]) => ExperienceInfo[] = (categories) =>
 		(data?.experiences
-			.map(experience => new ExperienceInfo({
-					name: experience.name,
-					name_href: experience.name_href ?? undefined,
-					category: experienceCategoryMapper[experience.category],
-					inscription: experience.inscription ?? undefined,
-					inscription_type: inscriptionTypeMapper[experience.inscription_type],
-					inscription_href: experience.inscription_href ?? undefined,
-					date: experience.date_end
-						? DateTimeInterval.fromDateTimes(
+				.map(experience => new ExperienceInfo({
+						name: experience.name,
+						name_href: experience.name_href ?? undefined,
+						category: experienceCategoryMapper[experience.category],
+						inscription: experience.inscription ?? undefined,
+						inscription_type: inscriptionTypeMapper[experience.inscription_type],
+						inscription_href: experience.inscription_href ?? undefined,
+						date: experience.date_end
+							? DateTimeInterval.fromDateTimes(
 								DateTime.fromISO(experience.date_start),
 								DateTime.fromISO(experience.date_end)
 							)
-						: DateTime.fromISO(experience.date_start),
-					// DateTimeInterval.fromDateTimes(
-					// 	DateTime.fromISO(experience.date_start),
-					// 	experience.date_end ? DateTime.fromISO(experience.date_end) : DateTime.now()
-					// ),
-					location: experience.location ?? undefined,
-					remote: remoteCategoryMapper[experience.remote],
-					skills: experience.experience_skills.map(skill => getSkill(skill.skill.name)),
-					description: experience.description ?? undefined,
-					items: experience.items?.split("\\n"),
-					visible: experience.visible
-				})
-			)
-		?? [])
+							: DateTime.fromISO(experience.date_start),
+						// DateTimeInterval.fromDateTimes(
+						// 	DateTime.fromISO(experience.date_start),
+						// 	experience.date_end ? DateTime.fromISO(experience.date_end) : DateTime.now()
+						// ),
+						location: experience.location ?? undefined,
+						remote: remoteCategoryMapper[experience.remote],
+						skills: experience.experience_skills.map(skill => getSkill(skill.skill.name)),
+						description: experience.description ?? undefined,
+						items: experience.items?.split("\\n"),
+						visible: experience.visible
+					})
+				)
+			?? [])
 			.filter((experience) => categories.includes(experience.props.category))
-	
+
 	return {
-		"Education": { visible: true, value: getExperiences(["education"]) },
-		"Experience": { visible: true, value: getExperiences(["job", "internship", "volunteer"]) },
-		"Languages": { visible: true, value: getSkills(["language"]) },
-		"Programming Languages": { visible: true, value: getSkills(["programming language"]) },
-		"Frameworks + Libraries": { visible: true, value: getSkills(["framework or library"]) },
-		"Other Skills + Tools": { visible: true, value: getSkills(["other skill or tool"]) },
-		"Personal Projects": { visible: true, value: getExperiences(["project"]) },
+		"Education": {visible: true, value: getExperiences(["education"])},
+		"Experience": {visible: true, value: getExperiences(["job", "internship", "volunteer"])},
+		"Languages": {visible: true, value: getSkills(["language"])},
+		"Programming Languages": {visible: true, value: getSkills(["programming language"])},
+		"Frameworks + Libraries": {visible: true, value: getSkills(["framework or library"])},
+		"Other Skills + Tools": {visible: true, value: getSkills(["other skill or tool"])},
+		"Personal Projects": {visible: true, value: getExperiences(["project"])},
 	}
 }
 
-const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({ rawInfo }) => {
-	const [info, setInfo] = useReducer(infoReducer, processInfo({ titles, contacts: getContacts(rawInfo), sections: getSections(rawInfo) }))
-	
+const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
+	const [info, setInfo] = useReducer(infoReducer, processInfo({
+		titles,
+		contacts: getContacts(rawInfo),
+		sections: getSections(rawInfo)
+	}))
+
 	console.log(rawInfo.experiences[0].date_start)
-	
+
 	return (
 		<main className="grid grid-flow-col grid-cols-[auto,1fr]">
 			<ResumePage className="px-[48pt] text-justify [&_*]:leading-tight bg-[#ffffff]">
@@ -193,7 +221,7 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({ rawInfo }) => {
 				<Contacts {...info.contacts} />
 				<Sections {...info.sections} />
 			</ResumePage>
-			
+
 			<ResumeController info={info} setInfo={setInfo} className="print:hidden"/>
 		</main>
 	)

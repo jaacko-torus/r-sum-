@@ -1,5 +1,5 @@
-import { Fira_Code, Gentium_Book_Basic, Gentium_Book_Plus, Gentium_Plus } from "@next/font/google"
-import { PropsWithChildren } from "react"
+import {Fira_Code, Gentium_Book_Basic, Gentium_Book_Plus, Gentium_Plus} from "@next/font/google"
+import React, {PropsWithChildren} from "react"
 // import "@uiw/react-github-corners"
 // import GitHubCorners from "@uiw/react-github-corners/esm"
 
@@ -39,7 +39,12 @@ interface PageProps {
 	padding?: string
 }
 
-const ResumePage: React.FC<PropsWithChildren<PageProps> & React.HTMLAttributes<HTMLElement>> = ({ children, width, padding, className }) => {
+const ResumePage: React.FC<PropsWithChildren<PageProps> & React.HTMLAttributes<HTMLElement>> = ({
+	children,
+	width,
+	padding,
+	className
+}) => {
 	return (
 		<section className={`aspect-[8.5/11] print:w-[11in] ${[
 			...Object.values(FONTS).map(font => font.variable),

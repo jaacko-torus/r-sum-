@@ -1,4 +1,4 @@
-import { Cond1, Cond2, Cond3, Cond4 } from "./Cond"
+import {Cond1, Cond2, Cond3, Cond4} from "./Cond"
 
 type Switch1<
 	T,
@@ -6,7 +6,7 @@ type Switch1<
 	Else,
 > = (
 	ABracket extends [infer AOther, infer ATrue] ? (
-		Cond1<[T, AOther, ATrue], Else>) :
+			Cond1<[T, AOther, ATrue], Else>) :
 		never)
 
 type Switch2<
@@ -16,12 +16,12 @@ type Switch2<
 	Else,
 > = (
 	ABracket extends [infer AOther, infer ATrue] ? (
-	BBracket extends [infer BOther, infer BTrue] ? (
-		Cond2<
-			[T, AOther, ATrue],
-			[T, BOther, BTrue],
-			Else>) :
-		never) :
+			BBracket extends [infer BOther, infer BTrue] ? (
+					Cond2<
+						[T, AOther, ATrue],
+						[T, BOther, BTrue],
+						Else>) :
+				never) :
 		never)
 
 type Switch3<
@@ -32,15 +32,15 @@ type Switch3<
 	Else,
 > = (
 	ABracket extends [infer AOther, infer ATrue] ? (
-	BBracket extends [infer BOther, infer BTrue] ? (
-	CBracket extends [infer COther, infer CTrue] ? (
-		Cond3<
-			[T, AOther, ATrue],
-			[T, BOther, BTrue],
-			[T, COther, CTrue],
-			Else>) :
-		never) :
-		never) :
+			BBracket extends [infer BOther, infer BTrue] ? (
+					CBracket extends [infer COther, infer CTrue] ? (
+							Cond3<
+								[T, AOther, ATrue],
+								[T, BOther, BTrue],
+								[T, COther, CTrue],
+								Else>) :
+						never) :
+				never) :
 		never)
 
 type Switch4<
@@ -52,18 +52,18 @@ type Switch4<
 	Else,
 > = (
 	ABracket extends [infer AOther, infer ATrue] ? (
-	BBracket extends [infer BOther, infer BTrue] ? (
-	CBracket extends [infer COther, infer CTrue] ? (
-	DBracket extends [infer DOther, infer DTrue] ? (
-		Cond4<
-			[T, AOther, ATrue],
-			[T, BOther, BTrue],
-			[T, COther, CTrue],
-			[T, DOther, DTrue],
-			Else>) :
-		never) :
-		never) :
-		never) :
+			BBracket extends [infer BOther, infer BTrue] ? (
+					CBracket extends [infer COther, infer CTrue] ? (
+							DBracket extends [infer DOther, infer DTrue] ? (
+									Cond4<
+										[T, AOther, ATrue],
+										[T, BOther, BTrue],
+										[T, COther, CTrue],
+										[T, DOther, DTrue],
+										Else>) :
+								never) :
+						never) :
+				never) :
 		never)
 
-export type { Switch1, Switch2, Switch3, Switch4 }
+export type {Switch1, Switch2, Switch3, Switch4}
