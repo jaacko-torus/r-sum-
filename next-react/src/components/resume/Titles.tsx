@@ -1,5 +1,4 @@
 import {Info, NameInfo} from "@/app/data"
-import profile from "@/public/profile.png"
 import Link from "next/link"
 import {Wrapper} from "./sections/Experience"
 import {QRCodeSVG} from "qrcode.react"
