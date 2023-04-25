@@ -18,27 +18,13 @@ const Name: React.FC<NameInfo> = ({first, last, spacing, href}) => {
 		</>
 
 	return (
-		<div className="flex items-center justify-between">
-			<QRCodeSVG
-				value="https://www.julian-a-avar-c.me"
-				size={80}
-				imageSettings={{
-					src: "/profile.png",
-					height: 20,
-					width: 20,
-					excavate: true
-				}}
-				level="M"
-				fgColor="#8f4f4f"
-				className="inline"/>
-			<h1>
-				<Wrapper Component={({children}) => href
-					? <Link href={href}>{children}</Link>
-					: <>{children}</>}>
-					{text}
-				</Wrapper>
-			</h1>
-		</div>
+		<h1>
+			<Wrapper Component={({children}) => href
+				? <Link href={href}>{children}</Link>
+				: <>{children}</>}>
+				{text}
+			</Wrapper>
+		</h1>
 	)
 }
 

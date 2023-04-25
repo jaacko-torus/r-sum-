@@ -28,6 +28,7 @@ import {
     Skill_Category_Enum
 } from "@/gql/graphql"
 import {DateTime, Interval as DateTimeInterval} from "luxon"
+import {QRCodeSVG} from "qrcode.react";
 
 
 const infoReducers: {
@@ -216,6 +217,19 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
 
 	return (
 		<main className="grid grid-flow-col grid-cols-[auto,1fr]">
+			<QRCodeSVG
+				value="https://www.julian-a-avar-c.me"
+				size={100}
+				imageSettings={{
+					src: "/profile.png",
+					height: 20,
+					width: 20,
+					excavate: true
+				}}
+				level="M"
+				// fgColor="#8f4f4f"
+				className="absolute left-0 top-0 z-0"/>
+
 			<ResumePage className="px-[48pt] text-justify [&_*]:leading-tight bg-[#ffffff]">
 				<Titles {...info.titles} />
 				<Contacts {...info.contacts} />
