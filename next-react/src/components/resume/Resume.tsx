@@ -180,10 +180,6 @@ const getSections = (data?: GetInfoQuery): Partial<Info["sections"]> => {
 								DateTime.fromISO(experience.date_end)
 							)
 							: DateTime.fromISO(experience.date_start),
-						// DateTimeInterval.fromDateTimes(
-						// 	DateTime.fromISO(experience.date_start),
-						// 	experience.date_end ? DateTime.fromISO(experience.date_end) : DateTime.now()
-						// ),
 						location: experience.location ?? undefined,
 						remote: remoteCategoryMapper[experience.remote],
 						skills: experience.experience_skills.map(skill => getSkill(skill.skill.name)),
@@ -213,10 +209,8 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
 		sections: getSections(rawInfo)
 	}))
 
-	console.log(rawInfo.experiences[0].date_start)
-
 	return (
-		<main className="grid grid-flow-col grid-cols-[auto,1fr]">
+		<main className="grid 2xl:grid-flow-col 2xl:grid-cols-[auto,1fr]">
 			<QRCodeSVG
 				value="https://www.julian-a-avar-c.me"
 				size={100}
@@ -228,7 +222,7 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
 				}}
 				level="M"
 				// fgColor="#8f4f4f"
-				className="absolute left-0 top-0 z-0"/>
+				className="absolute top-0 left-0 z-0"/>
 
 			<ResumePage className="px-[48pt] text-justify [&_*]:leading-tight bg-[#ffffff]">
 				<Titles {...info.titles} />

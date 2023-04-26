@@ -1,7 +1,7 @@
 import {Fira_Code, Gentium_Book_Basic, Gentium_Book_Plus, Gentium_Plus} from "@next/font/google"
 import React, {PropsWithChildren} from "react"
 // import "@uiw/react-github-corners"
-// import GitHubCorners from "@uiw/react-github-corners/esm"
+import GitHubCorners from "@uiw/react-github-corners/esm"
 
 const FONT_GENTIUM_BOOK_BASIC = Gentium_Book_Basic({
 	weight: "400",
@@ -46,13 +46,16 @@ const ResumePage: React.FC<PropsWithChildren<PageProps> & React.HTMLAttributes<H
 	className
 }) => {
 	return (
-		<section className={`aspect-[8.5/11] print:w-[11in] ${[
+		<section className={`aspect-[8.5/11] print:w-[8.5in] ${[
 			...Object.values(FONTS).map(font => font.variable),
-			width ? `w-[${width}]` : "w-[35cm]",
-			padding ? `p-[${padding}]` : "p-[0.25in]",
-			className,
+			// "w-[100%]",
+			// width ? `w-[${width}]` : "w-[35cm]",
+			// padding ? `p-[${padding}]` : "p-[0.25in]",
+			className,	
 		].join(" ")}`}>
-			{/* <div className="relative right-[-64px] top-[-24px] bottom-auto left-auto"><GitHubCorners size={96} bgColor="black"  href="https://github.com/jaacko-torus/resume" /></div> */}
+			<div className="relative right-[-64px] bottom-auto left-auto">
+				<GitHubCorners size={100} bgColor="black" href="https://github.com/jaacko-torus/resume" />
+			</div>
 			{children}
 		</section>
 	)

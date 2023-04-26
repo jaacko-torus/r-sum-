@@ -1,3 +1,6 @@
+import { ExperienceInfo } from "@/app/data"
+import { DateTime, Interval as DateTimeInterval } from "luxon"
+
 export const alphabeticalComparer =
 	<T>(extractor: (data: T) => string) =>
 		(a: T, b: T) => {
@@ -22,3 +25,12 @@ export const alphabeticalComparer =
 			}
 
 		}
+
+export const dateOrIntervalComparer = (a: DateTime | DateTimeInterval, b: DateTime | DateTimeInterval) => {
+			const dateStart = (date: DateTime | DateTimeInterval) => date instanceof DateTimeInterval ? date.start : date
+			return dateStart(b).valueOf() - dateStart(a).valueOf()
+		}
+
+export const experienceComparer = (a: ExperienceInfo, b: ExperienceInfo) => dateOrIntervalComparer(a.props.date, b.props.date)
+
+

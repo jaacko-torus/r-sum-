@@ -1808,6 +1808,18 @@
     "@typescript-eslint/types" "5.48.2"
     eslint-visitor-keys "^3.3.0"
 
+"@uiw/github-corners@1.5.15":
+  version "1.5.15"
+  resolved "https://registry.yarnpkg.com/@uiw/github-corners/-/github-corners-1.5.15.tgz#40c0b5a0517947699af01321e2c845511c1adb4e"
+  integrity sha512-L7CxmxFxYRhy0Q2ofo8+TB+bpwG0xbeS0kQ6fzmvUWSuzCQ1XlX0f0I9DCQz31rYD9Q05Y3zOoiEi3d6Rsbbhw==
+
+"@uiw/react-github-corners@^1.5.15":
+  version "1.5.15"
+  resolved "https://registry.yarnpkg.com/@uiw/react-github-corners/-/react-github-corners-1.5.15.tgz#e31ca374ee91a2022b1c3163845367ca2060331b"
+  integrity sha512-roqwlA3oG73SMYj/LUv0twsuEH2M8ScYYUt/iukiLCl8de9PQwI+j1XwvwbLtQ1TaaEI0YS3WxNyScP6i0404Q==
+  dependencies:
+    "@uiw/github-corners" "1.5.15"
+
 "@whatwg-node/events@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@whatwg-node/events/-/events-0.0.2.tgz#7b7107268d2982fc7b7aff5ee6803c64018f84dd"

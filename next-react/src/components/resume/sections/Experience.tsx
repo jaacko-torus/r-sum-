@@ -8,7 +8,7 @@ import remarkGfm from "remark-gfm"
 import remarkSmartypants from "remark-smartypants"
 import {Skills} from "./Skill"
 
-import {alphabeticalComparer} from "@/util/fns"
+import {alphabeticalComparer, dateOrIntervalComparer, experienceComparer} from "@/util/fns"
 import Link from "next/link"
 
 import type {HTMLAttributes, HTMLProps, PropsWithChildren} from "react"
@@ -212,10 +212,7 @@ interface ExperiencesProps {
 const Experiences: React.FC<ExperiencesProps> = ({list, experiencesID}) =>
 	<div>{list
 		.filter(experience => experience.props.visible)
-		.sort((a, b) => {
-			const dateStart = (date: DateTime | DateTimeInterval) => date instanceof DateTimeInterval ? date.start : date
-			return dateStart(b.props.date).valueOf() - dateStart(a.props.date).valueOf()
-		})
+		.sort(experienceComparer)
 		.flatMap((experience, experienceIndex) => {
 			const key = `resume-${experiencesID}-${experienceIndex}`
 			return [
