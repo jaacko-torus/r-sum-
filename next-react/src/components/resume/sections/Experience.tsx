@@ -168,9 +168,9 @@ const Experience: React.FC<ExperienceProps> = ({
 									// 11 months => 11 months
 									// 12 months => 1 year
 									// 13 months => 1 year, 1 month
-									.plus({months: 2})
+									.plus({months: 1})
 									.normalize()
-									.minus({months: 2})
+									.minus({months: 1})
 									.toObject())
 							.map(([unit, duration]) => [
 								duration > 1 ? unit : unit.replace(/s$/, ""),
@@ -178,8 +178,8 @@ const Experience: React.FC<ExperienceProps> = ({
 							])
 							.filter(([, duration]) => duration !== 0)
 							.map(([unit, duration]) => `${duration} ${unit}`)
-							.join(", ")})
-						</span>
+							.join(", ") || "1 month"
+						})</span>
 					</>}
 			</p>
 			{location && <p><FAIcon icon={faMapMarked}/>{location}</p>}

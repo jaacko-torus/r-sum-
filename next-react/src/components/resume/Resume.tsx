@@ -1,3 +1,5 @@
+"use client"
+
 import {
     ContactInfo,
     ContactInfoCategories,
@@ -12,7 +14,7 @@ import {
     SkillInfoParams
 } from "@/app/data"
 import {processInfo, titles} from "@/app/fetchInfo"
-import React, {useReducer} from "react"
+import React, {useEffect, useReducer, useState} from "react"
 import {Class, ValueOf} from "type-fest"
 import {Contacts} from "./Contact"
 import {ResumeController} from "./ResumeController"
@@ -28,7 +30,14 @@ import {
     Skill_Category_Enum
 } from "@/gql/graphql"
 import {DateTime, Interval as DateTimeInterval} from "luxon"
-import {QRCodeSVG} from "qrcode.react";
+// import GitHubCorners from "@uiw/react-github-corners/esm/index"
+import { QRCodeSVG } from "qrcode.react"
+import dynamic from "next/dynamic"
+
+const GitHubCorners = dynamic(
+	() => import("@uiw/react-github-corners/esm/index"),
+	{ssr: false}
+)
 
 
 const infoReducers: {
@@ -208,23 +217,33 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
 		contacts: getContacts(rawInfo),
 		sections: getSections(rawInfo)
 	}))
+	
+	// const [isMounted, setIsMounted] = useState(false)
+  // useEffect(() => setIsMounted(true), [])
+	// // Render nothing on the server-side
+  // if (!isMounted) return null
 
 	return (
 		<main className="grid 2xl:grid-flow-col 2xl:grid-cols-[auto,1fr]">
-			<QRCodeSVG
-				value="https://www.julian-a-avar-c.me"
-				size={100}
-				imageSettings={{
-					src: "/profile.png",
-					height: 20,
-					width: 20,
-					excavate: true
-				}}
-				level="M"
-				// fgColor="#8f4f4f"
-				className="absolute top-0 left-0 z-0"/>
-
-			<ResumePage className="px-[48pt] text-justify [&_*]:leading-tight bg-[#ffffff]">
+			<ResumePage className="relative text-justify [&_*]:leading-tight [&>*]:relative top-[-100px] bg-[#ffffff]">
+				<div className="relative flex justify-between mb-[-100px] h-[100px] left-[-48pt]">
+					<QRCodeSVG
+						value="https://www.julian-a-avar-c.me"
+						size={100}
+						imageSettings={{
+							src: "/profile.png",
+							height: 20,
+							width: 20,
+							excavate: true
+						}}
+						level="M"
+						className="relative top-[calc(100px-12pt)]"/>
+					
+					<div className="relative right-[-28px]">
+						<GitHubCorners size={100} bgColor="black" href="https://github.com/jaacko-torus/resume" fixed={false} />
+					</div>
+				</div>
+					
 				<Titles {...info.titles} />
 				<Contacts {...info.contacts} />
 				<Sections {...info.sections} />
