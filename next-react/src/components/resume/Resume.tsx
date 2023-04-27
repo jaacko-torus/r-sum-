@@ -226,7 +226,7 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
 	return (
 		<main className="grid 2xl:grid-flow-col 2xl:grid-cols-[auto,1fr]">
 			<ResumePage className="relative text-justify [&_*]:leading-tight [&>*]:relative top-[-100px] bg-[#ffffff]">
-				<div className="relative flex justify-between mb-[-100px] h-[100px] left-[-48pt]">
+				<div className="relative flex justify-between h-[100px] left-[-48pt]">
 					<QRCodeSVG
 						value="https://www.julian-a-avar-c.me"
 						size={100}
@@ -239,7 +239,7 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
 						level="M"
 						className="relative top-[calc(100px-12pt)]"/>
 					
-					<div className="relative right-[-28px]">
+					<div className="relative top-[calc(72px+12pt)] right-[calc(-64px-48pt)]">
 						<GitHubCorners size={100} bgColor="black" href="https://github.com/jaacko-torus/resume" fixed={false} />
 					</div>
 				</div>
