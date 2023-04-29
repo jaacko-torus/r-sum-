@@ -1,5 +1,3 @@
-"use client"
-
 import {
     ContactInfo,
     ContactInfoCategories,
@@ -217,11 +215,6 @@ const Resume: React.FC<{ rawInfo: GetInfoQuery }> = ({rawInfo}) => {
 		contacts: getContacts(rawInfo),
 		sections: getSections(rawInfo)
 	}))
-	
-	// const [isMounted, setIsMounted] = useState(false)
-  // useEffect(() => setIsMounted(true), [])
-	// // Render nothing on the server-side
-  // if (!isMounted) return null
 
 	return (
 		<main className="grid 2xl:grid-flow-col 2xl:grid-cols-[auto,1fr]">

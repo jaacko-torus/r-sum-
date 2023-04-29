@@ -196,6 +196,8 @@ const Experience: React.FC<ExperienceProps> = ({
 				.sort(alphabeticalComparer<SkillInfo>(skill => skill.props.name))
 		})()}/>}
 
+		{(() => { console.log({description}); return null })()}
+
 		{description && <p>{<Markdown>{description}</Markdown>}</p>}
 
 		{items &&

@@ -1,7 +1,7 @@
 import {ContactInfoCategories, ContactInfoProps, Info} from "@/app/data"
 import type {IconDefinition} from "@fortawesome/fontawesome-svg-core"
 import {faGithub, faItchIo, faLinkedin, faNpm, faOrcid} from "@fortawesome/free-brands-svg-icons"
-import {faAt, faMapMarked, faPhoneAlt} from "@fortawesome/free-solid-svg-icons"
+import {faAt, faGlobe, faMapMarked, faPhoneAlt} from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
 import type {PropsWithChildren} from "react"
 import React from "react";
@@ -41,6 +41,7 @@ const contactInfoCategoryMapper: {
 	contact: keyof Info["contacts"],
 	Component: React.FC<ContactInfoProps<"basic" | "accounts">>
 }[] = [
+	{contact: "website", Component: ContactConstructor(faGlobe)},
 	{contact: "email", Component: ContactConstructor(faAt)},
 	{contact: "phone", Component: ContactConstructor(faPhoneAlt)},
 	{contact: "location", Component: ContactConstructor(faMapMarked)},

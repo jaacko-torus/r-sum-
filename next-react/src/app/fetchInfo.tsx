@@ -51,6 +51,9 @@ export const processInfo: (input_info: Info) => Info = (input_info: Info) => {
 			["location"]: ContactInfoParser(({data}) => ({
 				href: `https://www.google.com/maps/place/${data.replaceAll(" ", "+")}`
 			}))(input_info["contacts"]["location"]),
+			["website"]: ContactInfoParser<"basic">(({data}) => ({
+				href: `https://${data}`
+			}))(input_info["contacts"]["website"] as ContactInfo<"basic"> | undefined),
 
 			["github"]: ContactInfoParser<"accounts">(({data}) => ({
 				href: `https://github.com/${data}/`

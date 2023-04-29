@@ -33,6 +33,10 @@ const FONTS = {
 } as const
 
 interface PageProps {
+	ratio?: {
+		x: number
+		y: number
+	}
 	width?: string
 	padding?: string
 }
